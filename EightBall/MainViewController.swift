@@ -7,44 +7,54 @@
 //
 
 import UIKit
-import CoreFoundation
 
 class MainViewController: UIViewController {
 	
 	@IBOutlet var answerLabel: UILabel!
 	
-	let answerLoader = AnswerLoader()
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		answerLoader.loadAnswer { [weak self] (answer) in
-			DispatchQueue.main.async {
-				self?.answerLabel.text = answer
-			}
-		}
-	}
+	private let answerLoader: AnswerLoader = .init()
 	
-	var start: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
-	var end: CFAbsoluteTime = CFAbsoluteTimeGetCurrent() {
+	// MARK: - Shake time maesuring
+	
+	private var start: TimeInterval = 0
+	
+	private var end: TimeInterval = 0 {
 		didSet {
 			let difference = end - start
 			print(difference)
 		}
 	}
 	
+	// MARK: - UIResponder
+	
 	override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		print("motionBegan")
-		start = CFAbsoluteTimeGetCurrent()
+		start = Date().timeIntervalSince1970
 	}
 	
 	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		print("motionEnded")
-		end = CFAbsoluteTimeGetCurrent()
+		end = Date().timeIntervalSince1970
+		requestNewAnswer()
 	}
 	
 	override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		print("motionCancelled")
-		end = CFAbsoluteTimeGetCurrent()
+		end = Date().timeIntervalSince1970
+	}
+	
+	// MARK: - Private
+	
+	private func requestNewAnswer() {
+		guard answerLoader.isLoading == false else { return }
+		
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		
+		answerLoader.loadAnswer { [weak self] (answer) in
+			DispatchQueue.main.async {
+				UIApplication.shared.isNetworkActivityIndicatorVisible = false
+				self?.answerLabel.text = answer
+			}
+		}
 	}
 }
