@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreFoundation
 
 class MainViewController: UIViewController {
 	
@@ -23,5 +24,27 @@ class MainViewController: UIViewController {
 			}
 		}
 	}
+	
+	var start: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
+	var end: CFAbsoluteTime = CFAbsoluteTimeGetCurrent() {
+		didSet {
+			let difference = end - start
+			print(difference)
+		}
+	}
+	
+	override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+		print("motionBegan")
+		start = CFAbsoluteTimeGetCurrent()
+	}
+	
+	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+		print("motionEnded")
+		end = CFAbsoluteTimeGetCurrent()
+	}
+	
+	override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+		print("motionCancelled")
+		end = CFAbsoluteTimeGetCurrent()
+	}
 }
-
