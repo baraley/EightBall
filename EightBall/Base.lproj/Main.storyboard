@@ -1,43 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zpm-Cq-eda">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14806.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Magic 8 Ball-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MagicBallView" customModule="EightBall" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y47-yQ-VS3" userLabel="Top layout View">
+                                <rect key="frame" x="0.0" y="20" width="375" height="167"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Tl-cY-oux" userLabel="Bottom layout View">
+                                <rect key="frame" x="0.0" y="484.5" width="375" height="133.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-CH-Hot">
-                                <rect key="frame" x="15" y="318" width="345" height="31.5"/>
+                                <rect key="frame" x="15" y="171" width="345" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-KW-ygr" customClass="MagicButton" customModule="EightBall" customModuleProvider="target">
+                                <rect key="frame" x="131.5" y="428.5" width="112.5" height="112.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="M0B-KW-ygr" secondAttribute="height" multiplier="1:1" id="hy8-qK-EjX"/>
+                                </constraints>
+                                <state key="normal" image="Magic 8 ball image"/>
+                                <connections>
+                                    <action selector="requestNewAnswer" destination="BYZ-38-t0r" eventType="touchUpInside" id="bGq-rg-KfJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Tn-g1-0Bu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Tl-cY-oux" secondAttribute="trailing" id="7vR-ur-gpg"/>
+                            <constraint firstItem="2Tl-cY-oux" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="9Gq-SZ-F81"/>
+                            <constraint firstItem="SaA-CH-Hot" firstAttribute="centerY" secondItem="Y47-yQ-VS3" secondAttribute="bottom" id="EbI-g5-c0G"/>
+                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PFL-36-NaL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SaA-CH-Hot" secondAttribute="trailing" constant="15" id="Wa7-KP-z19"/>
-                            <constraint firstItem="SaA-CH-Hot" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fxa-z4-vx2"/>
+                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WtY-7M-tF4"/>
+                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerY" secondItem="2Tl-cY-oux" secondAttribute="top" id="aZb-xI-Ofq"/>
+                            <constraint firstItem="2Tl-cY-oux" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fgt-0z-GEY"/>
+                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.25" id="gWO-Cc-lH7"/>
                             <constraint firstItem="SaA-CH-Hot" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="mBR-VZ-A8v"/>
+                            <constraint firstItem="M0B-KW-ygr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="nWg-8c-7vp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Tl-cY-oux" secondAttribute="bottom" id="vMD-ch-znL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y47-yQ-VS3" secondAttribute="trailing" id="zX9-2v-F2C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outlet property="answerLabel" destination="SaA-CH-Hot" id="r0h-u7-YwY"/>
+                            <outlet property="magicButton" destination="M0B-KW-ygr" id="BN7-tl-eVl"/>
+                        </connections>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Magic 8 Ball" image="8Ball" id="izg-Fo-H8B"/>
+                    <navigationItem key="navigationItem" title="Magic 8 Ball" largeTitleDisplayMode="always" id="U92-oh-X9R"/>
                     <connections>
-                        <outlet property="answerLabel" destination="SaA-CH-Hot" id="DKO-aI-JTP"/>
+                        <outlet property="magicBallView" destination="8bC-Xf-vdC" id="3ns-b8-2Bh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="134"/>
+            <point key="canvasLocation" x="1122" y="134"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="EkK-Zp-iKp">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z1A-vp-7DK">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="sTo-Fq-cUM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u6u-Ia-cU1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="8Ball" width="25" height="25"/>
+        <image name="Magic 8 ball image" width="512" height="512"/>
+    </resources>
 </document>
