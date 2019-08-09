@@ -15,6 +15,9 @@
 		11C919C922F9368F005F71BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11C919C822F9368F005F71BC /* Assets.xcassets */; };
 		11C919CC22F9368F005F71BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11C919CA22F9368F005F71BC /* LaunchScreen.storyboard */; };
 		11D2F74122FD4D3C000E8881 /* MagicBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F74022FD4D3C000E8881 /* MagicBallView.swift */; };
+		11D2F74322FD59C8000E8881 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F74222FD59C8000E8881 /* SettingsModel.swift */; };
+		11D2F74522FD5A9A000E8881 /* DefaultSettingsModel in Resources */ = {isa = PBXBuildFile; fileRef = 11D2F74422FD5A9A000E8881 /* DefaultSettingsModel */; };
+		11D2F74B22FE0762000E8881 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F74A22FE0762000E8881 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		11C919CB22F9368F005F71BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11C919CD22F9368F005F71BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11D2F74022FD4D3C000E8881 /* MagicBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallView.swift; sourceTree = "<group>"; };
+		11D2F74222FD59C8000E8881 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		11D2F74422FD5A9A000E8881 /* DefaultSettingsModel */ = {isa = PBXFileReference; lastKnownFileType = text; path = DefaultSettingsModel; sourceTree = "<group>"; };
+		11D2F74A22FE0762000E8881 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +71,12 @@
 				11C919C322F9368E005F71BC /* MagicBallViewController.swift */,
 				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
 				110A534122FB50A40026BA79 /* MagicButton.swift */,
+				11D2F74222FD59C8000E8881 /* SettingsModel.swift */,
+				11D2F74A22FE0762000E8881 /* SettingsViewController.swift */,
 				11C919C522F9368E005F71BC /* Main.storyboard */,
 				11C919C822F9368F005F71BC /* Assets.xcassets */,
 				11C919CA22F9368F005F71BC /* LaunchScreen.storyboard */,
+				11D2F74422FD5A9A000E8881 /* DefaultSettingsModel */,
 				11C919CD22F9368F005F71BC /* Info.plist */,
 			);
 			path = EightBall;
@@ -134,6 +143,7 @@
 				11C919CC22F9368F005F71BC /* LaunchScreen.storyboard in Resources */,
 				11C919C922F9368F005F71BC /* Assets.xcassets in Resources */,
 				11C919C722F9368E005F71BC /* Main.storyboard in Resources */,
+				11D2F74522FD5A9A000E8881 /* DefaultSettingsModel in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11D2F74322FD59C8000E8881 /* SettingsModel.swift in Sources */,
 				11C919C422F9368E005F71BC /* MagicBallViewController.swift in Sources */,
+				11D2F74B22FE0762000E8881 /* SettingsViewController.swift in Sources */,
 				110A534222FB50A40026BA79 /* MagicButton.swift in Sources */,
 				11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
