@@ -67,19 +67,67 @@
 			isa = PBXGroup;
 			children = (
 				11C919C122F9368E005F71BC /* AppDelegate.swift */,
-				11D2F74022FD4D3C000E8881 /* MagicBallView.swift */,
-				11C919C322F9368E005F71BC /* MagicBallViewController.swift */,
-				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
-				110A534122FB50A40026BA79 /* MagicButton.swift */,
-				11D2F74222FD59C8000E8881 /* SettingsModel.swift */,
-				11D2F74A22FE0762000E8881 /* SettingsViewController.swift */,
-				11C919C522F9368E005F71BC /* Main.storyboard */,
-				11C919C822F9368F005F71BC /* Assets.xcassets */,
-				11C919CA22F9368F005F71BC /* LaunchScreen.storyboard */,
-				11D2F74422FD5A9A000E8881 /* DefaultSettingsModel */,
-				11C919CD22F9368F005F71BC /* Info.plist */,
+				11D2F74E22FE0A6B000E8881 /* Views */,
+				11D2F74D22FE0A64000E8881 /* Models */,
+				11D2F74C22FE0A5A000E8881 /* View controllers */,
+				11D2F74F22FE0A95000E8881 /* Network */,
+				11D2F75122FE0B2D000E8881 /* Storyboards */,
+				11D2F75022FE0B03000E8881 /* Resources */,
 			);
 			path = EightBall;
+			sourceTree = "<group>";
+		};
+		11D2F74C22FE0A5A000E8881 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11C919C322F9368E005F71BC /* MagicBallViewController.swift */,
+				11D2F74A22FE0762000E8881 /* SettingsViewController.swift */,
+			);
+			path = "View controllers";
+			sourceTree = "<group>";
+		};
+		11D2F74D22FE0A64000E8881 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F74222FD59C8000E8881 /* SettingsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11D2F74E22FE0A6B000E8881 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F74022FD4D3C000E8881 /* MagicBallView.swift */,
+				110A534122FB50A40026BA79 /* MagicButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11D2F74F22FE0A95000E8881 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		11D2F75022FE0B03000E8881 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				11C919C822F9368F005F71BC /* Assets.xcassets */,
+				11C919CD22F9368F005F71BC /* Info.plist */,
+				11D2F74422FD5A9A000E8881 /* DefaultSettingsModel */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		11D2F75122FE0B2D000E8881 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				11C919C522F9368E005F71BC /* Main.storyboard */,
+				11C919CA22F9368F005F71BC /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,7 +356,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A76X2FNZ47;
-				INFOPLIST_FILE = EightBall/Info.plist;
+				INFOPLIST_FILE = EightBall/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -326,7 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A76X2FNZ47;
-				INFOPLIST_FILE = EightBall/Info.plist;
+				INFOPLIST_FILE = EightBall/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
