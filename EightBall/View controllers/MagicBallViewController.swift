@@ -10,6 +10,10 @@ import UIKit
 
 class MagicBallViewController: UIViewController {
 	
+	// MARK: - Public properties
+	
+	var settingsModel: SettingsModel!
+	
 	// MARK: - Outlets
 	
 	@IBOutlet private var magicBallView: MagicBallView!

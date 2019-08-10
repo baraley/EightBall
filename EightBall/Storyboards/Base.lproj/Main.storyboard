@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="-255"/>
+            <point key="canvasLocation" x="137" y="962"/>
         </scene>
         <!--Settings-->
         <scene sceneID="qcM-cR-6xJ">
@@ -245,7 +245,7 @@
                     </connections>
                 </switch>
             </objects>
-            <point key="canvasLocation" x="2052" y="735"/>
+            <point key="canvasLocation" x="2049" y="134"/>
         </scene>
         <!--Predefined answers-->
         <scene sceneID="RHq-sY-0G7">
@@ -282,12 +282,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arA-qV-Al6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2970" y="734"/>
+            <point key="canvasLocation" x="2966" y="134"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--App Root View Controller-->
         <scene sceneID="EkK-Zp-iKp">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z1A-vp-7DK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -320,7 +320,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfA-bL-mXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="735"/>
+            <point key="canvasLocation" x="1110" y="134"/>
         </scene>
     </scenes>
     <resources>
