@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
+		1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155038922FE8125009AD046 /* TextPronouncer.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
 		11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C919C122F9368E005F71BC /* AppDelegate.swift */; };
 		11C919C722F9368E005F71BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11C919C522F9368E005F71BC /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
+		1155038922FE8125009AD046 /* TextPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPronouncer.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
 		11C919BE22F9368E005F71BC /* EightBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EightBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11C919C122F9368E005F71BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 				11D2F74D22FE0A64000E8881 /* Models */,
 				11D2F75622FE73C9000E8881 /* Model Controllers */,
 				11D2F74C22FE0A5A000E8881 /* View Controllers */,
-				11D2F74F22FE0A95000E8881 /* Network */,
+				11D2F74F22FE0A95000E8881 /* Services */,
 				11D2F75122FE0B2D000E8881 /* Storyboards */,
 				11D2F75022FE0B03000E8881 /* Resources */,
 			);
@@ -109,12 +111,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		11D2F74F22FE0A95000E8881 /* Network */ = {
+		11D2F74F22FE0A95000E8881 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
+				1155038922FE8125009AD046 /* TextPronouncer.swift */,
 			);
-			path = Network;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		11D2F75022FE0B03000E8881 /* Resources */ = {
@@ -219,6 +222,7 @@
 				11D2F74322FD59C8000E8881 /* SettingsModel.swift in Sources */,
 				110A534222FB50A40026BA79 /* MagicButton.swift in Sources */,
 				11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */,
+				1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */,
 				11D2F75C22FE7940000E8881 /* SettingsViewController.swift in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewController.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
