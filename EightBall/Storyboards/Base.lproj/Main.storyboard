@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="484.5" width="375" height="133.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-CH-Hot">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-CH-Hot">
                                 <rect key="frame" x="15" y="171" width="345" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
@@ -196,7 +196,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="vK4-ag-JE8" kind="show" id="AfP-hN-OE1"/>
+                                            <segue destination="vK4-ag-JE8" kind="show" identifier="predefinedAnswers" id="AfP-hN-OE1"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -250,7 +250,7 @@
         <!--Predefined answers-->
         <scene sceneID="RHq-sY-0G7">
             <objects>
-                <tableViewController title="Predefined answers" id="vK4-ag-JE8" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PredefinedAnswersTableViewController" title="Predefined answers" hidesBottomBarWhenPushed="YES" id="vK4-ag-JE8" customClass="PredefinedAnswersTableViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X7z-Eq-9RA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -8,12 +8,9 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController, SegueHandlerType {
 	
-	@IBOutlet var lazyModeSwitch: UISwitch!
-	@IBOutlet var readAnswerSwitch: UISwitch!
-	@IBOutlet var hapticFeedbackSwitch: UISwitch!
-	@IBOutlet var onlyPredefinedAnswersModeSwitch: UISwitch!
+	// MARK: - Public properties
 	
 	var settingsModel: SettingsModel {
 		get {
@@ -33,8 +30,32 @@ class SettingsViewController: UITableViewController {
 	
 	var settingsDidChangeAction: ((SettingsModel) -> Void)?
 	
+	var predefinedAnswersModelController: PredefinedAnswersModelController!
+	
+	// MARK: - Outlets
+	
+	@IBOutlet private var lazyModeSwitch: UISwitch!
+	@IBOutlet private var readAnswerSwitch: UISwitch!
+	@IBOutlet private var hapticFeedbackSwitch: UISwitch!
+	@IBOutlet private var onlyPredefinedAnswersModeSwitch: UISwitch!
+	
+	// MARK: - Actions
+	
 	@IBAction private func switcherDidChange(_ switcher: UISwitch) {
 		settingsDidChangeAction?(settingsModel)
 	}
 	
+	// MARK: - Navigation
+	
+	enum SegueIdentifier: String {
+		case predefinedAnswers
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		guard case .predefinedAnswers = segueIdentifier(for: segue) else { return }
+		
+		let viewController = segue.destination as! PredefinedAnswersTableViewController
+		
+		viewController.predefinedAnswersModelController = predefinedAnswersModelController
+	}
 }

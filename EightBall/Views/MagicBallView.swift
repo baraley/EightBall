@@ -16,8 +16,8 @@ class MagicBallView: UIView {
 	
 	enum MagicBallState {
 		case initialMessage(String)
-		case loadingAnswer
-		case showingAnswer(String)
+		case answerHidden
+		case answerShown(String)
 	}
 	
 	// MARK: - Outlets
@@ -38,6 +38,8 @@ class MagicBallView: UIView {
 			magicButton.isUserInteractionEnabled = isAnimationFinished
 		}
 	}
+	
+	var animationFinishedCompletionHandler: (() -> Void)?
 	
 	// MARK: - Private properties
 	
@@ -60,28 +62,30 @@ private extension MagicBallView {
 		switch state {
 		case .initialMessage(let message):
 			answerLabel.text = message
-		case .loadingAnswer:
-			currentAnimation = loadingDidBeginAnimation
+		case .answerHidden:
+			currentAnimation = disappearingAnimation
 			currentAnimation?.startAnimation()
 			
-		case .showingAnswer(let answerText):
+		case .answerShown(let answerText):
 			if let currentAnimation = currentAnimation {
 				currentAnimation.addCompletion { (_) in
-					self.answerLabel.text = answerText
-					self.currentAnimation = self.answerDidLoadAnimation
-					self.currentAnimation?.startAnimation()
+					self.showAnswer(answerText)
 				}
 			} else {
-				answerLabel.text = answerText
-				currentAnimation = answerDidLoadAnimation
-				currentAnimation?.startAnimation()
+				showAnswer(answerText)
 			}
 		}
 	}
 	
+	func showAnswer(_ answer: String) {
+		answerLabel.text = answer
+		currentAnimation = appearingAnimation
+		currentAnimation?.startAnimation()
+	}
+	
 	// MARK: - Property Animators
 	
-	var loadingDidBeginAnimation: UIViewPropertyAnimator {
+	var disappearingAnimation: UIViewPropertyAnimator {
 		return UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut) {
 			self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
 			
@@ -90,13 +94,13 @@ private extension MagicBallView {
 		}
 	}
 	
-	var answerDidLoadAnimation: UIViewPropertyAnimator {
+	var appearingAnimation: UIViewPropertyAnimator {
 		let animation = UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut) {
 			self.answerLabel.transform = .identity
-			self.magicButton.transform = CGAffineTransform.identity
 		}
 		animation.addCompletion({ (_) in
 			self.isAnimationFinished = true
+			self.animationFinishedCompletionHandler?()
 		})
 		return animation
 	}

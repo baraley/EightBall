@@ -25,7 +25,7 @@ class SettingsModelController {
 		}
 	}()
 	
-	func save(settingsModel: SettingsModel) {
+	func save(_ settingsModel: SettingsModel) {
 		let encoder = JSONEncoder()
 		
 		currentSettinsModel = settingsModel

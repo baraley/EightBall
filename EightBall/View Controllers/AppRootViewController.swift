@@ -14,6 +14,8 @@ class AppRootViewController: UITabBarController {
 		
 	private lazy var settingsModelController: SettingsModelController = .init()
 	
+	private lazy var predefinedAnswersModelController: PredefinedAnswersModelController = .init()
+	
 	private var magicBallViewController: MagicBallViewController?
 	
 	private var settingsViewController: SettingsViewController?
@@ -22,6 +24,8 @@ class AppRootViewController: UITabBarController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		view.backgroundColor = .white
 		
 		parseViewControllers()
 		setupMagicBallViewController()
@@ -45,6 +49,7 @@ class AppRootViewController: UITabBarController {
 	
 	private func setupMagicBallViewController() {
 		magicBallViewController?.settingsModel = settingsModelController.currentSettinsModel
+		magicBallViewController?.predefinedAnswersModelController = predefinedAnswersModelController
 	}
 	
 	private func setupSettingsViewController() {
@@ -53,9 +58,11 @@ class AppRootViewController: UITabBarController {
 		settingsViewController?.settingsDidChangeAction = { [weak self] (settingsModel) in
 			guard let self = self else { return }
 			
-			self.settingsModelController.save(settingsModel: settingsModel)
+			self.settingsModelController.save(settingsModel)
 			
 			self.setupMagicBallViewController()
 		}
+		
+		settingsViewController?.predefinedAnswersModelController = predefinedAnswersModelController
 	}
 }
