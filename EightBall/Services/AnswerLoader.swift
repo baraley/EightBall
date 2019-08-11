@@ -14,7 +14,7 @@ class AnswerLoader {
 	
 	private let urlRequest: URLRequest = {
 		var request = URLRequest.init(url: URL(string: answerLink)!)
-		request.timeoutInterval = 2
+		request.timeoutInterval = 3
 		return request
 	}()
 	

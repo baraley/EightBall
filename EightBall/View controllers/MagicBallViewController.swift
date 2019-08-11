@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import AVFoundation
 
 class MagicBallViewController: UIViewController {
 	
 	// MARK: - Public properties
 	
-	var settingsModel: SettingsModel!
+	var settingsModel: SettingsModel! {
+		didSet {
+			setup()
+		}
+	}
 	
 	// MARK: - Outlets
 	
@@ -21,6 +26,10 @@ class MagicBallViewController: UIViewController {
 	// MARK: - Private properties
 	
 	private let answerLoader: AnswerLoader = .init()
+	
+	private let textPronoucer: TextPronouncer = .init()
+	
+	private lazy var generator: UINotificationFeedbackGenerator = .init()
 	
 	// MARK: - UIResponder
 	
@@ -35,17 +44,39 @@ class MagicBallViewController: UIViewController {
 		
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		
+		if settingsModel.hapticFeedbackIsOn {
+			generator.notificationOccurred(.success)
+		}
+		
+		textPronoucer.stopPronouncing()
+		
 		magicBallView.state = .loadingAnswer
 		
 		answerLoader.loadAnswer { [weak self] (answer) in
 			guard let self = self else {
 				return
 			}
+			
+			let answer = answer ?? "Hell yeah!!!"
+			
 			DispatchQueue.main.async {
 				UIApplication.shared.isNetworkActivityIndicatorVisible = false
 				
-				self.magicBallView.state = .showingAnswer(answer ?? "Hell yeah!!!")
+				if self.settingsModel.readAnswerIsOn {
+					self.textPronoucer.pronounce(answer)
+				}
+				
+				self.magicBallView.state = .showingAnswer(answer)
 			}
 		}
+	}
+	
+	// MARK: - Helpers
+	
+	private func setup() {
+		
+		magicBallView.isUserInteractionEnabled = settingsModel.lazyModeIsOn
+		
+		generator.prepare()
 	}
 }
