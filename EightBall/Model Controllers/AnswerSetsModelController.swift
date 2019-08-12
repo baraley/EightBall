@@ -8,17 +8,6 @@
 
 import Foundation
 
-struct AnswerSet: Codable, Equatable {
-	let id: UUID = .init()
-	let dateCreated: Date = .init()
-	var name: String
-	var answers: [String]
-}
-
-func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
-	return	lhs.id == rhs.id
-}
-
 class AnswerSetsModelController: NSObject {
 	
 	private(set) lazy var answerSets: [AnswerSet] = loadAnswerSets()

@@ -12,6 +12,8 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Public properties
 	
+	var answerSetsModelController: AnswerSetsModelController!
+	
 	var settingsModel: SettingsModel {
 		get {
 			return SettingsModel(lazyModeIsOn: lazyModeSwitch.isOn,
@@ -28,8 +30,6 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	
 	var settingsDidChangeAction: ((SettingsModel) -> Void)?
 	
-	var answerSetsModelController: AnswerSetsModelController!
-	
 	// MARK: - Outlets
 	
 	@IBOutlet private var lazyModeSwitch: UISwitch!
@@ -39,21 +39,21 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	// MARK: - Actions
 	
 	@IBAction private func switcherDidChange(_ switcher: UISwitch) {
-		settingsDidChangeAction?(settingsModel)
+//		settingsDidChangeAction?(settingsModel)
 	}
 	
 	// MARK: - Navigation
 	
 	enum SegueIdentifier: String {
-		case predefinedAnswers
+		case answers
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		guard case .predefinedAnswers = segueIdentifier(for: segue) else { return }
+		guard case .answers = segueIdentifier(for: segue) else { return }
 		
-		let viewController = segue.destination as! PredefinedAnswersTableViewController
+		let viewController = segue.destination as! AnswersTableViewController
 		
-//		viewController.predefinedAnswersModelController = predefinedAnswersModelController
+//		viewController.answers = 
 	}
 	
 	// MARK: - UITableViewDataSource
@@ -63,7 +63,11 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		if Section(at: section) == .answerSets {
+			return answerSetsModelController.answerSets.count
+		} else {
+			return 1
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView,
@@ -72,28 +76,26 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 		
-		if let section = Section(rawValue: indexPath.row) {
-			cell.textLabel?.text = section.cellText
-			
-			cell.accessoryType = section == .answerSets ? .disclosureIndicator : .none
-		}
+		configureCell(cell, at: indexPath)
 		
 		return cell
 	}
 	
 	override func tableView(_ tableView: UITableView,
+							titleForHeaderInSection section: Int) -> String? {
+		return Section(at: section).headerText
+	}
+	
+	override func tableView(_ tableView: UITableView,
 							titleForFooterInSection section: Int) -> String? {
-		return Section(rawValue: section)?.footerText
+		return Section(at: section).footerText
 	}
 	
 	// MARK: - UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView,
 							shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		if let cell = tableView.cellForRow(at: indexPath) {
-			return cell.accessoryType == .disclosureIndicator
-		}
-		return false
+		return Section(at: indexPath.section) == .answerSets
 	}
 }
 
@@ -102,12 +104,23 @@ private extension SettingsViewController {
 	enum Section: Int, CaseIterable {
 		case lazyMode, readAnswer, hapticFeedback, answerSets
 		
+		init(at index: Int) {
+			self = Section(rawValue: index)!
+		}
+		
 		var cellText: String {
 			switch self {
 			case .lazyMode:			return "Lazy mode"
 			case .readAnswer:		return "Read answer"
 			case .hapticFeedback:	return "Haptic feedback"
-			case .answerSets:		return "Answer sets"
+			case .answerSets:		return ""
+			}
+		}
+		
+		var headerText: String? {
+			switch self {
+			case .answerSets:	return "Answer sets"
+			default: 			return nil
 			}
 		}
 		
@@ -116,6 +129,28 @@ private extension SettingsViewController {
 			case .lazyMode:	return "When Lazy mode is on: tap the magic ball to make a request"
 			default: 		return nil
 			}
+		}
+	}
+	
+	func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
+		let section = Section(at: indexPath.section)
+		
+		cell.textLabel?.text = section.cellText
+		cell.accessoryType = .none
+		
+		switch section {
+		case .lazyMode:
+			cell.accessoryView = lazyModeSwitch
+			
+		case .readAnswer:
+			cell.accessoryView = readAnswerSwitch
+			
+		case .hapticFeedback:
+			cell.accessoryView = hapticFeedbackSwitch
+			
+		case .answerSets:
+			cell.textLabel?.text = answerSetsModelController.answerSets[indexPath.row].name
+			cell.accessoryType = .disclosureIndicator
 		}
 	}
 }

@@ -19,21 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y47-yQ-VS3" userLabel="Top layout View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="167"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Tl-cY-oux" userLabel="Bottom layout View">
-                                <rect key="frame" x="0.0" y="484.5" width="375" height="133.5"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="243"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-CH-Hot">
-                                <rect key="frame" x="15" y="171" width="345" height="31.5"/>
+                                <rect key="frame" x="15" y="125.5" width="345" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-KW-ygr" customClass="MagicButton" customModule="EightBall" customModuleProvider="target">
-                                <rect key="frame" x="131.5" y="428.5" width="112.5" height="112.5"/>
+                                <rect key="frame" x="131.5" y="263" width="112.5" height="112.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="M0B-KW-ygr" secondAttribute="height" multiplier="1:1" id="hy8-qK-EjX"/>
                                 </constraints>
@@ -42,22 +38,22 @@
                                     <action selector="requestNewAnswer" destination="BYZ-38-t0r" eventType="touchUpInside" id="bGq-rg-KfJ"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SK-HI-H1N">
+                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="2Cd-FY-cJf"/>
+                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="bottom" secondItem="M0B-KW-ygr" secondAttribute="top" id="4ES-r7-4Bv"/>
                             <constraint firstItem="Y47-yQ-VS3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Tn-g1-0Bu"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Tl-cY-oux" secondAttribute="trailing" id="7vR-ur-gpg"/>
-                            <constraint firstItem="2Tl-cY-oux" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="9Gq-SZ-F81"/>
-                            <constraint firstItem="SaA-CH-Hot" firstAttribute="centerY" secondItem="Y47-yQ-VS3" secondAttribute="bottom" id="EbI-g5-c0G"/>
                             <constraint firstItem="Y47-yQ-VS3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PFL-36-NaL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SaA-CH-Hot" secondAttribute="trailing" constant="15" id="Wa7-KP-z19"/>
                             <constraint firstItem="M0B-KW-ygr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WtY-7M-tF4"/>
-                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerY" secondItem="2Tl-cY-oux" secondAttribute="top" id="aZb-xI-Ofq"/>
-                            <constraint firstItem="2Tl-cY-oux" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fgt-0z-GEY"/>
-                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.25" id="gWO-Cc-lH7"/>
                             <constraint firstItem="SaA-CH-Hot" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="mBR-VZ-A8v"/>
                             <constraint firstItem="M0B-KW-ygr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="nWg-8c-7vp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Tl-cY-oux" secondAttribute="bottom" id="vMD-ch-znL"/>
+                            <constraint firstItem="SaA-CH-Hot" firstAttribute="centerY" secondItem="Y47-yQ-VS3" secondAttribute="centerY" id="quC-c6-mJB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y47-yQ-VS3" secondAttribute="trailing" id="zX9-2v-F2C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -69,6 +65,7 @@
                     <tabBarItem key="tabBarItem" title="Magic 8 Ball" image="Ball Tab Icon" id="izg-Fo-H8B"/>
                     <navigationItem key="navigationItem" title="Magic 8 Ball" largeTitleDisplayMode="always" id="U92-oh-X9R"/>
                     <connections>
+                        <outlet property="answerSetPicker" destination="1SK-HI-H1N" id="1P7-se-HEb"/>
                         <outlet property="magicBallView" destination="8bC-Xf-vdC" id="3ns-b8-2Bh"/>
                     </connections>
                 </viewController>
@@ -85,7 +82,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="siy-Kk-7e1" style="IBUITableViewCellStyleDefault" id="bej-YK-7bB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="siy-Kk-7e1" style="IBUITableViewCellStyleDefault" id="bej-YK-7bB">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bej-YK-7bB" id="tza-ax-Cr4">
@@ -102,7 +99,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="accessoryView" destination="0Zj-Rd-upJ" id="Axh-Fg-erA"/>
+                                    <segue destination="vK4-ag-JE8" kind="show" identifier="answers" id="anQ-fc-RN6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -144,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="2049" y="134"/>
         </scene>
-        <!--Predefined answers-->
+        <!--Answers-->
         <scene sceneID="RHq-sY-0G7">
             <objects>
-                <tableViewController storyboardIdentifier="PredefinedAnswersTableViewController" title="Predefined answers" hidesBottomBarWhenPushed="YES" id="vK4-ag-JE8" customClass="PredefinedAnswersTableViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PredefinedAnswersTableViewController" title="Answers" hidesBottomBarWhenPushed="YES" id="vK4-ag-JE8" customClass="AnswersTableViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X7z-Eq-9RA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

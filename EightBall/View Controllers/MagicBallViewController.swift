@@ -23,10 +23,15 @@ class MagicBallViewController: UIViewController {
 	// MARK: - Outlets
 	
 	@IBOutlet private var magicBallView: MagicBallView!
+	@IBOutlet private var answerSetPicker: UIPickerView!
 	
 	// MARK: - Private properties
 	
-	private let answerLoader: AnswerLoader = .init()
+	private var pickerViewConfigurator: SingleComponentPickerViewConfigurator?
+	
+	private var answerSource: AnswerSource = .network
+	
+	private let networkAnswersLoader: AnswerLoader = .init()
 	
 	private let textPronoucer: TextPronouncer = .init()
 	
@@ -45,13 +50,12 @@ class MagicBallViewController: UIViewController {
 		
 		prepareForAnswerShowing()
 		
-		showAnswerFromNetwork()
-		
-//		if settingsModel.onlyPredefinedAnswersModeIsOn {
-//			showAnswer(randomPredefinedAnswer)
-//		} else {
-//			showAnswerFromNetwork()
-//		}
+		switch answerSource {
+		case .network:
+			showAnswerFromNetwork()
+		case .customAnswers(let answers):
+			showAnswer(answers.randomElement() ?? "")
+		}
 	}
 	
 	// MARK: - Life cycle
@@ -60,21 +64,59 @@ class MagicBallViewController: UIViewController {
 		super.viewDidLoad()
 		
 		setup()
+		pickerViewConfigurator = createPickerViewConfigurator()
 	}
 }
 
 // MARK: - Private methods
 private extension MagicBallViewController {
 	
-	var randomPredefinedAnswer: String {
-		return answerSetsModelController?.answerSets[0].answers.randomElement() ?? "Hell yeah!!!"
+	// MARK: - Types
+	
+	enum AnswerSource {
+		case network
+		case customAnswers([String])
 	}
+	
+	// MARK: - Methods
 	
 	func setup() {
 		
 		magicBallView.isUserInteractionEnabled = settingsModel.lazyModeIsOn
 		
-		generator.prepare()
+		if settingsModel.hapticFeedbackIsOn {
+			generator.prepare()
+		}
+	}
+	
+	var pickerViewOptions: [String] {
+		var options = ["Answers form network"]
+		if let answersSets = answerSetsModelController?.answerSets {
+			options += answersSets.map { $0.name }
+		}
+		return  options
+	}
+	
+	func createPickerViewConfigurator() -> SingleComponentPickerViewConfigurator {
+		
+		let configurator = SingleComponentPickerViewConfigurator(optionsTitles: pickerViewOptions) {
+			[weak self] (pickedIndex) in
+			
+			self?.setupAnswerSourceToPickeViewOption(at: pickedIndex)
+		}
+		answerSetPicker.dataSource = configurator
+		answerSetPicker.delegate = configurator
+		
+		return configurator
+	}
+	
+	func setupAnswerSourceToPickeViewOption(at index: Int) {
+		if index == 0 {
+			answerSource = .network
+		} else if let answerSets = answerSetsModelController?.answerSets {
+			
+			answerSource = .customAnswers(answerSets[index - 1].answers)
+		}
 	}
 	
 	func prepareForAnswerShowing() {
@@ -100,10 +142,10 @@ private extension MagicBallViewController {
 	}
 	
 	func showAnswerFromNetwork() {
-		answerLoader.loadAnswer { [weak self] (optionAnswer) in
+		networkAnswersLoader.loadAnswer { [weak self] (optionAnswer) in
 			guard let self = self else { return }
 			
-			let answer = optionAnswer ?? self.randomPredefinedAnswer
+			let answer = optionAnswer ?? "Hell "
 			
 			DispatchQueue.main.async {
 				
