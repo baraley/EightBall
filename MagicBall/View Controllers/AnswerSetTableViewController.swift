@@ -1,5 +1,5 @@
 //
-//  AnswersTableViewController.swift
+//  AnswerSetTableViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/11/19.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class AnswersTableViewController: UITableViewController {
+class AnswerSetTableViewController: UITableViewController {
 	
-	var answers: [String] = []
+	var answerSet: AnswerSet!
 	
 }

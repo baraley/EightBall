@@ -13,8 +13,8 @@
         <!--Magic 8 Ball-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MagicBallView" customModule="EightBall" customModuleProvider="target">
+                <viewController id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MagicBallView" customModule="MagicBall" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -28,7 +28,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-KW-ygr" customClass="MagicButton" customModule="EightBall" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-KW-ygr" customClass="MagicButton" customModule="MagicBall" customModuleProvider="target">
                                 <rect key="frame" x="131.5" y="263" width="112.5" height="112.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="M0B-KW-ygr" secondAttribute="height" multiplier="1:1" id="hy8-qK-EjX"/>
@@ -76,13 +76,13 @@
         <!--Settings-->
         <scene sceneID="qcM-cR-6xJ">
             <objects>
-                <tableViewController id="Gu2-ZK-INa" customClass="SettingsViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RAM-sf-89j">
+                <tableViewController id="Gu2-ZK-INa" customClass="SettingsViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RAM-sf-89j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="siy-Kk-7e1" style="IBUITableViewCellStyleDefault" id="bej-YK-7bB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="siy-Kk-7e1" detailTextLabel="HRN-x1-mkP" style="IBUITableViewCellStyleValue1" id="bej-YK-7bB">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bej-YK-7bB" id="tza-ax-Cr4">
@@ -90,10 +90,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Lazy mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="siy-Kk-7e1">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="16" y="12" width="84" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="HRN-x1-mkP">
+                                            <rect key="frame" x="315" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -111,6 +118,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="zd8-GV-pPg"/>
                     <connections>
+                        <outlet property="addNewAnswerSetButton" destination="tHc-UB-KIB" id="E43-Ic-buY"/>
                         <outlet property="hapticFeedbackSwitch" destination="LLj-UQ-uDx" id="paw-Vw-aYd"/>
                         <outlet property="lazyModeSwitch" destination="0Zj-Rd-upJ" id="ML3-Yi-IHT"/>
                         <outlet property="readAnswerSwitch" destination="nXs-Wb-qUx" id="KEN-oZ-eI9"/>
@@ -138,13 +146,22 @@
                         <action selector="switcherDidChange:" destination="Gu2-ZK-INa" eventType="valueChanged" id="l0y-2f-Adg"/>
                     </connections>
                 </switch>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tHc-UB-KIB">
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                    <state key="normal" title="ADD SET"/>
+                    <connections>
+                        <action selector="addNewAnswerSet" destination="Gu2-ZK-INa" eventType="touchUpInside" id="w9D-KB-UBK"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="2049" y="134"/>
         </scene>
         <!--Answers-->
         <scene sceneID="RHq-sY-0G7">
             <objects>
-                <tableViewController storyboardIdentifier="PredefinedAnswersTableViewController" title="Answers" hidesBottomBarWhenPushed="YES" id="vK4-ag-JE8" customClass="AnswersTableViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PredefinedAnswersTableViewController" title="Answers" hidesBottomBarWhenPushed="YES" id="vK4-ag-JE8" customClass="AnswerSetTableViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X7z-Eq-9RA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,7 +198,7 @@
         <!--App Root View Controller-->
         <scene sceneID="EkK-Zp-iKp">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewController" customModule="EightBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z1A-vp-7DK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

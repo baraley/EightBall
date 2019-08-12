@@ -19,9 +19,17 @@ class AnswerSetsModelController: NSObject {
 			answerSets.append(answerSet)
 		}
 		
-		answerSets.sort { $0.dateCreated > $1.dateCreated }
+		answerSets.sort { $0.name.lowercased() < $1.name.lowercased() }
 		
-		FileManager.default.saveContent(answerSets, atPath: answerSetsFilePath)
+		saveAnswerSets()
+	}
+	
+	func deleteAnswerSet(at index: Int) {
+		guard index >= 0, index < answerSets.count else { return }
+		
+		answerSets.remove(at: index)
+		
+		saveAnswerSets()
 	}
 	
 	// MARK: - Private
@@ -39,5 +47,9 @@ class AnswerSetsModelController: NSObject {
 			let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
 			return [AnswerSet(name: "Rude", answers: rudeAnswers)]
 		}
+	}
+	
+	private func saveAnswerSets() {
+		FileManager.default.saveContent(answerSets, atPath: answerSetsFilePath)
 	}
 }

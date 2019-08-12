@@ -66,6 +66,13 @@ class MagicBallViewController: UIViewController {
 		setup()
 		pickerViewConfigurator = createPickerViewConfigurator()
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		textPronoucer.stopPronouncing()
+	}
+
 }
 
 // MARK: - Private methods
@@ -92,7 +99,7 @@ private extension MagicBallViewController {
 	var pickerViewOptions: [String] {
 		var options = ["Answers form network"]
 		if let answersSets = answerSetsModelController?.answerSets {
-			options += answersSets.map { $0.name }
+			options += answersSets.compactMap { $0.answers.isEmpty ? nil : $0.name }
 		}
 		return  options
 	}
