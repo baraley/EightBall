@@ -12,6 +12,8 @@
 		1107920422FFD75F0056BE67 /* PredefinedAnswersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920322FFD75F0056BE67 /* PredefinedAnswersTableViewController.swift */; };
 		1107920622FFE6790056BE67 /* SegueHandlerType+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
+		112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+extensions.swift */; };
+		112B515D23011AB80063E18B /* DefaultResouce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515C23011AB80063E18B /* DefaultResouce.swift */; };
 		1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155038922FE8125009AD046 /* TextPronouncer.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
 		11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C919C122F9368E005F71BC /* AppDelegate.swift */; };
@@ -33,6 +35,8 @@
 		1107920322FFD75F0056BE67 /* PredefinedAnswersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedAnswersTableViewController.swift; sourceTree = "<group>"; };
 		1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegueHandlerType+Protocol.swift"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
+		112B515A23011A890063E18B /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
+		112B515C23011AB80063E18B /* DefaultResouce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResouce.swift; sourceTree = "<group>"; };
 		1155038922FE8125009AD046 /* TextPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPronouncer.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
 		11C919BE22F9368E005F71BC /* EightBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EightBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +76,22 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		112B515E23011FA40063E18B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		112B515F23011FAD0063E18B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				112B515A23011A890063E18B /* FileManager+extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		11C919B522F9368E005F71BC = {
 			isa = PBXGroup;
 			children = (
@@ -92,12 +112,13 @@
 			isa = PBXGroup;
 			children = (
 				11C919C122F9368E005F71BC /* AppDelegate.swift */,
-				1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */,
 				11D2F74D22FE0A64000E8881 /* Models */,
 				11D2F75622FE73C9000E8881 /* Model Controllers */,
 				11D2F74E22FE0A6B000E8881 /* Views */,
 				11079207230074100056BE67 /* View Controllers */,
 				11D2F74F22FE0A95000E8881 /* Services */,
+				112B515E23011FA40063E18B /* Protocols */,
+				112B515F23011FAD0063E18B /* Extensions */,
 				11D2F75122FE0B2D000E8881 /* Storyboards */,
 				11D2F75022FE0B03000E8881 /* Resources */,
 			);
@@ -108,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				11D2F74222FD59C8000E8881 /* SettingsModel.swift */,
+				112B515C23011AB80063E18B /* DefaultResouce.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,8 +263,10 @@
 				11D2F75C22FE7940000E8881 /* SettingsViewController.swift in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewController.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
+				112B515D23011AB80063E18B /* DefaultResouce.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewController.swift in Sources */,
 				11D2F75322FE6D7F000E8881 /* SettingsModelController.swift in Sources */,
+				112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */,
 				1107920222FFD4890056BE67 /* PredefinedAnswersModelController.swift in Sources */,
 				11D2F74122FD4D3C000E8881 /* MagicBallView.swift in Sources */,
 			);

@@ -58,4 +58,13 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		viewController.predefinedAnswersModelController = predefinedAnswersModelController
 	}
+	
+	// MARK: - UITableViewDelegate
+	
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		if let cell = tableView.cellForRow(at: indexPath) {
+			return cell.accessoryType == .disclosureIndicator
+		}
+		return false
+	}
 }

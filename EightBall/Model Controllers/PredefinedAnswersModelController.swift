@@ -10,62 +10,32 @@ import UIKit
 
 class PredefinedAnswersModelController: NSObject {
 	
-	private(set) lazy var predefinedAnswers: [String] = {
-		if let answers = loadPredefinedAnswers() {
-			return answers
-		} else {
-			return loadDefaultPredefinedAnswers()
-		}
-	}()
+	// MARK: - Public
 	
-	private let predefinedAnswersFilePath: String = {
-		let documentDerictory = FileManager.default.urls(for: .documentDirectory,
-														 in: .userDomainMask).first!
-		let archiveURL = documentDerictory.appendingPathComponent("Predefined answers")
-		return archiveURL.path
-	}()
+	private(set) lazy var predefinedAnswers: [String] = loadPredefinedAnswers()
 	
 	func save(_ predefinedAnswer: String) {
-		let encoder = JSONEncoder()
-		
 		predefinedAnswers.append(predefinedAnswer)
 		
-		do {
-			let data = try encoder.encode(predefinedAnswers)
-			if FileManager.default.fileExists(atPath: predefinedAnswersFilePath) {
-				try FileManager.default.removeItem(atPath: predefinedAnswersFilePath)
-			}
-			FileManager.default.createFile(
-				atPath: predefinedAnswersFilePath, contents: data, attributes: nil
-			)
-		} catch {
-			fatalError(error.localizedDescription)
-		}
+		FileManager.default.saveContent(predefinedAnswers, atPath: predefinedAnswersFilePath)
 	}
 	
-	private func loadPredefinedAnswers() -> [String]? {
-		guard let data = FileManager.default.contents(atPath: predefinedAnswersFilePath) else {
-			return nil
-		}
-		
-		let decoder = JSONDecoder()
-		
-		return (try? decoder.decode([String].self, from: data))
-	}
+	// MARK: - Private
 	
-	private func loadDefaultPredefinedAnswers() -> [String] {
-		let decoder = JSONDecoder()
-		
-		if 	let source = Bundle.main.path(forResource: "DefaultPredefinedAnswers", ofType: nil),
-			let data = FileManager.default.contents(atPath: source) {
+	private let predefinedAnswersFilePath: String = {
+		return FileManager.pathForFileInDocumentDirectory(
+			withName: DefaultResouce.predefinedAnswers.rawValue
+		)
+	}()
+	
+	private func loadPredefinedAnswers() -> [String] {
+		if let answers = FileManager.default
+			.loadSavedContent(atPath: predefinedAnswersFilePath) as [String]? {
 			
-			do {
-				return try decoder.decode([String].self, from: data)
-			} catch {
-				fatalError(error.localizedDescription)
-			}
+			return answers
 		} else {
-			fatalError("Can not load default predefined answers")
+			let name = DefaultResouce.predefinedAnswers.rawValue
+			return FileManager.default.loadContentFromBundle(withName: name)
 		}
 	}
 }
