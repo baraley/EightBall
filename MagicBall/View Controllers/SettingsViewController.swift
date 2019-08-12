@@ -1,6 +1,6 @@
 //
 //  SettingsViewController.swift
-//  EightBall
+//  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
 //  Copyright © 2019 Alexander Baraley. All rights reserved.
@@ -53,7 +53,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		let viewController = segue.destination as! AnswersTableViewController
 		
-//		viewController.answers = 
+//		viewController.answers =
 	}
 	
 	// MARK: - UITableViewDataSource
