@@ -10,11 +10,11 @@ import UIKit
 
 class PredefinedAnswersTableViewController: UITableViewController {
 	
-	var predefinedAnswersModelController: PredefinedAnswersModelController! {
-		didSet {
-			tableView.dataSource = predefinedAnswersModelController
-		}
-	}
-	
+//	var predefinedAnswersModelController: PredefinedAnswersModelController! {
+//		didSet {
+//			tableView.dataSource = predefinedAnswersModelController
+//		}
+//	}
+//	
 	
 }

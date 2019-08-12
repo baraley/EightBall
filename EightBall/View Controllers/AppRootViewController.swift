@@ -14,7 +14,7 @@ class AppRootViewController: UITabBarController {
 		
 	private lazy var settingsModelController: SettingsModelController = .init()
 	
-	private lazy var predefinedAnswersModelController: PredefinedAnswersModelController = .init()
+	private lazy var answerSetsModelController: AnswerSetsModelController = .init()
 	
 	private var magicBallViewController: MagicBallViewController?
 	
@@ -49,7 +49,7 @@ class AppRootViewController: UITabBarController {
 	
 	private func setupMagicBallViewController() {
 		magicBallViewController?.settingsModel = settingsModelController.currentSettinsModel
-		magicBallViewController?.predefinedAnswersModelController = predefinedAnswersModelController
+		magicBallViewController?.answerSetsModelController = answerSetsModelController
 	}
 	
 	private func setupSettingsViewController() {
@@ -63,6 +63,6 @@ class AppRootViewController: UITabBarController {
 			self.setupMagicBallViewController()
 		}
 		
-		settingsViewController?.predefinedAnswersModelController = predefinedAnswersModelController
+		settingsViewController?.answerSetsModelController = answerSetsModelController
 	}
 }

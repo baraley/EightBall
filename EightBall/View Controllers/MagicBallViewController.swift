@@ -18,7 +18,7 @@ class MagicBallViewController: UIViewController {
 		}
 	}
 	
-	var predefinedAnswersModelController: PredefinedAnswersModelController?
+	var answerSetsModelController: AnswerSetsModelController?
 	
 	// MARK: - Outlets
 	
@@ -45,11 +45,13 @@ class MagicBallViewController: UIViewController {
 		
 		prepareForAnswerShowing()
 		
-		if settingsModel.onlyPredefinedAnswersModeIsOn {
-			showAnswer(randomPredefinedAnswer)
-		} else {
-			showAnswerFromNetwork()
-		}
+		showAnswerFromNetwork()
+		
+//		if settingsModel.onlyPredefinedAnswersModeIsOn {
+//			showAnswer(randomPredefinedAnswer)
+//		} else {
+//			showAnswerFromNetwork()
+//		}
 	}
 	
 	// MARK: - Life cycle
@@ -65,7 +67,7 @@ class MagicBallViewController: UIViewController {
 private extension MagicBallViewController {
 	
 	var randomPredefinedAnswer: String {
-		return predefinedAnswersModelController?.predefinedAnswers.randomElement() ?? "Hell yeah!!!"
+		return answerSetsModelController?.answerSets[0].answers.randomElement() ?? "Hell yeah!!!"
 	}
 	
 	func setup() {

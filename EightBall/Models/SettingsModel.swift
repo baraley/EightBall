@@ -12,5 +12,4 @@ struct SettingsModel: Codable {
 	var lazyModeIsOn: Bool
 	var readAnswerIsOn: Bool
 	var hapticFeedbackIsOn: Bool
-	var onlyPredefinedAnswersModeIsOn: Bool
 }

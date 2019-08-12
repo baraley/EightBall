@@ -10,5 +10,5 @@ import Foundation
 
 enum DefaultResouce: String {
 	case settingsModel = "DefaultSettingsModel"
-	case predefinedAnswers = "DefaultPredefinedAnswers"
+	case rudeAnswers = "RudeAnswers"
 }
