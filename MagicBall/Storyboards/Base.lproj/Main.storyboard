@@ -190,6 +190,15 @@
                             <outlet property="delegate" destination="vK4-ag-JE8" id="Ca0-Ry-bGx"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem systemItem="flexibleSpace" id="VWV-Tb-HYI"/>
+                        <barButtonItem systemItem="add" id="fOx-bp-rE1">
+                            <connections>
+                                <action selector="showAlertWithTextField" destination="vK4-ag-JE8" id="1JI-Hn-YgD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="GkR-hy-mTj"/>
+                    </toolbarItems>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arA-qV-Al6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

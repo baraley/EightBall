@@ -66,7 +66,15 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		let viewController = segue.destination as! AnswerSetTableViewController
 		
-//		viewController.answers =
+		if let indexPath = tableView.indexPathForSelectedRow {
+			viewController.answerSet = answerSetsModelController.answerSets[indexPath.row]
+			viewController.answerSetDidChangeHandler = { changedAnswerSet in
+				
+				self.answerSetsModelController.save(changedAnswerSet)
+				
+				self.tableView.reloadRows(at: [indexPath], with: .automatic)
+			}
+		}
 	}
 	
 	// MARK: - UITableViewDataSource
@@ -256,7 +264,7 @@ private extension SettingsViewController {
 					var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
 					answerSet.name = name
 					self.answerSetsModelController.save(answerSet)
-					self.tableView.reloadData()
+					self.tableView.reloadRows(at: [indexPath], with: .automatic)
 				}
 			})
 			

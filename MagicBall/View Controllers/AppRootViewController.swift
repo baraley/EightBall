@@ -25,11 +25,7 @@ class AppRootViewController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		view.backgroundColor = .white
-		
-		parseViewControllers()
-		setupMagicBallViewController()
-		setupSettingsViewController()
+		setup()
 	}
 	
 	private func parseViewControllers() {
@@ -47,6 +43,20 @@ class AppRootViewController: UITabBarController {
 		})
 	}
 	
+	private func setup() {
+		view.backgroundColor = .white
+		
+		parseViewControllers()
+		setupMagicBallViewController()
+		setupSettingsViewController()
+		
+		answerSetsModelController.answerSetsDidChangeHandler = { [weak self]  in
+			guard let self = self else { return }
+			
+			self.setupMagicBallViewController()
+		}
+	}
+	
 	private func setupMagicBallViewController() {
 		magicBallViewController?.settingsModel = settingsModelController.currentSettinsModel
 		magicBallViewController?.answerSetsModelController = answerSetsModelController
@@ -54,6 +64,7 @@ class AppRootViewController: UITabBarController {
 	
 	private func setupSettingsViewController() {
 		settingsViewController?.settingsModel = settingsModelController.currentSettinsModel
+		settingsViewController?.answerSetsModelController = answerSetsModelController
 		
 		settingsViewController?.settingsDidChangeAction = { [weak self] (settingsModel) in
 			guard let self = self else { return }
@@ -62,7 +73,5 @@ class AppRootViewController: UITabBarController {
 			
 			self.setupMagicBallViewController()
 		}
-		
-		settingsViewController?.answerSetsModelController = answerSetsModelController
 	}
 }

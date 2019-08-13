@@ -8,9 +8,19 @@
 
 import Foundation
 
-class AnswerSetsModelController: NSObject {
+class AnswerSetsModelController {
 	
-	private(set) lazy var answerSets: [AnswerSet] = loadAnswerSets()
+	private(set) var answerSets: [AnswerSet] = [] {
+		didSet {
+			answerSetsDidChangeHandler?()
+		}
+	}
+	
+	init() {
+		answerSets = loadAnswerSets()
+	}
+	
+	var answerSetsDidChangeHandler: (() -> Void)?
 	
 	func save(_ answerSet: AnswerSet) {
 		if let index = answerSets.firstIndex(of: answerSet) {

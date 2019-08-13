@@ -18,7 +18,11 @@ class MagicBallViewController: UIViewController {
 		}
 	}
 	
-	var answerSetsModelController: AnswerSetsModelController?
+	var answerSetsModelController: AnswerSetsModelController? {
+		didSet {
+			if isViewLoaded { setup() }
+		}
+	}
 	
 	// MARK: - Outlets
 	
@@ -64,7 +68,6 @@ class MagicBallViewController: UIViewController {
 		super.viewDidLoad()
 		
 		setup()
-		pickerViewConfigurator = createPickerViewConfigurator()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -94,6 +97,8 @@ private extension MagicBallViewController {
 		if settingsModel.hapticFeedbackIsOn {
 			generator.prepare()
 		}
+		
+		pickerViewConfigurator = createPickerViewConfigurator()
 	}
 	
 	var pickerViewOptions: [String] {
@@ -152,7 +157,7 @@ private extension MagicBallViewController {
 		networkAnswersLoader.loadAnswer { [weak self] (optionAnswer) in
 			guard let self = self else { return }
 			
-			let answer = optionAnswer ?? "Hell "
+			let answer = optionAnswer ?? "Hell yeah!!!"
 			
 			DispatchQueue.main.async {
 				
