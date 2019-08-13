@@ -20,9 +20,9 @@ class AnswerLoader {
 	
 	var isLoading: Bool = false
 	
-	func loadAnswer(_ completionHandler: @escaping (String?) -> Void) {
+	func loadAnswer(_ completionHandler: @escaping (Result<String, NetworkError>) -> Void) {
 
-		let dataTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data, _, _) in
+		let dataTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data, _, error) in
 			
 			self?.isLoading = false
 			
@@ -31,9 +31,10 @@ class AnswerLoader {
 				let magic = (jsonData["magic"] as? [String: String]),
 				let answer = magic["answer"] {
 				
-				completionHandler(answer)
+				completionHandler(.success(answer))
 			} else {
-				completionHandler(nil)
+				let networkError = NetworkError(error: error)
+				completionHandler(.failure(networkError))
 			}
 			
 		}

@@ -61,7 +61,13 @@ private extension MagicBallView {
 	func stateDidChange() {
 		switch state {
 		case .initialMessage(let message):
-			answerLabel.text = message
+			if let currentAnimation = currentAnimation {
+				currentAnimation.addCompletion { (_) in
+					self.showAnswer(message)
+				}
+			} else {
+				showAnswer(message)
+			}
 		case .answerHidden:
 			currentAnimation = disappearingAnimation
 			currentAnimation?.startAnimation()

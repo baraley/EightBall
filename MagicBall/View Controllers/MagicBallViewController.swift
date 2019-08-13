@@ -154,15 +154,32 @@ private extension MagicBallViewController {
 	}
 	
 	func showAnswerFromNetwork() {
-		networkAnswersLoader.loadAnswer { [weak self] (optionAnswer) in
+		networkAnswersLoader.loadAnswer { [weak self] (result) in
 			guard let self = self else { return }
-			
-			let answer = optionAnswer ?? "Hell yeah!!!"
 			
 			DispatchQueue.main.async {
 				
-				self.showAnswer(answer)
+				switch result {
+				case .success(let answer):
+					self.showAnswer(answer)
+					
+				case .failure(let error):
+					self.showAlert(for: error)
+				}
 			}
 		}
+	}
+	
+	func showAlert(for error: NetworkError) {
+		
+		let alertMessage: String = error.errorDescription
+		
+		let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
+		
+		alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+			self.magicBallView.state = .initialMessage("Shake your phone, please!!!")
+		})
+		
+		self.present(alert, animated: true, completion: nil)
 	}
 }

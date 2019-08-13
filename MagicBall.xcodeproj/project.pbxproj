@@ -17,6 +17,7 @@
 		112B516123013D4D0063E18B /* AnswerSetsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B516023013D4D0063E18B /* AnswerSetsModelController.swift */; };
 		1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155038922FE8125009AD046 /* TextPronouncer.swift */; };
 		116BD3922301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3912301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift */; };
+		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
 		11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C919C122F9368E005F71BC /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 		112B516023013D4D0063E18B /* AnswerSetsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetsModelController.swift; sourceTree = "<group>"; };
 		1155038922FE8125009AD046 /* TextPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPronouncer.swift; sourceTree = "<group>"; };
 		116BD3912301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+extension.swift"; sourceTree = "<group>"; };
+		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
 		11C919BE22F9368E005F71BC /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 				11D2F74222FD59C8000E8881 /* SettingsModel.swift */,
 				112B515C23011AB80063E18B /* DefaultResouce.swift */,
 				11853ED4230170A300F30203 /* AnswerSet.swift */,
+				116BD3932302F573001ECD5F /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */,
 				112B516123013D4D0063E18B /* AnswerSetsModelController.swift in Sources */,
 				11D2F74122FD4D3C000E8881 /* MagicBallView.swift in Sources */,
+				116BD3942302F573001ECD5F /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
