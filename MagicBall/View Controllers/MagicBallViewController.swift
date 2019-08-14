@@ -12,34 +12,25 @@ class MagicBallViewController: UIViewController {
 	
 	// MARK: - Public properties
 	
-	var settingsModel: SettingsModel! {
-		didSet {
-			if isViewLoaded { setup() }
-		}
-	}
+	var settingsModel: SettingsModel!  { didSet { settingsModelDidChange() } }
 	
-	var answerSetsModelController: AnswerSetsModelController? {
-		didSet {
-			if isViewLoaded { setup() }
-		}
+	var answerSetsModelController: AnswerSetsModelController! {
+		didSet { answerSetsModelControllerDidChange() }
 	}
 	
 	// MARK: - Outlets
 	
 	@IBOutlet private var magicBallView: MagicBallView!
-	@IBOutlet private var answerSetPicker: UIPickerView!
+	@IBOutlet private var sourceOptionsPickerView: UIPickerView!
 	
 	// MARK: - Private properties
 	
-	private var pickerViewConfigurator: SingleComponentPickerViewConfigurator?
-	
-	private var answerSource: AnswerSource = .network
-	
 	private let networkAnswersLoader: AnswerLoader = .init()
-	
 	private let textPronoucer: TextPronouncer = .init()
 	
-	private lazy var generator: UINotificationFeedbackGenerator = .init()
+	private lazy var pickerViewConfigurator = createPickerViewConfigurator()
+	
+	private var answerSource: AnswerSource = .network
 	
 	// MARK: - UIResponder
 	
@@ -52,13 +43,12 @@ class MagicBallViewController: UIViewController {
 	@IBAction private func requestNewAnswer() {
 		guard magicBallView.isAnimationFinished == true else { return }
 		
-		prepareForAnswerShowing()
+		magicBallView.state = .answerHidden
+		textPronoucer.stopPronouncing()
 		
 		switch answerSource {
-		case .network:
-			showAnswerFromNetwork()
-		case .customAnswers(let answers):
-			showAnswer(answers.randomElement() ?? "")
+		case .network:						loadAnswerFromNetwork()
+		case .customAnswers(let answers):	showAnswer(answers.randomElement() ?? "")
 		}
 	}
 	
@@ -67,7 +57,8 @@ class MagicBallViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		setup()
+		settingsModelDidChange()
+		answerSetsModelControllerDidChange()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -75,10 +66,9 @@ class MagicBallViewController: UIViewController {
 		
 		textPronoucer.stopPronouncing()
 	}
-
 }
 
-// MARK: - Private methods
+// MARK: - Private
 private extension MagicBallViewController {
 	
 	// MARK: - Types
@@ -88,37 +78,30 @@ private extension MagicBallViewController {
 		case customAnswers([String])
 	}
 	
-	// MARK: - Methods
+	// MARK: - Configuration methods
 	
-	func setup() {
+	func settingsModelDidChange() {
+		guard isViewLoaded else { return }
 		
 		magicBallView.isUserInteractionEnabled = settingsModel.lazyModeIsOn
-		
-		if settingsModel.hapticFeedbackIsOn {
-			generator.prepare()
-		}
-		
-		pickerViewConfigurator = createPickerViewConfigurator()
 	}
 	
-	var pickerViewOptions: [String] {
-		var options = ["Answers form network"]
-		if let answersSets = answerSetsModelController?.answerSets {
-			options += answersSets.compactMap { $0.answers.isEmpty ? nil : $0.name }
+	func answerSetsModelControllerDidChange() {
+		guard isViewLoaded else { return }
+		
+		let options = ["Answers form network"] + answerSetsModelController.answerSets.compactMap {
+			$0.answers.isEmpty ? nil : $0.name
 		}
-		return  options
+		pickerViewConfigurator.optionsTitles = options
+		sourceOptionsPickerView.reloadAllComponents()
 	}
 	
 	func createPickerViewConfigurator() -> SingleComponentPickerViewConfigurator {
-		
-		let configurator = SingleComponentPickerViewConfigurator(optionsTitles: pickerViewOptions) {
-			[weak self] (pickedIndex) in
-			
+		let configurator = SingleComponentPickerViewConfigurator() { [weak self] (pickedIndex) in
 			self?.setupAnswerSourceToPickeViewOption(at: pickedIndex)
 		}
-		answerSetPicker.dataSource = configurator
-		answerSetPicker.delegate = configurator
-		
+		sourceOptionsPickerView.dataSource = configurator
+		sourceOptionsPickerView.delegate = configurator
 		return configurator
 	}
 	
@@ -126,48 +109,33 @@ private extension MagicBallViewController {
 		if index == 0 {
 			answerSource = .network
 		} else if let answerSets = answerSetsModelController?.answerSets {
-			
 			answerSource = .customAnswers(answerSets[index - 1].answers)
 		}
 	}
 	
-	func prepareForAnswerShowing() {
-		
-		magicBallView.state = .answerHidden
-		
-		textPronoucer.stopPronouncing()
-		
-		if settingsModel.hapticFeedbackIsOn {
-			generator.notificationOccurred(.success)
+	// MARK: - Answer showing
+	
+	func loadAnswerFromNetwork() {
+		networkAnswersLoader.loadAnswer { [weak self] (result) in
+			guard let self = self else { return }
+			
+			DispatchQueue.main.async {
+				switch result {
+				case .success(let answer):	self.showAnswer(answer)
+				case .failure(let error):	self.showAlert(for: error)
+				}
+			}
 		}
 	}
 	
 	func showAnswer(_ answer: String) {
 		if settingsModel.readAnswerIsOn {
-			magicBallView.animationFinishedCompletionHandler = { [weak self] in
+			magicBallView.appearingAnimationDidFinishHandler = { [weak self] in
 				self?.textPronoucer.pronounce(answer)
-				self?.magicBallView.animationFinishedCompletionHandler = nil
 			}
 		}
 		
 		magicBallView.state = .answerShown(answer)
-	}
-	
-	func showAnswerFromNetwork() {
-		networkAnswersLoader.loadAnswer { [weak self] (result) in
-			guard let self = self else { return }
-			
-			DispatchQueue.main.async {
-				
-				switch result {
-				case .success(let answer):
-					self.showAnswer(answer)
-					
-				case .failure(let error):
-					self.showAlert(for: error)
-				}
-			}
-		}
 	}
 	
 	func showAlert(for error: NetworkError) {

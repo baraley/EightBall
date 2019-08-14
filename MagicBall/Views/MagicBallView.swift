@@ -39,7 +39,7 @@ class MagicBallView: UIView {
 		}
 	}
 	
-	var animationFinishedCompletionHandler: (() -> Void)?
+	var appearingAnimationDidFinishHandler: (() -> Void)?
 	
 	// MARK: - Private properties
 	
@@ -106,7 +106,8 @@ private extension MagicBallView {
 		}
 		animation.addCompletion({ (_) in
 			self.isAnimationFinished = true
-			self.animationFinishedCompletionHandler?()
+			self.appearingAnimationDidFinishHandler?()
+			self.appearingAnimationDidFinishHandler = nil
 		})
 		return animation
 	}

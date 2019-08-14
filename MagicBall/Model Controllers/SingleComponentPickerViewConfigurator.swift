@@ -10,10 +10,10 @@ import UIKit
 
 class SingleComponentPickerViewConfigurator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
 	
-	private let optionsTitles: [String]
-	private let optionDidPickedHandler: ((Int) -> Void)?
+	var optionsTitles: [String]
+	private let optionDidPickedHandler: ((Int) -> Void)
 	
-	init(optionsTitles: [String], optionDidPickedHandler: ((Int) -> Void)?) {
+	init(optionsTitles: [String] = [], optionDidPickedHandler: @escaping ((Int) -> Void)) {
 		self.optionsTitles = optionsTitles
 		self.optionDidPickedHandler = optionDidPickedHandler
 	}
@@ -34,6 +34,6 @@ class SingleComponentPickerViewConfigurator: NSObject, UIPickerViewDataSource, U
 	}
 	
 	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-		optionDidPickedHandler?(row)
+		optionDidPickedHandler(row)
 	}
 }
