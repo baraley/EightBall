@@ -18,6 +18,7 @@
 		1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155038922FE8125009AD046 /* TextPronouncer.swift */; };
 		116BD3922301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3912301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift */; };
 		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
+		118027D72304835B00E1754B /* AnswerSetsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118027D62304835B00E1754B /* AnswerSetsListVC.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
 		11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C919C122F9368E005F71BC /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		1155038922FE8125009AD046 /* TextPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPronouncer.swift; sourceTree = "<group>"; };
 		116BD3912301C427001ECD5F /* UITableViewHeaderFooterView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+extension.swift"; sourceTree = "<group>"; };
 		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		118027D62304835B00E1754B /* AnswerSetsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetsListVC.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
 		11C919BE22F9368E005F71BC /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 				11D2F75422FE70C4000E8881 /* AppRootViewController.swift */,
 				11D2F75722FE7934000E8881 /* MagicBallViewController.swift */,
 				11D2F75B22FE7940000E8881 /* SettingsViewController.swift */,
+				118027D62304835B00E1754B /* AnswerSetsListVC.swift */,
 				1107920322FFD75F0056BE67 /* AnswerSetTableViewController.swift */,
 			);
 			path = "View Controllers";
@@ -280,6 +283,7 @@
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
 				112B515D23011AB80063E18B /* DefaultResouce.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewController.swift in Sources */,
+				118027D72304835B00E1754B /* AnswerSetsListVC.swift in Sources */,
 				11D2F75322FE6D7F000E8881 /* SettingsModelController.swift in Sources */,
 				112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */,
 				112B516123013D4D0063E18B /* AnswerSetsModelController.swift in Sources */,

@@ -76,6 +76,7 @@ class AnswerSetTableViewController: UITableViewController {
 private extension AnswerSetTableViewController {
 	
 	func setup() {
+		navigationItem.rightBarButtonItem = editButtonItem
 		navigationController?.setToolbarHidden(false, animated: true)
 		navigationItem.title = answerSet.name
 		tableView.reloadData()
@@ -111,6 +112,7 @@ private extension AnswerSetTableViewController {
 					self.answerSet.answers.append(newAnswerText)
 					let newAnswerIndexPath = IndexPath(row: (self.answerSet.answers.count - 1), section: 0)
 					self.tableView.insertRows(at: [newAnswerIndexPath], with: .automatic)
+					self.tableView.scrollToRow(at: newAnswerIndexPath, at: .none, animated: true)
 				}
 			})
 		}
