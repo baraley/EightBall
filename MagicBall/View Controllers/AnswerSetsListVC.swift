@@ -14,21 +14,21 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 	
 	var answerSetsModelController: AnswerSetsModelController!
 	
-	// MARK: - Actions
+	// MARK: - Private properties
 	
-	@IBAction func addNewAnswerSet() {
-		showAlertWithTextField()
-	}
+	private lazy var inputTextAlerController: InputTextAlerController = .init(
+		presentingViewController: self
+	)
 	
 	// MARK: - Life cycle
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		
 		navigationItem.rightBarButtonItem = editButtonItem
 		navigationController?.setToolbarHidden(false, animated: true)
 	}
-	
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
@@ -48,7 +48,7 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answers = segueIdentifier(for: segue) else { return }
 		
-		let viewController = segue.destination as! AnswerSetTableViewController
+		let viewController = segue.destination as! SetAnswersListVC
 		
 		if let indexPath = tableView.indexPathForSelectedRow {
 			viewController.answerSet = answerSetsModelController.answerSets[indexPath.row]
@@ -101,13 +101,13 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if isEditing {
-			showAlertWithTextField()
+			editAnswerSet(at: indexPath)
+			tableView.deselectRow(at: indexPath, animated: true)
 		}
 	}
 	
 	override func tableView(_ tableView: UITableView,
 							editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-		
 		return .delete
 	}
 }
@@ -137,42 +137,33 @@ private extension AnswerSetsListVC {
 		present(ac, animated: true)
 	}
 	
-	func showAlertWithTextField() {
-		let ac = UIAlertController(title: "Enter name", message: nil, preferredStyle: .alert)
+	func editAnswerSet(at indexPath: IndexPath) {
 		
-		ac.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+		let placeholder = self.answerSetsModelController.answerSets[indexPath.row].name
 		
-		if let indexPath = tableView.indexPathForSelectedRow {
-			ac.addTextField { (textField) in
-				textField.text = self.answerSetsModelController.answerSets[indexPath.row].name
-			}
+		inputTextAlerController.showInputTextAlert(
+		with: "Edit the answer set name", actionTitle: "Save", textFieldPlaceholder: placeholder) { [unowned self] (name) in
 			
-			ac.addAction(UIAlertAction(title: "Save", style: .default) { _ in
-				let textField = ac.textFields![0]
-				
-				if let name = textField.text, !name.isEmpty {
-					var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
-					answerSet.name = name
-					self.answerSetsModelController.save(answerSet)
-					self.tableView.reloadRows(at: [indexPath], with: .automatic)
-				}
-			})
-			
-			tableView.deselectRow(at: indexPath, animated: true)
-		} else {
-			ac.addTextField()
-			
-			ac.addAction(UIAlertAction(title: "Save", style: .default) { [unowned ac] _ in
-				let textField = ac.textFields![0]
-				
-				if let name = textField.text, !name.isEmpty {
-					let newAnswerSet = AnswerSet(name: name, answers: [])
-					self.answerSetsModelController.save(newAnswerSet)
-					self.tableView.reloadData()
-				}
-			})
+			var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
+			answerSet.name = name
+			self.answerSetsModelController.save(answerSet)
+			self.tableView.reloadRows(at: [indexPath], with: .automatic)
 		}
+	}
+	
+	@IBAction func acceptTextForNewAnswerSet() {
 		
-		present(ac, animated: true)
+		inputTextAlerController.showInputTextAlert(
+		with: "New answer set", actionTitle: "Add") { [unowned self] (name) in
+			
+			let numberOfAnswerSets = self.answerSetsModelController.answerSets.count
+			
+			let newAnswerSet = AnswerSet(name: name, answers: [])
+			self.answerSetsModelController.save(newAnswerSet)
+			
+			let newAnswerSetIndexPath = IndexPath(row: (numberOfAnswerSets - 1), section: 0)
+			self.tableView.insertRows(at: [newAnswerSetIndexPath], with: .automatic)
+			self.tableView.scrollToRow(at: newAnswerSetIndexPath, at: .none, animated: true)
+		}
 	}
 }

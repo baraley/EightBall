@@ -32,7 +32,7 @@ class SettingsModelController {
 			
 			return settingsModel
 		} else {
-			let name = DefaultResouce.settingsModel.rawValue
+			let name = DefaultResouceName.settingsModel.rawValue
 			return FileManager.default.loadContentFromBundle(withName: name)
 		}
 	}

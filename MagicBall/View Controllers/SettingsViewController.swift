@@ -22,9 +22,9 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		}
 		
 		set {
-			lazyModeSwitch.isOn						= newValue.lazyModeIsOn
-			readAnswerSwitch.isOn					= newValue.readAnswerIsOn
-			hapticFeedbackSwitch.isOn				= newValue.hapticFeedbackIsOn
+			lazyModeSwitch.isOn			= newValue.lazyModeIsOn
+			readAnswerSwitch.isOn		= newValue.readAnswerIsOn
+			hapticFeedbackSwitch.isOn	= newValue.hapticFeedbackIsOn
 		}
 	}
 	
@@ -35,7 +35,6 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	@IBOutlet private var lazyModeSwitch: UISwitch!
 	@IBOutlet private var readAnswerSwitch: UISwitch!
 	@IBOutlet private var hapticFeedbackSwitch: UISwitch!
-	
 	
 	@IBOutlet private var answerSetsCell: UITableViewCell!
 	
@@ -52,19 +51,12 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		answerSetsCell.detailTextLabel?.text = String(answerSetsModelController.answerSets.count)
 	}
-
 	
 	// MARK: - Navigation
 	
 	enum SegueIdentifier: String {
 		case answerSets
 	}
-	
-//	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//		if let cell = sender as? UITableViewCell {
-//			return cell.accessoryType == .disclosureIndicator
-//		}
-//	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answerSets = segueIdentifier(for: segue) else { return }

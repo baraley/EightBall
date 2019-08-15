@@ -29,7 +29,7 @@ class AnswerSetsModelController {
 			answerSets.append(answerSet)
 		}
 		
-		answerSets.sort { $0.name.lowercased() < $1.name.lowercased() }
+		answerSets.sort { $0.dateCreated < $1.dateCreated }
 		
 		saveAnswerSets()
 	}
@@ -53,7 +53,7 @@ class AnswerSetsModelController {
 			
 			return answerSets
 		} else {
-			let name = DefaultResouce.rudeAnswers.rawValue
+			let name = DefaultResouceName.rudeAnswers.rawValue
 			let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
 			return [AnswerSet(name: "Rude", answers: rudeAnswers)]
 		}

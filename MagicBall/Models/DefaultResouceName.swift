@@ -1,5 +1,5 @@
 //
-//  DefaultResouce.swift
+//  DefaultResouceName.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/12/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DefaultResouce: String {
+enum DefaultResouceName: String {
 	case settingsModel = "DefaultSettingsModel"
 	case rudeAnswers = "RudeAnswers"
 }
