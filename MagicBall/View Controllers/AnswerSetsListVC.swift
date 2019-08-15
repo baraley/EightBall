@@ -76,7 +76,6 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 		let answerSet = answerSetsModelController.answerSets[indexPath.row]
 		cell.textLabel?.text = answerSet.name
 		cell.detailTextLabel?.text = String(answerSet.answers.count)
-		cell.accessoryType = .disclosureIndicator
 		
 		return cell
 	}
@@ -142,28 +141,31 @@ private extension AnswerSetsListVC {
 		let placeholder = self.answerSetsModelController.answerSets[indexPath.row].name
 		
 		inputTextAlerController.showInputTextAlert(
-		with: "Edit the answer set name", actionTitle: "Save", textFieldPlaceholder: placeholder) { [unowned self] (name) in
-			
-			var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
-			answerSet.name = name
-			self.answerSetsModelController.save(answerSet)
-			self.tableView.reloadRows(at: [indexPath], with: .automatic)
+			with: "Edit the answer set name",
+			actionTitle: "Save",
+			textFieldPlaceholder: placeholder) { [unowned self] (name) in
+				
+				var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
+				answerSet.name = name
+				self.answerSetsModelController.save(answerSet)
+				self.tableView.reloadRows(at: [indexPath], with: .automatic)
 		}
 	}
 	
 	@IBAction func acceptTextForNewAnswerSet() {
 		
 		inputTextAlerController.showInputTextAlert(
-		with: "New answer set", actionTitle: "Add") { [unowned self] (name) in
-			
-			let numberOfAnswerSets = self.answerSetsModelController.answerSets.count
-			
-			let newAnswerSet = AnswerSet(name: name, answers: [])
-			self.answerSetsModelController.save(newAnswerSet)
-			
-			let newAnswerSetIndexPath = IndexPath(row: (numberOfAnswerSets - 1), section: 0)
-			self.tableView.insertRows(at: [newAnswerSetIndexPath], with: .automatic)
-			self.tableView.scrollToRow(at: newAnswerSetIndexPath, at: .none, animated: true)
+			with: "New answer set",
+			actionTitle: "Add") { [unowned self] (name) in
+				
+				let numberOfAnswerSets = self.answerSetsModelController.answerSets.count
+				
+				let newAnswerSet = AnswerSet(name: name, answers: [])
+				self.answerSetsModelController.save(newAnswerSet)
+				
+				let newAnswerSetIndexPath = IndexPath(row: numberOfAnswerSets, section: 0)
+				self.tableView.insertRows(at: [newAnswerSetIndexPath], with: .automatic)
+				self.tableView.scrollToRow(at: newAnswerSetIndexPath, at: .none, animated: true)
 		}
 	}
 }

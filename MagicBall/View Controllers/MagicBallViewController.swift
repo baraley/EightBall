@@ -94,6 +94,9 @@ private extension MagicBallViewController {
 		}
 		pickerViewConfigurator.optionsTitles = options
 		sourceOptionsPickerView.reloadAllComponents()
+		
+		let selectedIndex = sourceOptionsPickerView.selectedRow(inComponent: 0)
+		setupAnswerSourceToPickeViewOption(at: selectedIndex)
 	}
 	
 	func createPickerViewConfigurator() -> SingleComponentPickerViewConfigurator {
