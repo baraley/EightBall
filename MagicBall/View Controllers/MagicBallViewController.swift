@@ -28,9 +28,9 @@ class MagicBallViewController: UIViewController {
 	private let networkAnswersLoader: AnswerLoader = .init()
 	private let textPronoucer: TextPronouncer = .init()
 	
-	private lazy var pickerViewConfigurator = createPickerViewConfigurator()
+	private var pickerViewOptions: [String] = []
 	
-	private var answerSource: AnswerSource = .network
+	private var answersSource: AnswerSource = .network
 	
 	// MARK: - UIResponder
 	
@@ -46,7 +46,7 @@ class MagicBallViewController: UIViewController {
 		magicBallView.state = .answerHidden
 		textPronoucer.stopPronouncing()
 		
-		switch answerSource {
+		switch answersSource {
 		case .network:						loadAnswerFromNetwork()
 		case .customAnswers(let answers):	showAnswer(answers.randomElement() ?? "")
 		}
@@ -89,30 +89,20 @@ private extension MagicBallViewController {
 	func answerSetsModelControllerDidChange() {
 		guard isViewLoaded else { return }
 		
-		let options = ["Answers form network"] + answerSetsModelController.answerSets.compactMap {
+		pickerViewOptions = ["Answers form network"] + answerSetsModelController.answerSets.compactMap {
 			$0.answers.isEmpty ? nil : $0.name
 		}
-		pickerViewConfigurator.optionsTitles = options
 		sourceOptionsPickerView.reloadAllComponents()
 		
 		let selectedIndex = sourceOptionsPickerView.selectedRow(inComponent: 0)
 		setupAnswerSourceToPickeViewOption(at: selectedIndex)
 	}
 	
-	func createPickerViewConfigurator() -> SingleComponentPickerViewConfigurator {
-		let configurator = SingleComponentPickerViewConfigurator() { [weak self] (pickedIndex) in
-			self?.setupAnswerSourceToPickeViewOption(at: pickedIndex)
-		}
-		sourceOptionsPickerView.dataSource = configurator
-		sourceOptionsPickerView.delegate = configurator
-		return configurator
-	}
-	
 	func setupAnswerSourceToPickeViewOption(at index: Int) {
 		if index == 0 {
-			answerSource = .network
+			answersSource = .network
 		} else if let answerSets = answerSetsModelController?.answerSets {
-			answerSource = .customAnswers(answerSets[index - 1].answers)
+			answersSource = .customAnswers(answerSets[index - 1].answers)
 		}
 	}
 	
@@ -152,5 +142,32 @@ private extension MagicBallViewController {
 		})
 		
 		self.present(alert, animated: true, completion: nil)
+	}
+}
+
+// MARK: - UIPickerViewDataSource
+extension MagicBallViewController: UIPickerViewDataSource {
+	
+	func numberOfComponents(in pickerView: UIPickerView) -> Int {
+		return 1
+	}
+	
+	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+		return pickerViewOptions.count
+	}
+}
+
+// MARK: - UIPickerViewDelegate
+extension MagicBallViewController: UIPickerViewDelegate {
+	
+	func pickerView(_ pickerView: UIPickerView,
+					titleForRow row: Int,
+					forComponent component: Int) -> String? {
+		
+		return pickerViewOptions[row]
+	}
+	
+	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+		setupAnswerSourceToPickeViewOption(at: row)
 	}
 }

@@ -120,7 +120,7 @@ private extension AnswerSetsListVC {
 		var message = """
 		Are you sure you want to delete set of answers that contains \(numberOfAnswers)
 		"""
-		message += numberOfAnswers > 1 ? " answers?" : "answer?"
+		message += numberOfAnswers > 1 ? " answers?" : " answer?"
 		
 		
 		let ac = UIAlertController(title: "Delete answer set?", message: message, preferredStyle: .alert)

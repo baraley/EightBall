@@ -11,7 +11,6 @@
 		1107920422FFD75F0056BE67 /* SetAnswersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920322FFD75F0056BE67 /* SetAnswersListVC.swift */; };
 		1107920622FFE6790056BE67 /* SegueHandlerType+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
-		1110F00F2301A88F00E9C445 /* SingleComponentPickerViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1110F00E2301A88F00E9C445 /* SingleComponentPickerViewConfigurator.swift */; };
 		112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+extensions.swift */; };
 		112B515D23011AB80063E18B /* DefaultResouceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515C23011AB80063E18B /* DefaultResouceName.swift */; };
 		112B516123013D4D0063E18B /* AnswerSetsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B516023013D4D0063E18B /* AnswerSetsModelController.swift */; };
@@ -39,7 +38,6 @@
 		1107920322FFD75F0056BE67 /* SetAnswersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAnswersListVC.swift; sourceTree = "<group>"; };
 		1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegueHandlerType+Protocol.swift"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
-		1110F00E2301A88F00E9C445 /* SingleComponentPickerViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentPickerViewConfigurator.swift; sourceTree = "<group>"; };
 		112B515A23011A890063E18B /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
 		112B515C23011AB80063E18B /* DefaultResouceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResouceName.swift; sourceTree = "<group>"; };
 		112B516023013D4D0063E18B /* AnswerSetsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetsModelController.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			children = (
 				11D2F75222FE6D7F000E8881 /* SettingsModelController.swift */,
 				112B516023013D4D0063E18B /* AnswerSetsModelController.swift */,
-				1110F00E2301A88F00E9C445 /* SingleComponentPickerViewConfigurator.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -269,7 +266,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1110F00F2301A88F00E9C445 /* SingleComponentPickerViewConfigurator.swift in Sources */,
 				11D2F74322FD59C8000E8881 /* SettingsModel.swift in Sources */,
 				1107920422FFD75F0056BE67 /* SetAnswersListVC.swift in Sources */,
 				110A534222FB50A40026BA79 /* MagicButton.swift in Sources */,
