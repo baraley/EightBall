@@ -10,7 +10,6 @@ import Foundation
 
 struct AnswerSet: Codable, Equatable {
 	let id: UUID = .init()
-	let dateCreated: Date = .init()
 	var name: String
 	var answers: [String]
 }

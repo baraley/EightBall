@@ -29,8 +29,6 @@ class AnswerSetsModelController {
 			answerSets.append(answerSet)
 		}
 		
-//		answerSets.sort { $0.dateCreated < $1.dateCreated }
-		
 		saveAnswerSets()
 	}
 	

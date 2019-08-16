@@ -78,6 +78,14 @@ private extension MagicBallViewController {
 		case customAnswers([String])
 	}
 	
+	// MARK: - Computed properties
+	
+	var notEmptyAnswerSets: [AnswerSet] {
+		guard let answerSets = answerSetsModelController?.answerSets else { return [] }
+		
+		return answerSets.filter { !$0.answers.isEmpty }
+	}
+	
 	// MARK: - Configuration methods
 	
 	func settingsModelDidChange() {
@@ -89,9 +97,7 @@ private extension MagicBallViewController {
 	func answerSetsModelControllerDidChange() {
 		guard isViewLoaded else { return }
 		
-		pickerViewOptions = ["Answers form network"] + answerSetsModelController.answerSets.compactMap {
-			$0.answers.isEmpty ? nil : $0.name
-		}
+		pickerViewOptions = ["Answers form network"] + notEmptyAnswerSets.compactMap { $0.name }
 		sourceOptionsPickerView.reloadAllComponents()
 		
 		let selectedIndex = sourceOptionsPickerView.selectedRow(inComponent: 0)
@@ -102,7 +108,8 @@ private extension MagicBallViewController {
 		if index == 0 {
 			answersSource = .network
 		} else if let answerSets = answerSetsModelController?.answerSets {
-			answersSource = .customAnswers(answerSets[index - 1].answers)
+			let notEmptyAnswerSets = answerSets.filter { !$0.answers.isEmpty }
+			answersSource = .customAnswers(notEmptyAnswerSets[index - 1].answers)
 		}
 	}
 	
@@ -127,7 +134,6 @@ private extension MagicBallViewController {
 				self?.textPronoucer.pronounce(answer)
 			}
 		}
-		
 		magicBallView.state = .answerShown(answer)
 	}
 	
