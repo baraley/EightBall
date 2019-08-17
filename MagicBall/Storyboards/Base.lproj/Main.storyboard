@@ -69,8 +69,8 @@
                     <tabBarItem key="tabBarItem" title="Magic 8 Ball" image="Ball Tab Icon" id="izg-Fo-H8B"/>
                     <navigationItem key="navigationItem" title="Magic 8 Ball" largeTitleDisplayMode="always" id="U92-oh-X9R"/>
                     <connections>
+                        <outlet property="answerSourcePickerView" destination="1SK-HI-H1N" id="TyU-kN-vGR"/>
                         <outlet property="magicBallView" destination="8bC-Xf-vdC" id="3ns-b8-2Bh"/>
-                        <outlet property="sourceOptionsPickerView" destination="1SK-HI-H1N" id="TyU-kN-vGR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

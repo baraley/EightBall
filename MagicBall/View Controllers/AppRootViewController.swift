@@ -59,7 +59,7 @@ class AppRootViewController: UITabBarController {
 	
 	private func setupMagicBallViewController() {
 		magicBallViewController?.settingsModel = settingsModelController.currentSettinsModel
-		magicBallViewController?.answerSetsModelController = answerSetsModelController
+		magicBallViewController?.dataSource = MagicBallDataSource(answerSets: answerSetsModelController.answerSets)
 	}
 	
 	private func setupSettingsViewController() {

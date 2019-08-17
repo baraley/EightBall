@@ -12,25 +12,18 @@ class MagicBallViewController: UIViewController {
 	
 	// MARK: - Public properties
 	
-	var settingsModel: SettingsModel!  { didSet { settingsModelDidChange() } }
+	var settingsModel: SettingsModel! { didSet { settingsModelDidChange() } }
 	
-	var answerSetsModelController: AnswerSetsModelController! {
-		didSet { answerSetsModelControllerDidChange() }
-	}
+	var dataSource: MagicBallDataSource! { didSet { dataSourceDidChange() } }
 	
 	// MARK: - Outlets
 	
 	@IBOutlet private var magicBallView: MagicBallView!
-	@IBOutlet private var sourceOptionsPickerView: UIPickerView!
+	@IBOutlet private var answerSourcePickerView: UIPickerView!
 	
 	// MARK: - Private properties
 	
-	private let networkAnswersLoader: AnswerLoader = .init()
 	private let textPronoucer: TextPronouncer = .init()
-	
-	private var pickerViewOptions: [String] = []
-	
-	private var answersSource: AnswerSource = .network
 	
 	// MARK: - UIResponder
 	
@@ -46,10 +39,7 @@ class MagicBallViewController: UIViewController {
 		magicBallView.state = .answerHidden
 		textPronoucer.stopPronouncing()
 		
-		switch answersSource {
-		case .network:						loadAnswerFromNetwork()
-		case .customAnswers(let answers):	showAnswer(answers.randomElement() ?? "")
-		}
+		dataSource.findNewAnswer()
 	}
 	
 	// MARK: - Life cycle
@@ -58,7 +48,7 @@ class MagicBallViewController: UIViewController {
 		super.viewDidLoad()
 		
 		settingsModelDidChange()
-		answerSetsModelControllerDidChange()
+		dataSourceDidChange()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -71,21 +61,6 @@ class MagicBallViewController: UIViewController {
 // MARK: - Private
 private extension MagicBallViewController {
 	
-	// MARK: - Types
-	
-	enum AnswerSource {
-		case network
-		case customAnswers([String])
-	}
-	
-	// MARK: - Computed properties
-	
-	var notEmptyAnswerSets: [AnswerSet] {
-		guard let answerSets = answerSetsModelController?.answerSets else { return [] }
-		
-		return answerSets.filter { !$0.answers.isEmpty }
-	}
-	
 	// MARK: - Configuration methods
 	
 	func settingsModelDidChange() {
@@ -94,36 +69,18 @@ private extension MagicBallViewController {
 		magicBallView.isUserInteractionEnabled = settingsModel.lazyModeIsOn
 	}
 	
-	func answerSetsModelControllerDidChange() {
+	func dataSourceDidChange() {
 		guard isViewLoaded else { return }
 		
-		pickerViewOptions = ["Answers form network"] + notEmptyAnswerSets.compactMap { $0.name }
-		sourceOptionsPickerView.reloadAllComponents()
+		answerSourcePickerView.dataSource = dataSource
+		answerSourcePickerView.delegate = dataSource
+		answerSourcePickerView.reloadAllComponents()
+		answerSourcePickerView.selectRow(0, inComponent: 0, animated: false)
 		
-		let selectedIndex = sourceOptionsPickerView.selectedRow(inComponent: 0)
-		setupAnswerSourceToPickeViewOption(at: selectedIndex)
-	}
-	
-	func setupAnswerSourceToPickeViewOption(at index: Int) {
-		if index == 0 {
-			answersSource = .network
-		} else if let answerSets = answerSetsModelController?.answerSets {
-			let notEmptyAnswerSets = answerSets.filter { !$0.answers.isEmpty }
-			answersSource = .customAnswers(notEmptyAnswerSets[index - 1].answers)
-		}
-	}
-	
-	// MARK: - Answer showing
-	
-	func loadAnswerFromNetwork() {
-		networkAnswersLoader.loadAnswer { [weak self] (result) in
-			guard let self = self else { return }
-			
-			DispatchQueue.main.async {
-				switch result {
-				case .success(let answer):	self.showAnswer(answer)
-				case .failure(let error):	self.showAlert(for: error)
-				}
+		dataSource.answerDidFindHandler = { [weak self] result in
+			switch result {
+			case .success(let answer):	self?.showAnswer(answer)
+			case .failure(let error):	self?.showAlert(for: error)
 			}
 		}
 	}
@@ -148,32 +105,5 @@ private extension MagicBallViewController {
 		})
 		
 		self.present(alert, animated: true, completion: nil)
-	}
-}
-
-// MARK: - UIPickerViewDataSource
-extension MagicBallViewController: UIPickerViewDataSource {
-	
-	func numberOfComponents(in pickerView: UIPickerView) -> Int {
-		return 1
-	}
-	
-	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-		return pickerViewOptions.count
-	}
-}
-
-// MARK: - UIPickerViewDelegate
-extension MagicBallViewController: UIPickerViewDelegate {
-	
-	func pickerView(_ pickerView: UIPickerView,
-					titleForRow row: Int,
-					forComponent component: Int) -> String? {
-		
-		return pickerViewOptions[row]
-	}
-	
-	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-		setupAnswerSourceToPickeViewOption(at: row)
 	}
 }
