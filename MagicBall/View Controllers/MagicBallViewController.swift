@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let initialMessage = "Shake your phone, please!!!"
+
 class MagicBallViewController: UIViewController {
 	
 	// MARK: - Public properties
@@ -72,6 +74,8 @@ private extension MagicBallViewController {
 	func dataSourceDidChange() {
 		guard isViewLoaded else { return }
 		
+		magicBallView.state = .initialMessage(initialMessage)
+		
 		answerSourcePickerView.dataSource = dataSource
 		answerSourcePickerView.delegate = dataSource
 		answerSourcePickerView.reloadAllComponents()
@@ -96,12 +100,12 @@ private extension MagicBallViewController {
 	
 	func showAlert(for error: NetworkError) {
 		
-		let alertMessage: String = error.errorDescription
-		
-		let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
+		let alert = UIAlertController(
+			title: nil, message: error.errorDescription, preferredStyle: .alert
+		)
 		
 		alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-			self.magicBallView.state = .initialMessage("Shake your phone, please!!!")
+			self.magicBallView.state = .initialMessage(initialMessage)
 		})
 		
 		self.present(alert, animated: true, completion: nil)

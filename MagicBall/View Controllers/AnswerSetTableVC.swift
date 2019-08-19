@@ -1,5 +1,5 @@
 //
-//  SetAnswersListVC.swift
+//  AnswerSetTableVC.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/11/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SetAnswersListVC: UITableViewController {
+class AnswerSetTableVC: UITableViewController {
 	
 	// MARK: - Public properties
 	
@@ -41,7 +41,8 @@ class SetAnswersListVC: UITableViewController {
 		return answerSet.answers.count
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView,
+							cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let identifier = String(describing: UITableViewCell.self)
 		
@@ -69,15 +70,16 @@ class SetAnswersListVC: UITableViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+	override func tableView(
+		_ tableView: UITableView,
+		editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 		
 		return .delete
 	}
 }
 
 // MARK: - Private
-private extension SetAnswersListVC {
+private extension AnswerSetTableVC {
 	
 	func editAnswer(at indexPath: IndexPath) {
 		let placeholder = self.answerSet.answers[indexPath.row]

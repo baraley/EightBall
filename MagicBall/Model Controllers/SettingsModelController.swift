@@ -23,7 +23,8 @@ class SettingsModelController {
 	// MARK: - Private
 	
 	private let settingsModelFilePath: String = {
-		return FileManager.pathForFileInDocumentDirectory(withName: String(describing: SettingsModel.self))
+		let fileName = String(describing: SettingsModel.self)
+		return FileManager.pathForFileInDocumentDirectory(withName: fileName)
 	}()
 	
 	private func loadSettinsModel() -> SettingsModel {

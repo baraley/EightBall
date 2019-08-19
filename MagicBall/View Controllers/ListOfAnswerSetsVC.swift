@@ -1,5 +1,5 @@
 //
-//  AnswerSetsListVC.swift
+//  ListOfAnswerSetsVC.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/14/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AnswerSetsListVC: UITableViewController, SegueHandlerType {
+class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Public properties
 	
@@ -48,7 +48,7 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answers = segueIdentifier(for: segue) else { return }
 		
-		let viewController = segue.destination as! SetAnswersListVC
+		let viewController = segue.destination as! AnswerSetTableVC
 		
 		if let indexPath = tableView.indexPathForSelectedRow {
 			viewController.answerSet = answerSetsModelController.answerSets[indexPath.row]
@@ -105,14 +105,16 @@ class AnswerSetsListVC: UITableViewController, SegueHandlerType {
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+	override func tableView(
+		_ tableView: UITableView,
+		editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+		
 		return .delete
 	}
 }
 
 // MARK: - Private
-private extension AnswerSetsListVC {
+private extension ListOfAnswerSetsVC {
 	
 	func showDeletingAlertForAnswerSet(at indexPath: IndexPath) {
 		let answerSet = answerSetsModelController.answerSets[indexPath.row]
@@ -123,7 +125,9 @@ private extension AnswerSetsListVC {
 		message += numberOfAnswers > 1 ? " answers?" : " answer?"
 		
 		
-		let ac = UIAlertController(title: "Delete answer set?", message: message, preferredStyle: .alert)
+		let ac = UIAlertController(
+			title: "Delete answer set?", message: message, preferredStyle: .alert
+		)
 		
 		ac.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
 		

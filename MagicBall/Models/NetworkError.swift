@@ -15,14 +15,15 @@ enum NetworkError: Error, LocalizedError, Equatable {
 	init(error: Error?) {
 		if let error = error as NSError?, error.code == -1009 {
 			self = .noInternet
+		} else {
+			self = .unknown(error?.localizedDescription ?? "Unknown error")
 		}
-		self = .unknown(error?.localizedDescription ?? "Unknown error")
 	}
 	
 	var errorDescription: String {
 		switch self {
 		case .noInternet:
-			return "There is no internet conection. Please, try to use answers from answer sets."
+			return "There is no internet conection. Please try to use answers from answer sets."
 			
 		case .unknown(let message):
 			return message

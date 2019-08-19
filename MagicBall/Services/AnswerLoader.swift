@@ -12,11 +12,7 @@ private let answerLink = "https://8ball.delegator.com/magic/JSON/end"
 
 class AnswerLoader {
 	
-	private let urlRequest: URLRequest = {
-		var request = URLRequest.init(url: URL(string: answerLink)!)
-		request.timeoutInterval = 3
-		return request
-	}()
+	private let urlRequest: URLRequest = .init(url: URL(string: answerLink)!)
 	
 	var isLoading: Bool = false
 	

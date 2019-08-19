@@ -61,7 +61,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answerSets = segueIdentifier(for: segue) else { return }
 		
-		let viewController = segue.destination as! AnswerSetsListVC
+		let viewController = segue.destination as! ListOfAnswerSetsVC
 		
 		viewController.answerSetsModelController = answerSetsModelController
 	}
