@@ -80,7 +80,7 @@
         <!--Answer Sets-->
         <scene sceneID="7Pr-Da-DOS">
             <objects>
-                <tableViewController storyboardIdentifier="AnswerSetsTableVC" title="Answer Sets" hidesBottomBarWhenPushed="YES" id="kSs-2t-Ca4" customClass="AnswerSetsListVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ListOfAnswerSetsVC" title="Answer Sets" hidesBottomBarWhenPushed="YES" id="kSs-2t-Ca4" customClass="ListOfAnswerSetsVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qkC-eb-aZr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,7 +142,7 @@
         <!--Answers-->
         <scene sceneID="RHq-sY-0G7">
             <objects>
-                <tableViewController storyboardIdentifier="SetAnswersListVC" title="Answers" id="vK4-ag-JE8" customClass="SetAnswersListVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AnswerSetTableVC" title="Answers" id="vK4-ag-JE8" customClass="AnswerSetTableVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X7z-Eq-9RA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
