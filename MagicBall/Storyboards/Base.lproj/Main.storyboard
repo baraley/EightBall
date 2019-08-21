@@ -252,7 +252,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection footerTitle="When Lazy mode is on: tap the magic ball to request an answer" id="1J1-Mv-Vcr">
+                            <tableViewSection footerTitle="When &quot;Lazy mode&quot; is on: tap the magic ball to request an answer" id="1J1-Mv-Vcr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="JXa-D2-AFa" style="IBUITableViewCellStyleDefault" id="2Vc-Jc-hE8">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>

@@ -27,6 +27,8 @@ class MagicBallViewController: UIViewController {
 	
 	private let textPronoucer: TextPronouncer = .init()
 	
+	private lazy var generator: UINotificationFeedbackGenerator = .init()
+	
 	// MARK: - UIResponder
 	
 	override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -37,6 +39,10 @@ class MagicBallViewController: UIViewController {
 	
 	@IBAction private func requestNewAnswer() {
 		guard magicBallView.isAnimationFinished == true else { return }
+		
+		if settingsModel.hapticFeedbackIsOn {
+			generator.notificationOccurred(.success)
+		}
 		
 		magicBallView.state = .answerHidden
 		textPronoucer.stopPronouncing()
