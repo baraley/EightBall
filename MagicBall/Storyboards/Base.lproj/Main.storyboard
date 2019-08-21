@@ -14,63 +14,78 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MagicBallView" customModule="MagicBall" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="ZTE-Ic-lkv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y47-yQ-VS3" userLabel="Top layout View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="243"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-CH-Hot">
-                                <rect key="frame" x="15" y="125.5" width="345" height="31.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-KW-ygr" customClass="MagicButton" customModule="MagicBall" customModuleProvider="target">
-                                <rect key="frame" x="131.5" y="263" width="112.5" height="112.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTZ-Su-DRr" customClass="MagicBallView" customModule="MagicBall" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-xq-s3t" userLabel="Top layout View">
+                                        <rect key="frame" x="0.0" y="20" width="375" height="243"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScZ-tC-sTQ">
+                                        <rect key="frame" x="15" y="125.5" width="345" height="31.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54Z-yf-x2y" customClass="MagicButton" customModule="MagicBall" customModuleProvider="target">
+                                        <rect key="frame" x="131.5" y="263" width="112.5" height="112.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="54Z-yf-x2y" secondAttribute="height" multiplier="1:1" id="w5a-ff-ifj"/>
+                                        </constraints>
+                                        <state key="normal" image="Ball Image"/>
+                                        <connections>
+                                            <action selector="requestNewAnswer" destination="BYZ-38-t0r" eventType="touchUpInside" id="tA0-7v-SKk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="M0B-KW-ygr" secondAttribute="height" multiplier="1:1" id="hy8-qK-EjX"/>
+                                    <constraint firstItem="ScZ-tC-sTQ" firstAttribute="centerY" secondItem="aP8-xq-s3t" secondAttribute="centerY" id="5c6-H7-NwF"/>
+                                    <constraint firstItem="54Z-yf-x2y" firstAttribute="width" secondItem="BTZ-Su-DRr" secondAttribute="width" multiplier="0.3" id="63k-jD-u5U"/>
+                                    <constraint firstItem="54Z-yf-x2y" firstAttribute="centerY" secondItem="GmY-ky-ibQ" secondAttribute="centerY" id="C7Z-8Q-0uw"/>
+                                    <constraint firstItem="54Z-yf-x2y" firstAttribute="centerX" secondItem="GmY-ky-ibQ" secondAttribute="centerX" id="JXR-V3-mfm"/>
+                                    <constraint firstItem="aP8-xq-s3t" firstAttribute="leading" secondItem="GmY-ky-ibQ" secondAttribute="leading" id="Pya-TN-A38"/>
+                                    <constraint firstItem="aP8-xq-s3t" firstAttribute="top" secondItem="GmY-ky-ibQ" secondAttribute="top" id="Swz-lJ-Lxv"/>
+                                    <constraint firstItem="aP8-xq-s3t" firstAttribute="bottom" secondItem="54Z-yf-x2y" secondAttribute="top" id="aLC-MC-cwd"/>
+                                    <constraint firstItem="ScZ-tC-sTQ" firstAttribute="leading" secondItem="GmY-ky-ibQ" secondAttribute="leading" constant="15" id="vCS-7q-WbV"/>
+                                    <constraint firstItem="GmY-ky-ibQ" firstAttribute="trailing" secondItem="ScZ-tC-sTQ" secondAttribute="trailing" constant="15" id="yks-sA-UUE"/>
+                                    <constraint firstItem="GmY-ky-ibQ" firstAttribute="trailing" secondItem="aP8-xq-s3t" secondAttribute="trailing" id="zef-cI-E8x"/>
                                 </constraints>
-                                <state key="normal" image="Ball Image"/>
+                                <viewLayoutGuide key="safeArea" id="GmY-ky-ibQ"/>
                                 <connections>
-                                    <action selector="requestNewAnswer" destination="BYZ-38-t0r" eventType="touchUpInside" id="bGq-rg-KfJ"/>
+                                    <outlet property="answerLabel" destination="ScZ-tC-sTQ" id="V5L-M9-tkU"/>
+                                    <outlet property="magicButton" destination="54Z-yf-x2y" id="o1D-oR-lXp"/>
                                 </connections>
-                            </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SK-HI-H1N">
+                            </view>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVb-BX-I7G">
                                 <rect key="frame" x="0.0" y="402" width="375" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Sbo-CH-Y88"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="qfC-E4-uhX"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="dwl-CN-eeJ"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="HgC-aH-v4P"/>
                                 </connections>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="2Cd-FY-cJf"/>
-                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="bottom" secondItem="M0B-KW-ygr" secondAttribute="top" id="4ES-r7-4Bv"/>
-                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Tn-g1-0Bu"/>
-                            <constraint firstItem="Y47-yQ-VS3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PFL-36-NaL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SaA-CH-Hot" secondAttribute="trailing" constant="15" id="Wa7-KP-z19"/>
-                            <constraint firstItem="M0B-KW-ygr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WtY-7M-tF4"/>
-                            <constraint firstItem="SaA-CH-Hot" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="mBR-VZ-A8v"/>
-                            <constraint firstItem="M0B-KW-ygr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="nWg-8c-7vp"/>
-                            <constraint firstItem="SaA-CH-Hot" firstAttribute="centerY" secondItem="Y47-yQ-VS3" secondAttribute="centerY" id="quC-c6-mJB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y47-yQ-VS3" secondAttribute="trailing" id="zX9-2v-F2C"/>
+                            <constraint firstItem="rVb-BX-I7G" firstAttribute="leading" secondItem="lt8-RK-G0R" secondAttribute="leading" id="5JR-kZ-DI5"/>
+                            <constraint firstItem="BTZ-Su-DRr" firstAttribute="trailing" secondItem="lt8-RK-G0R" secondAttribute="trailing" id="Dbh-ik-GLX"/>
+                            <constraint firstAttribute="bottom" secondItem="BTZ-Su-DRr" secondAttribute="bottom" id="Y9v-qU-gE0"/>
+                            <constraint firstItem="lt8-RK-G0R" firstAttribute="bottom" secondItem="rVb-BX-I7G" secondAttribute="bottom" id="hDy-7H-cnf"/>
+                            <constraint firstItem="BTZ-Su-DRr" firstAttribute="leading" secondItem="lt8-RK-G0R" secondAttribute="leading" id="jPc-6P-FeK"/>
+                            <constraint firstItem="BTZ-Su-DRr" firstAttribute="top" secondItem="ZTE-Ic-lkv" secondAttribute="top" id="wAr-aI-t0Q"/>
+                            <constraint firstItem="rVb-BX-I7G" firstAttribute="trailing" secondItem="lt8-RK-G0R" secondAttribute="trailing" id="y46-5e-jZv"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outlet property="answerLabel" destination="SaA-CH-Hot" id="r0h-u7-YwY"/>
-                            <outlet property="magicButton" destination="M0B-KW-ygr" id="BN7-tl-eVl"/>
-                        </connections>
+                        <viewLayoutGuide key="safeArea" id="lt8-RK-G0R"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Magic 8 Ball" image="Ball Tab Icon" id="izg-Fo-H8B"/>
                     <navigationItem key="navigationItem" title="Magic 8 Ball" largeTitleDisplayMode="always" id="U92-oh-X9R"/>
                     <connections>
-                        <outlet property="answerSourcePickerView" destination="1SK-HI-H1N" id="TyU-kN-vGR"/>
-                        <outlet property="magicBallView" destination="8bC-Xf-vdC" id="3ns-b8-2Bh"/>
+                        <outlet property="answerSourcePickerView" destination="rVb-BX-I7G" id="BJ4-qC-B9D"/>
+                        <outlet property="magicBallView" destination="BTZ-Su-DRr" id="fTo-Y9-eKH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -237,7 +252,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection footerTitle="When Lazy mode is on: tap the magic ball to perform request" id="1J1-Mv-Vcr">
+                            <tableViewSection footerTitle="When Lazy mode is on: tap the magic ball to request an answer" id="1J1-Mv-Vcr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="JXa-D2-AFa" style="IBUITableViewCellStyleDefault" id="2Vc-Jc-hE8">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
