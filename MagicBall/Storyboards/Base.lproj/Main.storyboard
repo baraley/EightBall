@@ -13,7 +13,7 @@
         <!--Magic 8 Ball-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MagicBallVC" id="BYZ-38-t0r" customClass="MagicBallVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZTE-Ic-lkv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -205,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="3807" y="134"/>
         </scene>
-        <!--App Root View Controller-->
+        <!--App RootVC-->
         <scene sceneID="EkK-Zp-iKp">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z1A-vp-7DK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -246,7 +246,7 @@
         <!--Settings-->
         <scene sceneID="oEH-qH-cOk">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsViewController" id="RLd-tD-BCb" customClass="SettingsViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="RLd-tD-BCb" customClass="SettingsVC" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="gRx-pi-ZXd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -92,6 +92,7 @@ private extension MagicBallView {
 	// MARK: - Property Animators
 	
 	var disappearingAnimation: UIViewPropertyAnimator {
+		
 		return UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut) {
 			self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
 			
@@ -101,9 +102,11 @@ private extension MagicBallView {
 	}
 	
 	var appearingAnimation: UIViewPropertyAnimator {
+		
 		let animation = UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut) {
 			self.answerLabel.transform = .identity
 		}
+		
 		animation.addCompletion({ (_) in
 			self.isAnimationFinished = true
 			self.appearingAnimationDidFinishHandler?()

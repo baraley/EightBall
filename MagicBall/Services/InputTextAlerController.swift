@@ -20,6 +20,8 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 	
 	private var currentAction: UIAlertAction?
 	
+	// MARK: - Public
+	
 	func showInputTextAlert(with title: String,
 							actionTitle: String,
 							textFieldPlaceholder placeholder: String = "",
@@ -47,6 +49,8 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 		
 		presentingViewController?.present(ac, animated: true)
 	}
+	
+	// MARK: - Text field actions
 	
 	@objc func textDidChange(in textField: UITextField) {
 		if !textField.hasText {

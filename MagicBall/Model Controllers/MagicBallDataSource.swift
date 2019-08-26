@@ -43,7 +43,7 @@ class MagicBallDataSource: NSObject {
 	private var answersSource: AnswerSource = .network
 	
 	private lazy var pickerViewOptions: [String] = {
-		return ["Answers form network"] + notEmptyAnswerSets.compactMap { $0.name }
+		return ["Answers form network"] + allowedAnswerSets().compactMap { $0.name }
 	}()
 }
 
@@ -57,19 +57,17 @@ private extension MagicBallDataSource {
 		case customAnswers([String])
 	}
 	
-	// MARK: - Computed properties
+	// MARK: - Methods
 	
-	var notEmptyAnswerSets: [AnswerSet] {
+	func allowedAnswerSets() -> [AnswerSet] {
 		return answerSets.filter { !$0.answers.isEmpty }
 	}
-	
-	// MARK: - Configuration methods
 	
 	func updateAnswerSourceToOption(at index: Int) {
 		if index == 0 {
 			answersSource = .network
 		} else {
-			answersSource = .customAnswers(notEmptyAnswerSets[index - 1].answers)
+			answersSource = .customAnswers(allowedAnswerSets()[index - 1].answers)
 		}
 	}
 	

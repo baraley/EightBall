@@ -1,5 +1,5 @@
 //
-//  MagicBallViewController.swift
+//  MagicBallVC.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/6/19.
@@ -10,11 +10,11 @@ import UIKit
 
 private let initialMessage = "Shake your phone, please!!!"
 
-class MagicBallViewController: UIViewController {
+class MagicBallVC: UIViewController {
 	
 	// MARK: - Public properties
 	
-	var settingsModel: SettingsModel! { didSet { settingsModelDidChange() } }
+	var settings: Settings! { didSet { settingsDidChange() } }
 	
 	var dataSource: MagicBallDataSource! { didSet { dataSourceDidChange() } }
 	
@@ -40,7 +40,7 @@ class MagicBallViewController: UIViewController {
 	@IBAction private func requestNewAnswer() {
 		guard magicBallView.isAnimationFinished == true else { return }
 		
-		if settingsModel.hapticFeedbackIsOn {
+		if settings.hapticFeedbackIsOn {
 			generator.notificationOccurred(.success)
 		}
 		
@@ -55,7 +55,7 @@ class MagicBallViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		settingsModelDidChange()
+		settingsDidChange()
 		dataSourceDidChange()
 	}
 	
@@ -67,14 +67,12 @@ class MagicBallViewController: UIViewController {
 }
 
 // MARK: - Private
-private extension MagicBallViewController {
+private extension MagicBallVC {
 	
-	// MARK: - Configuration methods
-	
-	func settingsModelDidChange() {
+	func settingsDidChange() {
 		guard isViewLoaded else { return }
 		
-		magicBallView.isUserInteractionEnabled = settingsModel.lazyModeIsOn
+		magicBallView.isUserInteractionEnabled = settings.lazyModeIsOn
 	}
 	
 	func dataSourceDidChange() {
@@ -96,7 +94,7 @@ private extension MagicBallViewController {
 	}
 	
 	func showAnswer(_ answer: String) {
-		if settingsModel.readAnswerIsOn {
+		if settings.readAnswerIsOn {
 			magicBallView.appearingAnimationDidFinishHandler = { [weak self] in
 				self?.textPronoucer.pronounce(answer)
 			}

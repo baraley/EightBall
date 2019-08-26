@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  SettingsVC.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController, SegueHandlerType {
+class SettingsVC: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Public properties
 	
-	var answerSetsModelController: AnswerSetsModelController!
+	var answerSetsStore: AnswerSetsStore!
 	
-	var settingsModel: SettingsModel {
+	var settings: Settings {
 		get {
-			return SettingsModel(lazyModeIsOn: lazyModeSwitch.isOn,
-								 readAnswerIsOn: readAnswerSwitch.isOn,
-								 hapticFeedbackIsOn: hapticFeedbackSwitch.isOn)
+			return Settings(lazyModeIsOn: lazyModeSwitch.isOn,
+							readAnswerIsOn: readAnswerSwitch.isOn,
+							hapticFeedbackIsOn: hapticFeedbackSwitch.isOn)
 		}
 		
 		set {
@@ -28,7 +28,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		}
 	}
 	
-	var settingsDidChangeAction: ((SettingsModel) -> Void)?
+	var settingsDidChangeAction: ((Settings) -> Void)?
 	
 	// MARK: - Outlets
 	
@@ -41,7 +41,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	// MARK: - Actions
 	
 	@IBAction private func switcherDidChange(_ switcher: UISwitch) {
-		settingsDidChangeAction?(settingsModel)
+		settingsDidChangeAction?(settings)
 	}
 	
 	// MARK: - Life cycle
@@ -49,7 +49,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		answerSetsCell.detailTextLabel?.text = String(answerSetsModelController.answerSets.count)
+		answerSetsCell.detailTextLabel?.text = String(answerSetsStore.answerSets.count)
 	}
 	
 	// MARK: - Navigation
@@ -63,7 +63,7 @@ class SettingsViewController: UITableViewController, SegueHandlerType {
 		
 		let viewController = segue.destination as! ListOfAnswerSetsVC
 		
-		viewController.answerSetsModelController = answerSetsModelController
+		viewController.answerSetsStore = answerSetsStore
 	}
 	
 	// MARK: - UITableViewDelegate

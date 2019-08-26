@@ -1,5 +1,5 @@
 //
-//  SettingsModel.swift
+//  Settings.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SettingsModel: Codable {
+struct Settings: Codable {
 	var lazyModeIsOn: Bool
 	var readAnswerIsOn: Bool
 	var hapticFeedbackIsOn: Bool

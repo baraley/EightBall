@@ -12,7 +12,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Public properties
 	
-	var answerSetsModelController: AnswerSetsModelController!
+	var answerSetsStore: AnswerSetsStore!
 	
 	// MARK: - Private properties
 	
@@ -28,7 +28,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		navigationItem.rightBarButtonItem = editButtonItem
 		navigationController?.setToolbarHidden(false, animated: true)
 	}
-
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
@@ -51,10 +51,10 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		let viewController = segue.destination as! AnswerSetTableVC
 		
 		if let indexPath = tableView.indexPathForSelectedRow {
-			viewController.answerSet = answerSetsModelController.answerSets[indexPath.row]
+			viewController.answerSet = answerSetsStore.answerSets[indexPath.row]
 			viewController.answerSetDidChangeHandler = { changedAnswerSet in
 				
-				self.answerSetsModelController.save(changedAnswerSet)
+				self.answerSetsStore.save(changedAnswerSet)
 				
 				self.tableView.reloadRows(at: [indexPath], with: .automatic)
 			}
@@ -64,7 +64,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 	// MARK: - UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return answerSetsModelController.answerSets.count
+		return answerSetsStore.answerSets.count
 	}
 	
 	override func tableView(_ tableView: UITableView,
@@ -73,7 +73,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 		
-		let answerSet = answerSetsModelController.answerSets[indexPath.row]
+		let answerSet = answerSetsStore.answerSets[indexPath.row]
 		cell.textLabel?.text = answerSet.name
 		cell.detailTextLabel?.text = String(answerSet.answers.count)
 		
@@ -85,10 +85,10 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 							forRowAt indexPath: IndexPath) {
 		
 		if editingStyle == .delete {
-			let answerSet = answerSetsModelController.answerSets[indexPath.row]
+			let answerSet = answerSetsStore.answerSets[indexPath.row]
 			
 			if answerSet.answers.isEmpty {
-				answerSetsModelController.deleteAnswerSet(at: indexPath.row)
+				answerSetsStore.deleteAnswerSet(at: indexPath.row)
 				tableView.deleteRows(at: [indexPath], with: .none)
 			} else {
 				showDeletingAlertForAnswerSet(at: indexPath)
@@ -117,7 +117,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 private extension ListOfAnswerSetsVC {
 	
 	func showDeletingAlertForAnswerSet(at indexPath: IndexPath) {
-		let answerSet = answerSetsModelController.answerSets[indexPath.row]
+		let answerSet = answerSetsStore.answerSets[indexPath.row]
 		let numberOfAnswers = answerSet.answers.count
 		var message = """
 		Are you sure you want to delete set of answers that contains \(numberOfAnswers)
@@ -133,7 +133,7 @@ private extension ListOfAnswerSetsVC {
 		
 		ac.addAction(.init(title: "Delete", style: .destructive) {  _ in
 			
-			self.answerSetsModelController.deleteAnswerSet(at: indexPath.row)
+			self.answerSetsStore.deleteAnswerSet(at: indexPath.row)
 			self.tableView.deleteRows(at: [indexPath], with: .none)
 			})
 		
@@ -142,16 +142,16 @@ private extension ListOfAnswerSetsVC {
 	
 	func editAnswerSet(at indexPath: IndexPath) {
 		
-		let placeholder = self.answerSetsModelController.answerSets[indexPath.row].name
+		let placeholder = self.answerSetsStore.answerSets[indexPath.row].name
 		
 		inputTextAlerController.showInputTextAlert(
 			with: "Edit the answer set name",
 			actionTitle: "Save",
 			textFieldPlaceholder: placeholder) { [unowned self] (name) in
 				
-				var answerSet = self.answerSetsModelController.answerSets[indexPath.row]
+				var answerSet = self.answerSetsStore.answerSets[indexPath.row]
 				answerSet.name = name
-				self.answerSetsModelController.save(answerSet)
+				self.answerSetsStore.save(answerSet)
 				self.tableView.reloadRows(at: [indexPath], with: .automatic)
 		}
 	}
@@ -162,10 +162,10 @@ private extension ListOfAnswerSetsVC {
 			with: "New answer set",
 			actionTitle: "Add") { [unowned self] (name) in
 				
-				let numberOfAnswerSets = self.answerSetsModelController.answerSets.count
+				let numberOfAnswerSets = self.answerSetsStore.answerSets.count
 				
 				let newAnswerSet = AnswerSet(name: name, answers: [])
-				self.answerSetsModelController.save(newAnswerSet)
+				self.answerSetsStore.save(newAnswerSet)
 				
 				let newAnswerSetIndexPath = IndexPath(row: numberOfAnswerSets, section: 0)
 				self.tableView.insertRows(at: [newAnswerSetIndexPath], with: .automatic)

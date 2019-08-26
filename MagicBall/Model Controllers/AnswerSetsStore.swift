@@ -1,5 +1,5 @@
 //
-//  AnswerSetsModelController.swift
+//  AnswerSetsStore.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/12/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AnswerSetsModelController {
+class AnswerSetsStore {
 	
 	private(set) var answerSets: [AnswerSet] = [] {
 		didSet {
