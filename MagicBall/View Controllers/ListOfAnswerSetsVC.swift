@@ -46,9 +46,9 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		guard case .answers = segueIdentifier(for: segue) else { return }
-		
-		let viewController = segue.destination as! AnswerSetTableVC
+		guard case .answers = segueIdentifier(for: segue),
+            let viewController = segue.destination as? AnswerSetTableVC
+        else { return }
 		
 		if let indexPath = tableView.indexPathForSelectedRow {
 			viewController.answerSet = answerSetsStore.answerSets[indexPath.row]
@@ -124,20 +124,19 @@ private extension ListOfAnswerSetsVC {
 		"""
 		message += numberOfAnswers > 1 ? " answers?" : " answer?"
 		
-		
-		let ac = UIAlertController(
+		let alert = UIAlertController(
 			title: "Delete answer set?", message: message, preferredStyle: .alert
 		)
 		
-		ac.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+		alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
 		
-		ac.addAction(.init(title: "Delete", style: .destructive) {  _ in
+		alert.addAction(.init(title: "Delete", style: .destructive) {  _ in
 			
 			self.answerSetsStore.deleteAnswerSet(at: indexPath.row)
 			self.tableView.deleteRows(at: [indexPath], with: .none)
 			})
 		
-		present(ac, animated: true)
+		present(alert, animated: true)
 	}
 	
 	func editAnswerSet(at indexPath: IndexPath) {

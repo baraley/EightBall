@@ -85,8 +85,7 @@ private extension AnswerSetTableVC {
 		let placeholder = self.answerSet.answers[indexPath.row]
 		
 		inputTextAlerController.showInputTextAlert(
-		with: "Edit the answer", actionTitle: "Save", textFieldPlaceholder: placeholder) {
-			[unowned self] (answerText) in
+		with: "Edit the answer", actionTitle: "Save", textFieldPlaceholder: placeholder) { [unowned self] (answerText) in
 			
 			self.answerSet.answers[indexPath.row] = answerText
 			self.tableView.reloadRows(at: [indexPath], with: .automatic)

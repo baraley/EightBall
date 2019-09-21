@@ -27,27 +27,27 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 							textFieldPlaceholder placeholder: String = "",
 							completionHdandler: @escaping ((String) -> Void)) {
 		
-		let ac = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+		let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
 		
-		ac.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+		alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
 		
-		ac.addTextField { [unowned self] (textField) in
+		alert.addTextField { [unowned self] (textField) in
 			textField.text = placeholder
 			textField.addTarget(self, action: #selector(self.textDidChange(in:)), for: .editingDidBegin)
 			textField.addTarget(self, action: #selector(self.textDidChange(in:)), for: .editingChanged)
 		}
 		
 		currentAction = UIAlertAction(title: actionTitle, style: .default) { _ in
-			let textField = ac.textFields![0]
+			let textField = alert.textFields![0]
 			
 			if let text = textField.text, !text.isEmpty {
 				completionHdandler(text)
 			}
 		}
 		
-		ac.addAction(currentAction!)
+		alert.addAction(currentAction!)
 		
-		presentingViewController?.present(ac, animated: true)
+		presentingViewController?.present(alert, animated: true)
 	}
 	
 	// MARK: - Text field actions

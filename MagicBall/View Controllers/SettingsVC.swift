@@ -59,17 +59,19 @@ class SettingsVC: UITableViewController, SegueHandlerType {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		guard case .answerSets = segueIdentifier(for: segue) else { return }
-		
-		let viewController = segue.destination as! ListOfAnswerSetsVC
+		guard case .answerSets = segueIdentifier(for: segue),
+            let viewController = segue.destination as? ListOfAnswerSetsVC
+        else { return }
 		
 		viewController.answerSetsStore = answerSetsStore
 	}
 	
 	// MARK: - UITableViewDelegate
 	
-	override func tableView(_ tableView: UITableView,
-							shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+	override func tableView(
+        _ tableView: UITableView,
+        shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        
 		return tableView.cellForRow(at: indexPath)?.accessoryType == .disclosureIndicator
 	}
 }
