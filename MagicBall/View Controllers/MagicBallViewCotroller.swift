@@ -1,5 +1,5 @@
 //
-//  MagicBallVC.swift
+//  MagicBallViewCotroller.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/6/19.
@@ -10,7 +10,7 @@ import UIKit
 
 private let initialMessage = L10n.initialMagicScreenMessage
 
-class MagicBallVC: UIViewController {
+final class MagicBallViewCotroller: UIViewController {
 	
 	// MARK: - Public properties
 	
@@ -20,8 +20,8 @@ class MagicBallVC: UIViewController {
 	
 	// MARK: - Outlets
 	
-	@IBOutlet private var magicBallView: MagicBallView!
-	@IBOutlet private var answerSourcePickerView: UIPickerView!
+	@IBOutlet private weak var magicBallView: MagicBallView!
+	@IBOutlet private weak var answerSourcePickerView: UIPickerView!
 	
 	// MARK: - Private properties
 	
@@ -64,10 +64,12 @@ class MagicBallVC: UIViewController {
 		
 		textPronoucer.stopPronouncing()
 	}
+	
 }
 
 // MARK: - Private
-private extension MagicBallVC {
+
+private extension MagicBallViewCotroller {
 	
 	func settingsDidChange() {
 		guard isViewLoaded else { return }
@@ -114,4 +116,5 @@ private extension MagicBallVC {
 		
 		self.present(alert, animated: true, completion: nil)
 	}
+	
 }

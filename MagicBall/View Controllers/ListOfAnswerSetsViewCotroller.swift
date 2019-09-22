@@ -1,5 +1,5 @@
 //
-//  ListOfAnswerSetsVC.swift
+//  ListOfAnswerSetsViewCotroller.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/14/19.
@@ -8,17 +8,11 @@
 
 import UIKit
 
-class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
-	
-	// MARK: - Public properties
+final class ListOfAnswerSetsViewCotroller: UITableViewController, SegueHandlerType {
 	
 	var answerSetsStore: AnswerSetsStore!
 	
-	// MARK: - Private properties
-	
-	private lazy var inputTextAlerController: InputTextAlerController = .init(
-		presentingViewController: self
-	)
+	private lazy var inputTextAlerController: InputTextAlerController = .init(presentingViewController: self)
 	
 	// MARK: - Life cycle
 	
@@ -47,16 +41,16 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answers = segueIdentifier(for: segue),
-            let viewController = segue.destination as? AnswerSetTableVC
+            let viewController = segue.destination as? AnswerSetTableViewCotroller
         else { return }
 		
-		if let indexPath = tableView.indexPathForSelectedRow {
-			viewController.answerSet = answerSetsStore.answerSets[indexPath.row]
+		if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+			viewController.answerSet = answerSetsStore.answerSets[indexPathForSelectedRow.row]
 			viewController.answerSetDidChangeHandler = { changedAnswerSet in
 				
 				self.answerSetsStore.save(changedAnswerSet)
 				
-				self.tableView.reloadRows(at: [indexPath], with: .automatic)
+				self.tableView.reloadRows(at: [indexPathForSelectedRow], with: .automatic)
 			}
 		}
 	}
@@ -67,8 +61,7 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		return answerSetsStore.answerSets.count
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let identifier = String(describing: UITableViewCell.self)
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
@@ -80,9 +73,11 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		return cell
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							commit editingStyle: UITableViewCell.EditingStyle,
-							forRowAt indexPath: IndexPath) {
+	override func tableView(
+		_ tableView: UITableView,
+		commit editingStyle: UITableViewCell.EditingStyle,
+		forRowAt indexPath: IndexPath
+	) {
 		
 		if editingStyle == .delete {
 			let answerSet = answerSetsStore.answerSets[indexPath.row]
@@ -111,10 +106,12 @@ class ListOfAnswerSetsVC: UITableViewController, SegueHandlerType {
 		
 		return .delete
 	}
+	
 }
 
 // MARK: - Private
-private extension ListOfAnswerSetsVC {
+
+private extension ListOfAnswerSetsViewCotroller {
 	
 	func showDeletingAlertForAnswerSet(at indexPath: IndexPath) {
 		let answerSet = answerSetsStore.answerSets[indexPath.row]
@@ -169,4 +166,5 @@ private extension ListOfAnswerSetsVC {
 				self.tableView.scrollToRow(at: newAnswerSetIndexPath, at: .none, animated: true)
 		}
 	}
+	
 }

@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  SettingsViewCotroller.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsVC: UITableViewController, SegueHandlerType {
+final class SettingsViewCotroller: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Public properties
 	
@@ -32,11 +32,11 @@ class SettingsVC: UITableViewController, SegueHandlerType {
 	
 	// MARK: - Outlets
 	
-	@IBOutlet private var lazyModeSwitch: UISwitch!
-	@IBOutlet private var readAnswerSwitch: UISwitch!
-	@IBOutlet private var hapticFeedbackSwitch: UISwitch!
+	@IBOutlet private weak var lazyModeSwitch: UISwitch!
+	@IBOutlet private weak var readAnswerSwitch: UISwitch!
+	@IBOutlet private weak var hapticFeedbackSwitch: UISwitch!
 	
-	@IBOutlet private var answerSetsCell: UITableViewCell!
+	@IBOutlet private weak var answerSetsCell: UITableViewCell!
 	
 	// MARK: - Actions
 	
@@ -60,7 +60,7 @@ class SettingsVC: UITableViewController, SegueHandlerType {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answerSets = segueIdentifier(for: segue),
-            let viewController = segue.destination as? ListOfAnswerSetsVC
+            let viewController = segue.destination as? ListOfAnswerSetsViewCotroller
         else { return }
 		
 		viewController.answerSetsStore = answerSetsStore
@@ -74,4 +74,5 @@ class SettingsVC: UITableViewController, SegueHandlerType {
         
 		return tableView.cellForRow(at: indexPath)?.accessoryType == .disclosureIndicator
 	}
+	
 }

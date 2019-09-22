@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InputTextAlerController: NSObject, UITextFieldDelegate {
+final class InputTextAlerController: NSObject, UITextFieldDelegate {
 	
 	private weak var presentingViewController: UIViewController?
 	
@@ -22,10 +22,12 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 	
 	// MARK: - Public
 	
-	func showInputTextAlert(with title: String,
-							actionTitle: String,
-							textFieldPlaceholder placeholder: String = "",
-							completionHdandler: @escaping ((String) -> Void)) {
+	func showInputTextAlert(
+		with title: String,
+		actionTitle: String,
+		textFieldPlaceholder placeholder: String = "",
+		completionHdandler: @escaping ((String) -> Void)
+	) {
 		
 		let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
 		
@@ -59,4 +61,5 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 			currentAction?.isEnabled = true
 		}
 	}
+	
 }

@@ -9,6 +9,9 @@
 import Foundation
 
 enum DefaultResouceName: String {
+	
 	case settings = "DefaultSettings"
+	
 	case rudeAnswers = "RudeAnswers"
+	
 }

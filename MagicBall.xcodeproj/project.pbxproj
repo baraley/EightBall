@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1107920022FFD2CC0056BE67 /* RudeAnswers in Resources */ = {isa = PBXBuildFile; fileRef = 110791FF22FFD2CC0056BE67 /* RudeAnswers */; };
-		1107920422FFD75F0056BE67 /* AnswerSetTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920322FFD75F0056BE67 /* AnswerSetTableVC.swift */; };
+		1107920422FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920322FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift */; };
 		1107920622FFE6790056BE67 /* SegueHandlerType+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
 		112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+extensions.swift */; };
@@ -21,7 +21,7 @@
 		117272B12337A195006D6A02 /* assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117272B02337A195006D6A02 /* assets.swift */; };
 		117272B32337A4D7006D6A02 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117272B22337A4D7006D6A02 /* strings.swift */; };
 		117889F52305870800983E8A /* InputTextAlerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlerController.swift */; };
-		118027D72304835B00E1754B /* ListOfAnswerSetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118027D62304835B00E1754B /* ListOfAnswerSetsVC.swift */; };
+		118027D72304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
 		11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C919C122F9368E005F71BC /* AppDelegate.swift */; };
@@ -32,15 +32,15 @@
 		11D2F74322FD59C8000E8881 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F74222FD59C8000E8881 /* Settings.swift */; };
 		11D2F74522FD5A9A000E8881 /* DefaultSettings in Resources */ = {isa = PBXBuildFile; fileRef = 11D2F74422FD5A9A000E8881 /* DefaultSettings */; };
 		11D2F75322FE6D7F000E8881 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75222FE6D7F000E8881 /* SettingsStore.swift */; };
-		11D2F75522FE70C4000E8881 /* AppRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75422FE70C4000E8881 /* AppRootVC.swift */; };
-		11D2F75922FE7934000E8881 /* MagicBallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75722FE7934000E8881 /* MagicBallVC.swift */; };
-		11D2F75C22FE7940000E8881 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75B22FE7940000E8881 /* SettingsVC.swift */; };
+		11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */; };
+		11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */; };
+		11D2F75C22FE7940000E8881 /* SettingsViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75B22FE7940000E8881 /* SettingsViewCotroller.swift */; };
 		F56735552363E184326BCF59 /* Pods_MagicBall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FB2280872908656F03718 /* Pods_MagicBall.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		110791FF22FFD2CC0056BE67 /* RudeAnswers */ = {isa = PBXFileReference; lastKnownFileType = text; path = RudeAnswers; sourceTree = "<group>"; };
-		1107920322FFD75F0056BE67 /* AnswerSetTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetTableVC.swift; sourceTree = "<group>"; };
+		1107920322FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetTableViewCotroller.swift; sourceTree = "<group>"; };
 		1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegueHandlerType+Protocol.swift"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
 		112B515A23011A890063E18B /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		117272B02337A195006D6A02 /* assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assets.swift; sourceTree = "<group>"; };
 		117272B22337A4D7006D6A02 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		117889F42305870800983E8A /* InputTextAlerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlerController.swift; sourceTree = "<group>"; };
-		118027D62304835B00E1754B /* ListOfAnswerSetsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfAnswerSetsVC.swift; sourceTree = "<group>"; };
+		118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfAnswerSetsViewCotroller.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
 		11C919BE22F9368E005F71BC /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,9 +66,9 @@
 		11D2F74222FD59C8000E8881 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		11D2F74422FD5A9A000E8881 /* DefaultSettings */ = {isa = PBXFileReference; lastKnownFileType = text; path = DefaultSettings; sourceTree = "<group>"; };
 		11D2F75222FE6D7F000E8881 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
-		11D2F75422FE70C4000E8881 /* AppRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRootVC.swift; sourceTree = "<group>"; };
-		11D2F75722FE7934000E8881 /* MagicBallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicBallVC.swift; sourceTree = "<group>"; };
-		11D2F75B22FE7940000E8881 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRootViewCotroller.swift; sourceTree = "<group>"; };
+		11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicBallViewCotroller.swift; sourceTree = "<group>"; };
+		11D2F75B22FE7940000E8881 /* SettingsViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewCotroller.swift; sourceTree = "<group>"; };
 		CA6FB2280872908656F03718 /* Pods_MagicBall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicBall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE26AE802748A833930F2F1E /* Pods-MagicBall.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.debug.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.debug.xcconfig"; sourceTree = "<group>"; };
 		F4D248FC0038C3FFF9453FBB /* Pods-MagicBall.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.release.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,11 +89,11 @@
 		11079207230074100056BE67 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				11D2F75422FE70C4000E8881 /* AppRootVC.swift */,
-				11D2F75722FE7934000E8881 /* MagicBallVC.swift */,
-				11D2F75B22FE7940000E8881 /* SettingsVC.swift */,
-				118027D62304835B00E1754B /* ListOfAnswerSetsVC.swift */,
-				1107920322FFD75F0056BE67 /* AnswerSetTableVC.swift */,
+				11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */,
+				11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */,
+				11D2F75B22FE7940000E8881 /* SettingsViewCotroller.swift */,
+				118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */,
+				1107920322FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -376,21 +376,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D2F74322FD59C8000E8881 /* Settings.swift in Sources */,
-				1107920422FFD75F0056BE67 /* AnswerSetTableVC.swift in Sources */,
+				1107920422FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift in Sources */,
 				110A534222FB50A40026BA79 /* MagicButton.swift in Sources */,
 				11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */,
 				1107920622FFE6790056BE67 /* SegueHandlerType+Protocol.swift in Sources */,
 				1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */,
 				11853ED5230170A300F30203 /* AnswerSet.swift in Sources */,
 				115C00B5230884C5001FB0B6 /* MagicBallDataSource.swift in Sources */,
-				11D2F75C22FE7940000E8881 /* SettingsVC.swift in Sources */,
+				11D2F75C22FE7940000E8881 /* SettingsViewCotroller.swift in Sources */,
 				117272B12337A195006D6A02 /* assets.swift in Sources */,
 				117889F52305870800983E8A /* InputTextAlerController.swift in Sources */,
-				11D2F75922FE7934000E8881 /* MagicBallVC.swift in Sources */,
+				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
 				112B515D23011AB80063E18B /* DefaultResouceName.swift in Sources */,
-				11D2F75522FE70C4000E8881 /* AppRootVC.swift in Sources */,
-				118027D72304835B00E1754B /* ListOfAnswerSetsVC.swift in Sources */,
+				11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */,
+				118027D72304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift in Sources */,
 				11D2F75322FE6D7F000E8881 /* SettingsStore.swift in Sources */,
 				112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */,
 				112B516123013D4D0063E18B /* AnswerSetsStore.swift in Sources */,

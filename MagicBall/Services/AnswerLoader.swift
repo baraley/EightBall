@@ -10,11 +10,11 @@ import Foundation
 
 private let answerLink = "https://8ball.delegator.com/magic/JSON/end"
 
-class AnswerLoader {
-	
-	private let urlRequest: URLRequest = .init(url: URL(string: answerLink)!)
+final class AnswerLoader {
 	
 	var isLoading: Bool = false
+	
+	private let urlRequest: URLRequest = .init(url: URL(string: answerLink)!)
 	
 	func loadAnswer(_ completionHandler: @escaping (Result<String, NetworkError>) -> Void) {
 
@@ -37,4 +37,5 @@ class AnswerLoader {
 		dataTask.resume()
 		isLoading = true
 	}
+	
 }

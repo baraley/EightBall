@@ -8,33 +8,11 @@
 
 import UIKit
 
-class MagicBallDataSource: NSObject {
-	
-	// MARK: - Public
+final class MagicBallDataSource: NSObject {
 	
 	typealias MagicBallResult = Result<String, NetworkError>
 	
-	init(answerSets: [AnswerSet]) {
-		self.answerSets = answerSets
-		
-		super.init()
-	}
-	
 	var answerDidFindHandler: ((MagicBallResult) -> Void)?
-	
-	func findNewAnswer() {
-		
-		switch answersSource {
-		case .network:
-			loadAnswerFromNetwork()
-			
-		case .customAnswers(let answers):
-			let result: MagicBallResult = .success(answers.randomElement() ?? "")
-			answerDidFindHandler?(result)
-		}
-	}
-	
-	// MARK: - Private
 	
 	private let answerSets: [AnswerSet]
 	
@@ -45,9 +23,28 @@ class MagicBallDataSource: NSObject {
 	private lazy var pickerViewOptions: [String] = {
 		return ["Answers form network"] + allowedAnswerSets().compactMap { $0.name }
 	}()
+	
+	init(answerSets: [AnswerSet]) {
+		self.answerSets = answerSets
+		
+		super.init()
+	}
+	
+	func findNewAnswer() {
+		switch answersSource {
+		case .network:
+			loadAnswerFromNetwork()
+			
+		case .customAnswers(let answers):
+			let result: MagicBallResult = .success(answers.randomElement() ?? "")
+			answerDidFindHandler?(result)
+		}
+	}
+	
 }
 
 // MARK: - Private
+
 private extension MagicBallDataSource {
 	
 	// MARK: - Types
@@ -80,9 +77,11 @@ private extension MagicBallDataSource {
 			}
 		}
 	}
+	
 }
 
 // MARK: - UIPickerViewDataSource
+
 extension MagicBallDataSource: UIPickerViewDataSource {
 	
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -92,14 +91,14 @@ extension MagicBallDataSource: UIPickerViewDataSource {
 	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		return pickerViewOptions.count
 	}
+	
 }
 
 // MARK: - UIPickerViewDelegate
+
 extension MagicBallDataSource: UIPickerViewDelegate {
 	
-	func pickerView(_ pickerView: UIPickerView,
-					titleForRow row: Int,
-					forComponent component: Int) -> String? {
+	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 		
 		return pickerViewOptions[row]
 	}
@@ -107,4 +106,5 @@ extension MagicBallDataSource: UIPickerViewDelegate {
 	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 		updateAnswerSourceToOption(at: row)
 	}
+	
 }

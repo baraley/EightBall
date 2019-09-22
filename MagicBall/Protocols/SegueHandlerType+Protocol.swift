@@ -9,6 +9,7 @@
 import UIKit
 
 protocol SegueHandlerType {
+	
     associatedtype SegueIdentifier: RawRepresentable
 }
 
@@ -25,4 +26,5 @@ extension SegueHandlerType where Self: UIViewController, SegueIdentifier.RawValu
         
         return segueIdentifier
     }
+	
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AnswerSetsStore {
+final class AnswerSetsStore {
 	
 	private(set) var answerSets: [AnswerSet] = [] {
 		didSet {
@@ -42,17 +42,16 @@ class AnswerSetsStore {
 	
 	// MARK: - Private
 	
-	private let answerSetsFilePath: String = FileManager
-		.pathForFileInDocumentDirectory(withName: "AnswerSets")
+	private let answerSetsFilePath: String = FileManager.pathForFileInDocumentDirectory(withName: "AnswerSets")
 	
 	private func loadAnswerSets() -> [AnswerSet] {
-		if let answerSets = FileManager.default
-			.loadSavedContent(atPath: answerSetsFilePath) as [AnswerSet]? {
+		if let answerSets = FileManager.default.loadSavedContent(atPath: answerSetsFilePath) as [AnswerSet]? {
 			
 			return answerSets
 		} else {
 			let name = DefaultResouceName.rudeAnswers.rawValue
 			let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
+			
 			return [AnswerSet(name: "Rude", answers: rudeAnswers)]
 		}
 	}
@@ -60,4 +59,5 @@ class AnswerSetsStore {
 	private func saveAnswerSets() {
 		FileManager.default.saveContent(answerSets, atPath: answerSetsFilePath)
 	}
+	
 }

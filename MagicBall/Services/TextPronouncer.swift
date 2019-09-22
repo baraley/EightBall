@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class TextPronouncer {
+final class TextPronouncer {
 	
 	private var speechSynthesizer: AVSpeechSynthesizer = {
 		let audioSession = AVAudioSession.sharedInstance()
@@ -28,8 +28,9 @@ class TextPronouncer {
 	}
 	
 	func stopPronouncing() {
-		if speechSynthesizer.isSpeaking == true {
+		if speechSynthesizer.isSpeaking {
 			speechSynthesizer.stopSpeaking(at: .immediate)
 		}
 	}
+	
 }

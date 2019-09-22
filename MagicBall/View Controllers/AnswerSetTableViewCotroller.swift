@@ -1,5 +1,5 @@
 //
-//  AnswerSetTableVC.swift
+//  AnswerSetTableViewCotroller.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/11/19.
@@ -8,23 +8,13 @@
 
 import UIKit
 
-class AnswerSetTableVC: UITableViewController {
+final class AnswerSetTableViewCotroller: UITableViewController {
 	
-	// MARK: - Public properties
-	
-	var answerSet: AnswerSet! {
-		didSet {
-			if isViewLoaded { answerSetDidChangeHandler?(answerSet) }
-		}
-	}
+	var answerSet: AnswerSet! { didSet { if isViewLoaded { answerSetDidChangeHandler?(answerSet) } } }
 	
 	var answerSetDidChangeHandler: ((AnswerSet) -> Void)?
 	
-	// MARK: - Private properties
-	
-	private lazy var inputTextAlerController: InputTextAlerController = .init(
-		presentingViewController: self
-	)
+	private lazy var inputTextAlerController: InputTextAlerController = .init(presentingViewController: self)
 	
 	// MARK: - Life cycle
 	
@@ -41,8 +31,7 @@ class AnswerSetTableVC: UITableViewController {
 		return answerSet.answers.count
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let identifier = String(describing: UITableViewCell.self)
 		
@@ -53,9 +42,11 @@ class AnswerSetTableVC: UITableViewController {
 		return cell
 	}
 	
-	override func tableView(_ tableView: UITableView,
-							commit editingStyle: UITableViewCell.EditingStyle,
-							forRowAt indexPath: IndexPath) {
+	override func tableView(
+		_ tableView: UITableView,
+		commit editingStyle: UITableViewCell.EditingStyle,
+		forRowAt indexPath: IndexPath
+	) {
 		
 		if editingStyle == .delete {
 			answerSet.answers.remove(at: indexPath.row)
@@ -76,10 +67,12 @@ class AnswerSetTableVC: UITableViewController {
 		
 		return .delete
 	}
+	
 }
 
 // MARK: - Private
-private extension AnswerSetTableVC {
+
+private extension AnswerSetTableViewCotroller {
 	
 	func editAnswer(at indexPath: IndexPath) {
 		let placeholder = self.answerSet.answers[indexPath.row]
@@ -103,4 +96,5 @@ private extension AnswerSetTableVC {
 			self.tableView.scrollToRow(at: newAnswerIndexPath, at: .none, animated: true)
 		}
 	}
+	
 }

@@ -10,9 +10,7 @@ import UIKit
 
 private let animationDuration: TimeInterval = 0.7
 
-class MagicBallView: UIView {
-	
-	// MARK: - Types
+final class MagicBallView: UIView {
 	
 	enum MagicBallState {
 		case initialMessage(String)
@@ -20,28 +18,20 @@ class MagicBallView: UIView {
 		case answerShown(String)
 	}
 	
-	// MARK: - Outlets
-	
-	@IBOutlet private var answerLabel: UILabel!
-	@IBOutlet private var magicButton: MagicButton!
-	
-	// MARK: - Public properties
-	
 	var state: MagicBallState = .initialMessage("") {
 		didSet {
 			stateDidChange()
 		}
 	}
 	
-	private(set) var isAnimationFinished: Bool = true {
-		didSet {
-			magicButton.isUserInteractionEnabled = isAnimationFinished
-		}
-	}
-	
 	var appearingAnimationDidFinishHandler: (() -> Void)?
 	
-	// MARK: - Private properties
+	private(set) var isAnimationFinished: Bool = true {
+		didSet { magicButton.isUserInteractionEnabled = isAnimationFinished }
+	}
+	
+	@IBOutlet private weak var answerLabel: UILabel!
+	@IBOutlet private weak var magicButton: MagicButton!
 	
 	private var currentAnimation: UIViewPropertyAnimator? {
 		didSet {
@@ -53,9 +43,11 @@ class MagicBallView: UIView {
 			})
 		}
 	}
+	
 }
 
 // MARK: - Private
+
 private extension MagicBallView {
 	
 	func stateDidChange() {
@@ -102,7 +94,6 @@ private extension MagicBallView {
 	}
 	
 	var appearingAnimation: UIViewPropertyAnimator {
-		
 		let animation = UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut) {
 			self.answerLabel.transform = .identity
 		}
@@ -112,6 +103,8 @@ private extension MagicBallView {
 			self.appearingAnimationDidFinishHandler?()
 			self.appearingAnimationDidFinishHandler = nil
 		})
+		
 		return animation
 	}
+	
 }

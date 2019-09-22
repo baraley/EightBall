@@ -1,5 +1,5 @@
 //
-//  AppRootVC.swift
+//  AppRootViewCotroller.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppRootVC: UITabBarController {
+final class AppRootViewCotroller: UITabBarController {
 	
 	// MARK: - Private properties
 		
@@ -16,9 +16,9 @@ class AppRootVC: UITabBarController {
 	
 	private lazy var answerSetsStore: AnswerSetsStore = .init()
 	
-	private var magicBallViewController: MagicBallVC?
+	private var magicBallViewController: MagicBallViewCotroller?
 	
-	private var settingsViewController: SettingsVC?
+	private var settingsViewController: SettingsViewCotroller?
 	
 	// MARK: - Life cycle
 	
@@ -27,10 +27,12 @@ class AppRootVC: UITabBarController {
 		
 		setup()
 	}
+	
 }
 
 // MARK: - Private
-private extension AppRootVC {
+
+private extension AppRootViewCotroller {
 	
 	func setup() {
 		view.backgroundColor = .white
@@ -49,14 +51,14 @@ private extension AppRootVC {
 	func parseViewControllers() {
 		viewControllers?.forEach({
 			
-			if let magicBallVC = $0 as? MagicBallVC {
+			if let magicBallViewCotroller = $0 as? MagicBallViewCotroller {
 				
-				magicBallViewController = magicBallVC
+				magicBallViewController = magicBallViewCotroller
 				
-			} else if let navVC = $0 as? UINavigationController,
-				let settingsVC = navVC.viewControllers[0] as? SettingsVC {
+			} else if let navigationViewCotroller = $0 as? UINavigationController,
+				let settingsViewCotroller = navigationViewCotroller.viewControllers[0] as? SettingsViewCotroller {
 				
-				settingsViewController = settingsVC
+				settingsViewController = settingsViewCotroller
 			}
 		})
 	}
@@ -80,4 +82,5 @@ private extension AppRootVC {
 			self.magicBallViewController?.settings = settings
 		}
 	}
+	
 }

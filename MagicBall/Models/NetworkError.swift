@@ -9,6 +9,7 @@
 import Foundation
 
 enum NetworkError: Error, LocalizedError, Equatable {
+	
 	case noInternet
 	case unknown(String)
 	
@@ -29,4 +30,5 @@ enum NetworkError: Error, LocalizedError, Equatable {
 			return message
 		}
 	}
+	
 }
