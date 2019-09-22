@@ -84,8 +84,9 @@ private extension AnswerSetTableVC {
 	func editAnswer(at indexPath: IndexPath) {
 		let placeholder = self.answerSet.answers[indexPath.row]
 		
-		inputTextAlerController.showInputTextAlert(
-		with: "Edit the answer", actionTitle: "Save", textFieldPlaceholder: placeholder) { [unowned self] (answerText) in
+		inputTextAlerController.showInputTextAlert(with: L10n.Alert.Title.editAnswer,
+												   actionTitle: L10n.Action.Title.save,
+												   textFieldPlaceholder: placeholder) { [unowned self] (answerText) in
 			
 			self.answerSet.answers[indexPath.row] = answerText
 			self.tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -94,7 +95,7 @@ private extension AnswerSetTableVC {
 	
 	@IBAction func acceptTextOfNewAnswer() {
 		inputTextAlerController.showInputTextAlert(
-		with: "New answer", actionTitle: "Add") { [unowned self] (answerText) in
+		with: L10n.Alert.Title.newAnswer, actionTitle: L10n.Action.Title.add) { [unowned self] (answerText) in
 			
 			self.answerSet.answers.append(answerText)
 			let newAnswerIndexPath = IndexPath(row: (self.answerSet.answers.count - 1), section: 0)

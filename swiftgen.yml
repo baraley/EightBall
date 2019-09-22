@@ -1,0 +1,12 @@
+strings:
+  inputs: MagicBall/Resources/en.lproj
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift4
+      output: MagicBall/Resources/strings.swift
+xcassets:
+  inputs:
+    - MagicBall/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: MagicBall/Resources/assets.swift

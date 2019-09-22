@@ -119,18 +119,16 @@ private extension ListOfAnswerSetsVC {
 	func showDeletingAlertForAnswerSet(at indexPath: IndexPath) {
 		let answerSet = answerSetsStore.answerSets[indexPath.row]
 		let numberOfAnswers = answerSet.answers.count
-		var message = """
-		Are you sure you want to delete set of answers that contains \(numberOfAnswers)
-		"""
-		message += numberOfAnswers > 1 ? " answers?" : " answer?"
 		
+		let message = L10n.Alert.Message.deleteAnswerSet(numberOfAnswers)
+
 		let alert = UIAlertController(
-			title: "Delete answer set?", message: message, preferredStyle: .alert
+			title: L10n.Alert.Title.deleteAnswerSet, message: message, preferredStyle: .alert
 		)
 		
-		alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+		alert.addAction(.init(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
 		
-		alert.addAction(.init(title: "Delete", style: .destructive) {  _ in
+		alert.addAction(.init(title: L10n.Action.Title.delete, style: .destructive) {  _ in
 			
 			self.answerSetsStore.deleteAnswerSet(at: indexPath.row)
 			self.tableView.deleteRows(at: [indexPath], with: .none)
@@ -144,8 +142,8 @@ private extension ListOfAnswerSetsVC {
 		let placeholder = self.answerSetsStore.answerSets[indexPath.row].name
 		
 		inputTextAlerController.showInputTextAlert(
-			with: "Edit the answer set name",
-			actionTitle: "Save",
+			with: L10n.Alert.Title.editAnswerSet,
+			actionTitle: L10n.Action.Title.save,
 			textFieldPlaceholder: placeholder) { [unowned self] (name) in
 				
 				var answerSet = self.answerSetsStore.answerSets[indexPath.row]
@@ -158,8 +156,8 @@ private extension ListOfAnswerSetsVC {
 	@IBAction func acceptTextForNewAnswerSet() {
 		
 		inputTextAlerController.showInputTextAlert(
-			with: "New answer set",
-			actionTitle: "Add") { [unowned self] (name) in
+			with: L10n.Alert.Title.newAnswerSet,
+			actionTitle: L10n.Action.Title.add) { [unowned self] (name) in
 				
 				let numberOfAnswerSets = self.answerSetsStore.answerSets.count
 				

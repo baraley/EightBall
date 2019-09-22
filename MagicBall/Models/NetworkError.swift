@@ -23,7 +23,7 @@ enum NetworkError: Error, LocalizedError, Equatable {
 	var errorDescription: String {
 		switch self {
 		case .noInternet:
-			return "There is no internet conection. Please try to use answers from answer sets."
+			return L10n.Alert.Message.noInternet
 			
 		case .unknown(let message):
 			return message

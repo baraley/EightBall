@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let initialMessage = "Shake your phone, please!!!"
+private let initialMessage = L10n.initialMagicScreenMessage
 
 class MagicBallVC: UIViewController {
 	
