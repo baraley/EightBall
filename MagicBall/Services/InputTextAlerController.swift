@@ -31,7 +31,7 @@ final class InputTextAlerController: NSObject, UITextFieldDelegate {
 		
 		let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
 		
-		alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+		alert.addAction(.init(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
 		
 		alert.addTextField { [unowned self] (textField) in
 			textField.text = placeholder

@@ -13,12 +13,13 @@ final class SettingsViewCotroller: UITableViewController, SegueHandlerType {
 	// MARK: - Public properties
 	
 	var answerSetsStore: AnswerSetsStore!
-	
 	var settings: Settings {
 		get {
-			return Settings(lazyModeIsOn: lazyModeSwitch.isOn,
-							readAnswerIsOn: readAnswerSwitch.isOn,
-							hapticFeedbackIsOn: hapticFeedbackSwitch.isOn)
+			return Settings(
+				lazyModeIsOn: lazyModeSwitch.isOn,
+				readAnswerIsOn: readAnswerSwitch.isOn,
+				hapticFeedbackIsOn: hapticFeedbackSwitch.isOn
+			)
 		}
 		
 		set {

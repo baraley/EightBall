@@ -10,7 +10,11 @@ import UIKit
 
 final class AnswerSetTableViewCotroller: UITableViewController {
 	
-	var answerSet: AnswerSet! { didSet { if isViewLoaded { answerSetDidChangeHandler?(answerSet) } } }
+	var answerSet: AnswerSet! {
+		didSet {
+			if isViewLoaded { answerSetDidChangeHandler?(answerSet) }
+		}
+	}
 	
 	var answerSetDidChangeHandler: ((AnswerSet) -> Void)?
 	

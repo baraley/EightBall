@@ -27,7 +27,9 @@ final class MagicBallView: UIView {
 	var appearingAnimationDidFinishHandler: (() -> Void)?
 	
 	private(set) var isAnimationFinished: Bool = true {
-		didSet { magicButton.isUserInteractionEnabled = isAnimationFinished }
+		didSet {
+			magicButton.isUserInteractionEnabled = isAnimationFinished
+		}
 	}
 	
 	@IBOutlet private weak var answerLabel: UILabel!

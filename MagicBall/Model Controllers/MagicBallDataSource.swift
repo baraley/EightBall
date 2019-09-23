@@ -15,13 +15,10 @@ final class MagicBallDataSource: NSObject {
 	var answerDidFindHandler: ((MagicBallResult) -> Void)?
 	
 	private let answerSets: [AnswerSet]
-	
 	private let networkAnswersLoader: AnswerLoader = .init()
-	
 	private var answersSource: AnswerSource = .network
-	
 	private lazy var pickerViewOptions: [String] = {
-		return ["Answers form network"] + allowedAnswerSets().compactMap { $0.name }
+		return ["Answers form network"] + notEmptyAnswerSets().compactMap { $0.name }
 	}()
 	
 	init(answerSets: [AnswerSet]) {
@@ -56,7 +53,7 @@ private extension MagicBallDataSource {
 	
 	// MARK: - Methods
 	
-	func allowedAnswerSets() -> [AnswerSet] {
+	func notEmptyAnswerSets() -> [AnswerSet] {
 		return answerSets.filter { !$0.answers.isEmpty }
 	}
 	
@@ -64,7 +61,7 @@ private extension MagicBallDataSource {
 		if index == 0 {
 			answersSource = .network
 		} else {
-			answersSource = .customAnswers(allowedAnswerSets()[index - 1].answers)
+			answersSource = .customAnswers(notEmptyAnswerSets()[index - 1].answers)
 		}
 	}
 	

@@ -14,9 +14,16 @@ final class MagicBallViewCotroller: UIViewController {
 	
 	// MARK: - Public properties
 	
-	var settings: Settings! { didSet { settingsDidChange() } }
-	
-	var dataSource: MagicBallDataSource! { didSet { dataSourceDidChange() } }
+	var settings: Settings! {
+		didSet {
+			settingsDidChange()
+		}
+	}
+	var dataSource: MagicBallDataSource! {
+		didSet {
+			dataSourceDidChange()
+		}
+	}
 	
 	// MARK: - Outlets
 	
@@ -26,7 +33,6 @@ final class MagicBallViewCotroller: UIViewController {
 	// MARK: - Private properties
 	
 	private let textPronoucer: TextPronouncer = .init()
-	
 	private lazy var generator: UINotificationFeedbackGenerator = .init()
 	
 	// MARK: - UIResponder
@@ -110,7 +116,7 @@ private extension MagicBallViewCotroller {
 			title: nil, message: error.errorDescription, preferredStyle: .alert
 		)
 		
-		alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+		alert.addAction(UIAlertAction(title: L10n.Action.Title.ok, style: .default) { _ in
 			self.magicBallView.state = .initialMessage(initialMessage)
 		})
 		

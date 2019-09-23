@@ -11,9 +11,7 @@ import Foundation
 struct Settings: Codable {
 	
 	var lazyModeIsOn: Bool
-	
 	var readAnswerIsOn: Bool
-	
 	var hapticFeedbackIsOn: Bool
 	
 }

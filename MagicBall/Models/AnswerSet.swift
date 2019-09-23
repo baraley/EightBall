@@ -10,14 +10,12 @@ import Foundation
 
 struct AnswerSet: Codable, Equatable {
 	
-	let identifier: UUID = .init()
-	
+	let id: UUID = .init()
 	var name: String
-	
 	var answers: [String]
 	
 }
 
 func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
-	return	lhs.identifier == rhs.identifier
+	return	lhs.id == rhs.id
 }

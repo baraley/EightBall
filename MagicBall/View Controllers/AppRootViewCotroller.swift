@@ -13,11 +13,9 @@ final class AppRootViewCotroller: UITabBarController {
 	// MARK: - Private properties
 		
 	private lazy var settingsStore: SettingsStore = .init()
-	
 	private lazy var answerSetsStore: AnswerSetsStore = .init()
 	
 	private var magicBallViewController: MagicBallViewCotroller?
-	
 	private var settingsViewController: SettingsViewCotroller?
 	
 	// MARK: - Life cycle
@@ -51,14 +49,18 @@ private extension AppRootViewCotroller {
 	func parseViewControllers() {
 		viewControllers?.forEach({
 			
-			if let magicBallViewCotroller = $0 as? MagicBallViewCotroller {
+			if let magicBallViewController = $0 as? MagicBallViewCotroller {
 				
-				magicBallViewController = magicBallViewCotroller
+				self.magicBallViewController = magicBallViewController
+				
+				self.magicBallViewController?.tabBarItem.image = Asset.ballTabIcon.image
 				
 			} else if let navigationViewCotroller = $0 as? UINavigationController,
 				let settingsViewCotroller = navigationViewCotroller.viewControllers[0] as? SettingsViewCotroller {
 				
-				settingsViewController = settingsViewCotroller
+				self.settingsViewController = settingsViewCotroller
+				
+				navigationViewCotroller.tabBarItem.image = Asset.settingsTabIcon.image
 			}
 		})
 	}

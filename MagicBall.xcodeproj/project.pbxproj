@@ -14,12 +14,12 @@
 		112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+extensions.swift */; };
 		112B515D23011AB80063E18B /* DefaultResouceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515C23011AB80063E18B /* DefaultResouceName.swift */; };
 		112B516123013D4D0063E18B /* AnswerSetsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B516023013D4D0063E18B /* AnswerSetsStore.swift */; };
+		11447FB023396AC300CE3DF6 /* assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11447FAE23396AC300CE3DF6 /* assets.swift */; };
+		11447FB123396AC300CE3DF6 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11447FAF23396AC300CE3DF6 /* strings.swift */; };
 		1155038A22FE8125009AD046 /* TextPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155038922FE8125009AD046 /* TextPronouncer.swift */; };
 		115C00B5230884C5001FB0B6 /* MagicBallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */; };
 		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
 		117272AB2337437B006D6A02 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 117272AD2337437B006D6A02 /* Localization.strings */; };
-		117272B12337A195006D6A02 /* assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117272B02337A195006D6A02 /* assets.swift */; };
-		117272B32337A4D7006D6A02 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117272B22337A4D7006D6A02 /* strings.swift */; };
 		117889F52305870800983E8A /* InputTextAlerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlerController.swift */; };
 		118027D72304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
@@ -46,12 +46,12 @@
 		112B515A23011A890063E18B /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
 		112B515C23011AB80063E18B /* DefaultResouceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResouceName.swift; sourceTree = "<group>"; };
 		112B516023013D4D0063E18B /* AnswerSetsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetsStore.swift; sourceTree = "<group>"; };
+		11447FAE23396AC300CE3DF6 /* assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assets.swift; sourceTree = "<group>"; };
+		11447FAF23396AC300CE3DF6 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		1155038922FE8125009AD046 /* TextPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPronouncer.swift; sourceTree = "<group>"; };
 		115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallDataSource.swift; sourceTree = "<group>"; };
 		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		117272AC2337437B006D6A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
-		117272B02337A195006D6A02 /* assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assets.swift; sourceTree = "<group>"; };
-		117272B22337A4D7006D6A02 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		117889F42305870800983E8A /* InputTextAlerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlerController.swift; sourceTree = "<group>"; };
 		118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfAnswerSetsViewCotroller.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
@@ -117,6 +117,8 @@
 		117272A823374307006D6A02 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				11447FAE23396AC300CE3DF6 /* assets.swift */,
+				11447FAF23396AC300CE3DF6 /* strings.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -195,8 +197,6 @@
 				11C919CD22F9368F005F71BC /* Info.plist */,
 				11D2F74422FD5A9A000E8881 /* DefaultSettings */,
 				110791FF22FFD2CC0056BE67 /* RudeAnswers */,
-				117272B02337A195006D6A02 /* assets.swift */,
-				117272B22337A4D7006D6A02 /* strings.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -384,7 +384,7 @@
 				11853ED5230170A300F30203 /* AnswerSet.swift in Sources */,
 				115C00B5230884C5001FB0B6 /* MagicBallDataSource.swift in Sources */,
 				11D2F75C22FE7940000E8881 /* SettingsViewCotroller.swift in Sources */,
-				117272B12337A195006D6A02 /* assets.swift in Sources */,
+				11447FB023396AC300CE3DF6 /* assets.swift in Sources */,
 				117889F52305870800983E8A /* InputTextAlerController.swift in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
@@ -395,7 +395,7 @@
 				112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */,
 				112B516123013D4D0063E18B /* AnswerSetsStore.swift in Sources */,
 				11D2F74122FD4D3C000E8881 /* MagicBallView.swift in Sources */,
-				117272B32337A4D7006D6A02 /* strings.swift in Sources */,
+				11447FB123396AC300CE3DF6 /* strings.swift in Sources */,
 				116BD3942302F573001ECD5F /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,7 +79,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lt8-RK-G0R"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Magic 8 Ball" image="Ball Tab Icon" id="izg-Fo-H8B"/>
+                    <tabBarItem key="tabBarItem" title="Magic 8 Ball" id="izg-Fo-H8B"/>
                     <navigationItem key="navigationItem" title="Magic 8 Ball" largeTitleDisplayMode="always" id="U92-oh-X9R"/>
                     <connections>
                         <outlet property="answerSourcePickerView" destination="rVb-BX-I7G" id="BJ4-qC-B9D"/>
@@ -226,7 +226,7 @@
         <scene sceneID="g6C-4K-3ao">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zLN-nq-5Xi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="Settings Tab Icon" id="Mhc-Li-luP"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="Mhc-Li-luP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="FOK-B7-uCN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
@@ -395,7 +395,5 @@
     </scenes>
     <resources>
         <image name="Ball Image" width="512" height="512"/>
-        <image name="Ball Tab Icon" width="25" height="25"/>
-        <image name="Settings Tab Icon" width="25" height="25"/>
     </resources>
 </document>
