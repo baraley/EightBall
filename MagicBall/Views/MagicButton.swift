@@ -9,11 +9,11 @@
 import UIKit
 
 final class MagicButton: UIButton {
-	
+
 	override var isHighlighted: Bool {
 		didSet {
 			transform = isHighlighted ? CGAffineTransform.init(scaleX: 0.95, y: 0.95) : .identity
 		}
 	}
-	
+
 }

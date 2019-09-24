@@ -9,14 +9,14 @@
 import Foundation
 
 extension FileManager {
-	
+
 	static func pathForFileInDocumentDirectory(withName name: String) -> String {
 		let documentDerictory = FileManager.default.urls(for: .documentDirectory,
 														 in: .userDomainMask).first!
 		let archiveURL = documentDerictory.appendingPathComponent(name)
 		return archiveURL.path
 	}
-	
+
 	func saveContent<T: Codable>(_ content: T, atPath path: String) {
 		do {
 			let data = try JSONEncoder().encode(content)
@@ -28,28 +28,28 @@ extension FileManager {
 			fatalError(error.localizedDescription)
 		}
 	}
-	
+
 	func loadSavedContent<T: Codable>(atPath path: String) -> T? {
 		guard let data = FileManager.default.contents(atPath: path) else {
 			return nil
 		}
-		
+
 		let decoder = JSONDecoder()
-		
+
 		return (try? decoder.decode(T.self, from: data))
 	}
-	
+
 	func loadContentFromBundle<T: Codable>(withName name: String) -> T {
 		let decoder = JSONDecoder()
-		
+
 		if 	let source = Bundle.main.path(forResource: name, ofType: nil),
 			let data = FileManager.default.contents(atPath: source),
 			let content = (try? decoder.decode(T.self, from: data)) {
-			
+
 			return content
 		} else {
 			fatalError("Can not load content with name: \(name)")
 		}
 	}
-	
+
 }

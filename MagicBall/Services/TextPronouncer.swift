@@ -9,13 +9,13 @@
 import AVFoundation
 
 final class TextPronouncer {
-	
+
 	private var speechSynthesizer: AVSpeechSynthesizer = {
 		let audioSession = AVAudioSession.sharedInstance()
 		try? audioSession.setCategory(AVAudioSession.Category.ambient, options: [.duckOthers])
 		return AVSpeechSynthesizer()
 	}()
-	
+
 	func pronounce(_ text: String) {
 		guard !text.isEmpty else { return }
 		let utterance = AVSpeechUtterance(string: text)
@@ -26,11 +26,11 @@ final class TextPronouncer {
 		stopPronouncing()
 		speechSynthesizer.speak(utterance)
 	}
-	
+
 	func stopPronouncing() {
 		if speechSynthesizer.isSpeaking {
 			speechSynthesizer.stopSpeaking(at: .immediate)
 		}
 	}
-	
+
 }
