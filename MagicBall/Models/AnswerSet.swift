@@ -9,9 +9,11 @@
 import Foundation
 
 struct AnswerSet: Codable, Equatable {
+
 	let id: UUID = .init()
 	var name: String
 	var answers: [String]
+
 }
 
 func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {

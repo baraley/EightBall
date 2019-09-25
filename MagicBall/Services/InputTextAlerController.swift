@@ -8,50 +8,52 @@
 
 import UIKit
 
-class InputTextAlerController: NSObject, UITextFieldDelegate {
-	
+final class InputTextAlerController: NSObject, UITextFieldDelegate {
+
 	private weak var presentingViewController: UIViewController?
-	
+
 	init(presentingViewController: UIViewController) {
 		self.presentingViewController = presentingViewController
-		
+
 		super.init()
 	}
-	
+
 	private var currentAction: UIAlertAction?
-	
+
 	// MARK: - Public
-	
-	func showInputTextAlert(with title: String,
-							actionTitle: String,
-							textFieldPlaceholder placeholder: String = "",
-							completionHdandler: @escaping ((String) -> Void)) {
-		
-		let ac = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-		
-		ac.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-		
-		ac.addTextField { [unowned self] (textField) in
+
+	func showInputTextAlert(
+		with title: String,
+		actionTitle: String,
+		textFieldPlaceholder placeholder: String = "",
+		completionHdandler: @escaping ((String) -> Void)
+	) {
+
+		let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+
+		alert.addAction(.init(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
+
+		alert.addTextField { [unowned self] (textField) in
 			textField.text = placeholder
 			textField.addTarget(self, action: #selector(self.textDidChange(in:)), for: .editingDidBegin)
 			textField.addTarget(self, action: #selector(self.textDidChange(in:)), for: .editingChanged)
 		}
-		
+
 		currentAction = UIAlertAction(title: actionTitle, style: .default) { _ in
-			let textField = ac.textFields![0]
-			
+			let textField = alert.textFields![0]
+
 			if let text = textField.text, !text.isEmpty {
 				completionHdandler(text)
 			}
 		}
-		
-		ac.addAction(currentAction!)
-		
-		presentingViewController?.present(ac, animated: true)
+
+		alert.addAction(currentAction!)
+
+		presentingViewController?.present(alert, animated: true)
 	}
-	
+
 	// MARK: - Text field actions
-	
+
 	@objc func textDidChange(in textField: UITextField) {
 		if !textField.hasText {
 			currentAction?.isEnabled = false
@@ -59,4 +61,5 @@ class InputTextAlerController: NSObject, UITextFieldDelegate {
 			currentAction?.isEnabled = true
 		}
 	}
+
 }

@@ -9,9 +9,10 @@
 import Foundation
 
 enum NetworkError: Error, LocalizedError, Equatable {
+
 	case noInternet
 	case unknown(String)
-	
+
 	init(error: Error?) {
 		if let error = error as NSError?, error.code == -1009 {
 			self = .noInternet
@@ -19,14 +20,15 @@ enum NetworkError: Error, LocalizedError, Equatable {
 			self = .unknown(error?.localizedDescription ?? "Unknown error")
 		}
 	}
-	
+
 	var errorDescription: String {
 		switch self {
 		case .noInternet:
-			return "There is no internet conection. Please try to use answers from answer sets."
-			
+			return L10n.Alert.Message.noInternet
+
 		case .unknown(let message):
 			return message
 		}
 	}
+
 }
