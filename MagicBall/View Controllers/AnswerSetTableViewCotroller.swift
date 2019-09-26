@@ -1,5 +1,5 @@
 //
-//  AnswerSetTableViewCotroller.swift
+//  AnswerSetTableViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/11/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class AnswerSetTableViewCotroller: UITableViewController {
+final class AnswerSetTableViewController: UITableViewController {
 
 	var answerSet: AnswerSet! {
 		didSet {
@@ -18,7 +18,7 @@ final class AnswerSetTableViewCotroller: UITableViewController {
 
 	var answerSetDidChangeHandler: ((AnswerSet) -> Void)?
 
-	private lazy var inputTextAlerController: InputTextAlerController = .init(presentingViewController: self)
+	private lazy var inputTextAlertController: InputTextAlertController = .init(presentingViewController: self)
 
 	// MARK: - Life cycle
 
@@ -76,12 +76,12 @@ final class AnswerSetTableViewCotroller: UITableViewController {
 
 // MARK: - Private
 
-private extension AnswerSetTableViewCotroller {
+private extension AnswerSetTableViewController {
 
 	func editAnswer(at indexPath: IndexPath) {
 		let placeholder = self.answerSet.answers[indexPath.row]
 
-		inputTextAlerController.showInputTextAlert(with: L10n.Alert.Title.editAnswer,
+		inputTextAlertController.showInputTextAlert(with: L10n.Alert.Title.editAnswer,
 												   actionTitle: L10n.Action.Title.save,
 												   textFieldPlaceholder: placeholder) { [unowned self] (answerText) in
 
@@ -91,7 +91,7 @@ private extension AnswerSetTableViewCotroller {
 	}
 
 	@IBAction func acceptTextOfNewAnswer() {
-		inputTextAlerController.showInputTextAlert(
+		inputTextAlertController.showInputTextAlert(
 		with: L10n.Alert.Title.newAnswer, actionTitle: L10n.Action.Title.add) { [unowned self] (answerText) in
 
 			self.answerSet.answers.append(answerText)

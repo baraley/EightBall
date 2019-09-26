@@ -11,7 +11,7 @@
         <!--Magic 8 Ball-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MagicBallViewCotroller" id="BYZ-38-t0r" customClass="MagicBallViewCotroller" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MagicBallViewController" id="BYZ-38-t0r" customClass="MagicBallViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZTE-Ic-lkv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -93,7 +93,7 @@
         <!--Answer Sets-->
         <scene sceneID="7Pr-Da-DOS">
             <objects>
-                <tableViewController storyboardIdentifier="ListOfAnswerSetsViewCotroller" title="Answer Sets" hidesBottomBarWhenPushed="YES" id="kSs-2t-Ca4" customClass="ListOfAnswerSetsViewCotroller" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ListOfAnswerSetsViewController" title="Answer Sets" hidesBottomBarWhenPushed="YES" id="kSs-2t-Ca4" customClass="ListOfAnswerSetsViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qkC-eb-aZr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,7 +155,7 @@
         <!--Answers-->
         <scene sceneID="RHq-sY-0G7">
             <objects>
-                <tableViewController storyboardIdentifier="AnswerSetTableViewCotroller" title="Answers" id="vK4-ag-JE8" customClass="AnswerSetTableViewCotroller" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AnswerSetTableViewController" title="Answers" id="vK4-ag-JE8" customClass="AnswerSetTableViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X7z-Eq-9RA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,10 +203,10 @@
             </objects>
             <point key="canvasLocation" x="3807" y="134"/>
         </scene>
-        <!--App Root View Cotroller-->
+        <!--App Root View Controller-->
         <scene sceneID="EkK-Zp-iKp">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewCotroller" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zpm-Cq-eda" customClass="AppRootViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z1A-vp-7DK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -244,7 +244,7 @@
         <!--Settings-->
         <scene sceneID="oEH-qH-cOk">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsViewController" id="RLd-tD-BCb" customClass="SettingsViewCotroller" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="RLd-tD-BCb" customClass="SettingsViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="gRx-pi-ZXd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

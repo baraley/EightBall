@@ -1,5 +1,5 @@
 //
-//  AppRootViewCotroller.swift
+//  AppRootViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-final class AppRootViewCotroller: UITabBarController {
+final class AppRootViewController: UITabBarController {
 
 	// MARK: - Private properties
 
 	private lazy var settingsStore: SettingsStore = .init()
 	private lazy var answerSetsStore: AnswerSetsStore = .init()
 
-	private var magicBallViewController: MagicBallViewCotroller?
-	private var settingsViewController: SettingsViewCotroller?
+	private var magicBallViewController: MagicBallViewController?
+	private var settingsViewController: SettingsViewController?
 
 	// MARK: - Life cycle
 
@@ -30,7 +30,7 @@ final class AppRootViewCotroller: UITabBarController {
 
 // MARK: - Private
 
-private extension AppRootViewCotroller {
+private extension AppRootViewController {
 
 	func setup() {
 		view.backgroundColor = .white
@@ -49,31 +49,31 @@ private extension AppRootViewCotroller {
 	func parseViewControllers() {
 		viewControllers?.forEach({
 
-			if let magicBallViewController = $0 as? MagicBallViewCotroller {
+			if let magicBallViewController = $0 as? MagicBallViewController {
 
 				self.magicBallViewController = magicBallViewController
 
 				self.magicBallViewController?.tabBarItem.image = Asset.ballTabIcon.image
 
-			} else if let navigationViewCotroller = $0 as? UINavigationController,
-				let settingsViewCotroller = navigationViewCotroller.viewControllers[0] as? SettingsViewCotroller {
+			} else if let navigationViewController = $0 as? UINavigationController,
+				let settingsViewController = navigationViewController.viewControllers[0] as? SettingsViewController {
 
-				self.settingsViewController = settingsViewCotroller
+				self.settingsViewController = settingsViewController
 
-				navigationViewCotroller.tabBarItem.image = Asset.settingsTabIcon.image
+				navigationViewController.tabBarItem.image = Asset.settingsTabIcon.image
 			}
 		})
 	}
 
 	func setupMagicBallViewController() {
-		magicBallViewController?.settings = settingsStore.currentSettins
+		magicBallViewController?.settings = settingsStore.currentSettings
 		magicBallViewController?.dataSource = MagicBallDataSource(
 			answerSets: answerSetsStore.answerSets
 		)
 	}
 
 	func setupSettingsViewController() {
-		settingsViewController?.settings = settingsStore.currentSettins
+		settingsViewController?.settings = settingsStore.currentSettings
 		settingsViewController?.answerSetsStore = answerSetsStore
 
 		settingsViewController?.settingsDidChangeAction = { [weak self] (settings) in

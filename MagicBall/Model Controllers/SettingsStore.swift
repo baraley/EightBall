@@ -12,12 +12,12 @@ final class SettingsStore {
 
 	// MARK: - Public
 
-	private(set) lazy var currentSettins: Settings = loadSettins()
+	private(set) lazy var currentSettings: Settings = loadSettings()
 
 	func save(_ settings: Settings) {
-		currentSettins = settings
+		currentSettings = settings
 
-		FileManager.default.saveContent(currentSettins, atPath: settingsFilePath)
+		FileManager.default.saveContent(currentSettings, atPath: settingsFilePath)
 	}
 
 	// MARK: - Private
@@ -28,12 +28,12 @@ final class SettingsStore {
 		return FileManager.pathForFileInDocumentDirectory(withName: fileName)
 	}()
 
-	private func loadSettins() -> Settings {
+	private func loadSettings() -> Settings {
 		if let settings = FileManager.default.loadSavedContent(atPath: settingsFilePath) as Settings? {
 
 			return settings
 		} else {
-			let name = DefaultResouceName.settings.rawValue
+			let name = DefaultResourceName.settings.rawValue
 
 			return FileManager.default.loadContentFromBundle(withName: name)
 		}

@@ -1,5 +1,5 @@
 //
-//  ListOfAnswerSetsViewCotroller.swift
+//  ListOfAnswerSetsViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/14/19.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-final class ListOfAnswerSetsViewCotroller: UITableViewController, SegueHandlerType {
+final class ListOfAnswerSetsViewController: UITableViewController, SegueHandlerType {
 
 	var answerSetsStore: AnswerSetsStore!
 
-	private lazy var inputTextAlerController: InputTextAlerController = .init(presentingViewController: self)
+	private lazy var inputTextAlertController: InputTextAlertController = .init(presentingViewController: self)
 
 	// MARK: - Life cycle
 
@@ -41,7 +41,7 @@ final class ListOfAnswerSetsViewCotroller: UITableViewController, SegueHandlerTy
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answers = segueIdentifier(for: segue),
-            let viewController = segue.destination as? AnswerSetTableViewCotroller
+            let viewController = segue.destination as? AnswerSetTableViewController
         else { return }
 
 		if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
@@ -111,7 +111,7 @@ final class ListOfAnswerSetsViewCotroller: UITableViewController, SegueHandlerTy
 
 // MARK: - Private
 
-private extension ListOfAnswerSetsViewCotroller {
+private extension ListOfAnswerSetsViewController {
 
 	func showDeletingAlertForAnswerSet(at indexPath: IndexPath) {
 		let answerSet = answerSetsStore.answerSets[indexPath.row]
@@ -138,7 +138,7 @@ private extension ListOfAnswerSetsViewCotroller {
 
 		let placeholder = self.answerSetsStore.answerSets[indexPath.row].name
 
-		inputTextAlerController.showInputTextAlert(
+		inputTextAlertController.showInputTextAlert(
 			with: L10n.Alert.Title.editAnswerSet,
 			actionTitle: L10n.Action.Title.save,
 			textFieldPlaceholder: placeholder) { [unowned self] (name) in
@@ -152,7 +152,7 @@ private extension ListOfAnswerSetsViewCotroller {
 
 	@IBAction func acceptTextForNewAnswerSet() {
 
-		inputTextAlerController.showInputTextAlert(
+		inputTextAlertController.showInputTextAlert(
 			with: L10n.Alert.Title.newAnswerSet,
 			actionTitle: L10n.Action.Title.add) { [unowned self] (name) in
 

@@ -1,5 +1,5 @@
 //
-//  InputTextAlerController.swift
+//  InputTextAlertController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/15/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class InputTextAlerController: NSObject, UITextFieldDelegate {
+final class InputTextAlertController: NSObject, UITextFieldDelegate {
 
 	private weak var presentingViewController: UIViewController?
 
@@ -26,7 +26,7 @@ final class InputTextAlerController: NSObject, UITextFieldDelegate {
 		with title: String,
 		actionTitle: String,
 		textFieldPlaceholder placeholder: String = "",
-		completionHdandler: @escaping ((String) -> Void)
+		handler: @escaping ((String) -> Void)
 	) {
 
 		let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
@@ -43,7 +43,7 @@ final class InputTextAlerController: NSObject, UITextFieldDelegate {
 			let textField = alert.textFields![0]
 
 			if let text = textField.text, !text.isEmpty {
-				completionHdandler(text)
+				handler(text)
 			}
 		}
 

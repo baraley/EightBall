@@ -12,7 +12,7 @@
 		1107920622FFE6790056BE67 /* SegueHandlerType+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
 		112B515B23011A890063E18B /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+extensions.swift */; };
-		112B515D23011AB80063E18B /* DefaultResouceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515C23011AB80063E18B /* DefaultResouceName.swift */; };
+		112B515D23011AB80063E18B /* DefaultResourceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515C23011AB80063E18B /* DefaultResourceName.swift */; };
 		112B516123013D4D0063E18B /* AnswerSetsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B516023013D4D0063E18B /* AnswerSetsStore.swift */; };
 		11447FB023396AC300CE3DF6 /* assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11447FAE23396AC300CE3DF6 /* assets.swift */; };
 		11447FB123396AC300CE3DF6 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11447FAF23396AC300CE3DF6 /* strings.swift */; };
@@ -20,7 +20,7 @@
 		115C00B5230884C5001FB0B6 /* MagicBallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */; };
 		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
 		117272AB2337437B006D6A02 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 117272AD2337437B006D6A02 /* Localization.strings */; };
-		117889F52305870800983E8A /* InputTextAlerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlerController.swift */; };
+		117889F52305870800983E8A /* InputTextAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlertController.swift */; };
 		118027D72304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
 		11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */; };
@@ -44,7 +44,7 @@
 		1107920522FFE6780056BE67 /* SegueHandlerType+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegueHandlerType+Protocol.swift"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
 		112B515A23011A890063E18B /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
-		112B515C23011AB80063E18B /* DefaultResouceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResouceName.swift; sourceTree = "<group>"; };
+		112B515C23011AB80063E18B /* DefaultResourceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResourceName.swift; sourceTree = "<group>"; };
 		112B516023013D4D0063E18B /* AnswerSetsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSetsStore.swift; sourceTree = "<group>"; };
 		11447FAE23396AC300CE3DF6 /* assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assets.swift; sourceTree = "<group>"; };
 		11447FAF23396AC300CE3DF6 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallDataSource.swift; sourceTree = "<group>"; };
 		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		117272AC2337437B006D6A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
-		117889F42305870800983E8A /* InputTextAlerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlerController.swift; sourceTree = "<group>"; };
+		117889F42305870800983E8A /* InputTextAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlertController.swift; sourceTree = "<group>"; };
 		118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfAnswerSetsViewCotroller.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
 		11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLoader.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				11D2F74222FD59C8000E8881 /* Settings.swift */,
-				112B515C23011AB80063E18B /* DefaultResouceName.swift */,
+				112B515C23011AB80063E18B /* DefaultResourceName.swift */,
 				11853ED4230170A300F30203 /* AnswerSet.swift */,
 				116BD3932302F573001ECD5F /* NetworkError.swift */,
 			);
@@ -183,7 +183,7 @@
 			children = (
 				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
 				1155038922FE8125009AD046 /* TextPronouncer.swift */,
-				117889F42305870800983E8A /* InputTextAlerController.swift */,
+				117889F42305870800983E8A /* InputTextAlertController.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -385,10 +385,10 @@
 				115C00B5230884C5001FB0B6 /* MagicBallDataSource.swift in Sources */,
 				11D2F75C22FE7940000E8881 /* SettingsViewCotroller.swift in Sources */,
 				11447FB023396AC300CE3DF6 /* assets.swift in Sources */,
-				117889F52305870800983E8A /* InputTextAlerController.swift in Sources */,
+				117889F52305870800983E8A /* InputTextAlertController.swift in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				11A9FDF322F9411300C3C7B9 /* AnswerLoader.swift in Sources */,
-				112B515D23011AB80063E18B /* DefaultResouceName.swift in Sources */,
+				112B515D23011AB80063E18B /* DefaultResourceName.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */,
 				118027D72304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift in Sources */,
 				11D2F75322FE6D7F000E8881 /* SettingsStore.swift in Sources */,

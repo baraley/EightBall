@@ -1,5 +1,5 @@
 //
-//  SettingsViewCotroller.swift
+//  SettingsViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/9/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SettingsViewCotroller: UITableViewController, SegueHandlerType {
+final class SettingsViewController: UITableViewController, SegueHandlerType {
 
 	// MARK: - Public properties
 
@@ -61,7 +61,7 @@ final class SettingsViewCotroller: UITableViewController, SegueHandlerType {
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard case .answerSets = segueIdentifier(for: segue),
-            let viewController = segue.destination as? ListOfAnswerSetsViewCotroller
+            let viewController = segue.destination as? ListOfAnswerSetsViewController
         else { return }
 
 		viewController.answerSetsStore = answerSetsStore

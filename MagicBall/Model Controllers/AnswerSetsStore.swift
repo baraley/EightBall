@@ -49,7 +49,7 @@ final class AnswerSetsStore {
 
 			return answerSets
 		} else {
-			let name = DefaultResouceName.rudeAnswers.rawValue
+			let name = DefaultResourceName.rudeAnswers.rawValue
 			let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
 
 			return [AnswerSet(name: "Rude", answers: rudeAnswers)]

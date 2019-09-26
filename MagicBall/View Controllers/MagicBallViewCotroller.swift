@@ -1,5 +1,5 @@
 //
-//  MagicBallViewCotroller.swift
+//  MagicBallViewController.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/6/19.
@@ -10,7 +10,7 @@ import UIKit
 
 private let initialMessage = L10n.initialMagicScreenMessage
 
-final class MagicBallViewCotroller: UIViewController {
+final class MagicBallViewController: UIViewController {
 
 	// MARK: - Public properties
 
@@ -32,7 +32,7 @@ final class MagicBallViewCotroller: UIViewController {
 
 	// MARK: - Private properties
 
-	private let textPronoucer: TextPronouncer = .init()
+	private let textPronouncer: TextPronouncer = .init()
 	private lazy var generator: UINotificationFeedbackGenerator = .init()
 
 	// MARK: - UIResponder
@@ -51,7 +51,7 @@ final class MagicBallViewCotroller: UIViewController {
 		}
 
 		magicBallView.state = .answerHidden
-		textPronoucer.stopPronouncing()
+		textPronouncer.stopPronouncing()
 
 		dataSource.findNewAnswer()
 	}
@@ -68,14 +68,14 @@ final class MagicBallViewCotroller: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		textPronoucer.stopPronouncing()
+		textPronouncer.stopPronouncing()
 	}
 
 }
 
 // MARK: - Private
 
-private extension MagicBallViewCotroller {
+private extension MagicBallViewController {
 
 	func settingsDidChange() {
 		guard isViewLoaded else { return }
@@ -104,7 +104,7 @@ private extension MagicBallViewCotroller {
 	func showAnswer(_ answer: String) {
 		if settings.readAnswerIsOn {
 			magicBallView.appearingAnimationDidFinishHandler = { [weak self] in
-				self?.textPronoucer.pronounce(answer)
+				self?.textPronouncer.pronounce(answer)
 			}
 		}
 		magicBallView.state = .answerShown(answer)

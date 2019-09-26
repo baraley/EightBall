@@ -11,9 +11,9 @@ import Foundation
 extension FileManager {
 
 	static func pathForFileInDocumentDirectory(withName name: String) -> String {
-		let documentDerictory = FileManager.default.urls(for: .documentDirectory,
+		let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 														 in: .userDomainMask).first!
-		let archiveURL = documentDerictory.appendingPathComponent(name)
+		let archiveURL = documentDirectory.appendingPathComponent(name)
 		return archiveURL.path
 	}
 
