@@ -86,18 +86,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		11079207230074100056BE67 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */,
-				11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */,
-				11D2F75B22FE7940000E8881 /* SettingsViewCotroller.swift */,
-				118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */,
-				1107920322FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift */,
-			);
-			path = "View Controllers";
-			sourceTree = "<group>";
-		};
 		112B515E23011FA40063E18B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,11 +133,9 @@
 			isa = PBXGroup;
 			children = (
 				11C919C122F9368E005F71BC /* AppDelegate.swift */,
-				11D2F74D22FE0A64000E8881 /* Models */,
-				11D2F75622FE73C9000E8881 /* Model Controllers */,
-				11D2F74E22FE0A6B000E8881 /* Views */,
-				11079207230074100056BE67 /* View Controllers */,
-				11D2F74F22FE0A95000E8881 /* Services */,
+				11CF2A50233F7BF000F394B1 /* General objects */,
+				11CF2A48233F7B5200F394B1 /* MagicBall Tab */,
+				11CF2A49233F7B6100F394B1 /* Settings Tab */,
 				112B515E23011FA40063E18B /* Protocols */,
 				112B515F23011FAD0063E18B /* Extensions */,
 				11D2F75122FE0B2D000E8881 /* Storyboards */,
@@ -158,15 +144,113 @@
 			path = MagicBall;
 			sourceTree = "<group>";
 		};
-		11D2F74D22FE0A64000E8881 /* Models */ = {
+		11CF2A48233F7B5200F394B1 /* MagicBall Tab */ = {
 			isa = PBXGroup;
 			children = (
-				11D2F74222FD59C8000E8881 /* Settings.swift */,
-				112B515C23011AB80063E18B /* DefaultResourceName.swift */,
-				11853ED4230170A300F30203 /* AnswerSet.swift */,
+				11CF2A4E233F7BCF00F394B1 /* Models */,
+				11CF2A4C233F7B9D00F394B1 /* Services */,
+				11D2F74E22FE0A6B000E8881 /* Views */,
+				11CF2A4A233F7B7D00F394B1 /* View Controllers */,
+			);
+			path = "MagicBall Tab";
+			sourceTree = "<group>";
+		};
+		11CF2A49233F7B6100F394B1 /* Settings Tab */ = {
+			isa = PBXGroup;
+			children = (
+				11CF2A4F233F7BD700F394B1 /* Models */,
+				11CF2A4D233F7BB300F394B1 /* Services */,
+				11CF2A4B233F7B8100F394B1 /* View Controllers */,
+			);
+			path = "Settings Tab";
+			sourceTree = "<group>";
+		};
+		11CF2A4A233F7B7D00F394B1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		11CF2A4B233F7B8100F394B1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F75B22FE7940000E8881 /* SettingsViewCotroller.swift */,
+				118027D62304835B00E1754B /* ListOfAnswerSetsViewCotroller.swift */,
+				1107920322FFD75F0056BE67 /* AnswerSetTableViewCotroller.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		11CF2A4C233F7B9D00F394B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */,
+				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
+				1155038922FE8125009AD046 /* TextPronouncer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		11CF2A4D233F7BB300F394B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F75222FE6D7F000E8881 /* SettingsStore.swift */,
+				117889F42305870800983E8A /* InputTextAlertController.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		11CF2A4E233F7BCF00F394B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				116BD3932302F573001ECD5F /* NetworkError.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		11CF2A4F233F7BD700F394B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F74222FD59C8000E8881 /* Settings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11CF2A50233F7BF000F394B1 /* General objects */ = {
+			isa = PBXGroup;
+			children = (
+				11CF2A52233F7C0A00F394B1 /* Models */,
+				11CF2A53233F7C3A00F394B1 /* Services */,
+				11CF2A51233F7BFE00F394B1 /* View Controllers */,
+			);
+			path = "General objects";
+			sourceTree = "<group>";
+		};
+		11CF2A51233F7BFE00F394B1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		11CF2A52233F7C0A00F394B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				112B515C23011AB80063E18B /* DefaultResourceName.swift */,
+				11853ED4230170A300F30203 /* AnswerSet.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11CF2A53233F7C3A00F394B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				112B516023013D4D0063E18B /* AnswerSetsStore.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		11D2F74E22FE0A6B000E8881 /* Views */ = {
@@ -176,16 +260,6 @@
 				110A534122FB50A40026BA79 /* MagicButton.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		11D2F74F22FE0A95000E8881 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				11A9FDF222F9411300C3C7B9 /* AnswerLoader.swift */,
-				1155038922FE8125009AD046 /* TextPronouncer.swift */,
-				117889F42305870800983E8A /* InputTextAlertController.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		11D2F75022FE0B03000E8881 /* Resources */ = {
@@ -208,16 +282,6 @@
 				11C919CA22F9368F005F71BC /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
-			sourceTree = "<group>";
-		};
-		11D2F75622FE73C9000E8881 /* Model Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				11D2F75222FE6D7F000E8881 /* SettingsStore.swift */,
-				112B516023013D4D0063E18B /* AnswerSetsStore.swift */,
-				115C00B4230884C5001FB0B6 /* MagicBallDataSource.swift */,
-			);
-			path = "Model Controllers";
 			sourceTree = "<group>";
 		};
 		BD198BE49C0AEFE114BC20B6 /* Pods */ = {
