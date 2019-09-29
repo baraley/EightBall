@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ListOfAnswerSetsViewController: UITableViewController, SegueHandlerType {
+final class ListOfAnswerSetsViewController: UITableViewController {
 
 	var answerSetsStore: AnswerSetsStore!
 
@@ -31,27 +31,25 @@ final class ListOfAnswerSetsViewController: UITableViewController, SegueHandlerT
 
 	// MARK: - Navigation
 
-	enum SegueIdentifier: String {
-		case answers
-	}
-
 	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 		return !isEditing
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		guard case .answers = segueIdentifier(for: segue),
-            let viewController = segue.destination as? AnswerSetTableViewController
-        else { return }
+		guard
+			StoryboardSegue.Main(segue) == .answers,
+			let viewController = segue.destination as? AnswerSetTableViewController,
+			let indexPathForSelectedRow = tableView.indexPathForSelectedRow
+			else {
+				return
+		}
 
-		if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
-			viewController.answerSet = answerSetsStore.answerSets[indexPathForSelectedRow.row]
-			viewController.answerSetDidChangeHandler = { changedAnswerSet in
+		viewController.answerSet = answerSetsStore.answerSets[indexPathForSelectedRow.row]
+		viewController.answerSetDidChangeHandler = { changedAnswerSet in
 
-				self.answerSetsStore.save(changedAnswerSet)
+			self.answerSetsStore.save(changedAnswerSet)
 
-				self.tableView.reloadRows(at: [indexPathForSelectedRow], with: .automatic)
-			}
+			self.tableView.reloadRows(at: [indexPathForSelectedRow], with: .automatic)
 		}
 	}
 

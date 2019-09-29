@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SettingsViewController: UITableViewController, SegueHandlerType {
+final class SettingsViewController: UITableViewController {
 
 	// MARK: - Public properties
 
@@ -55,14 +55,13 @@ final class SettingsViewController: UITableViewController, SegueHandlerType {
 
 	// MARK: - Navigation
 
-	enum SegueIdentifier: String {
-		case answerSets
-	}
-
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		guard case .answerSets = segueIdentifier(for: segue),
-            let viewController = segue.destination as? ListOfAnswerSetsViewController
-        else { return }
+		guard
+			StoryboardSegue.Main(segue) == .answerSets,
+			let viewController = segue.destination as? ListOfAnswerSetsViewController
+			else {
+				return
+		}
 
 		viewController.answerSetsStore = answerSetsStore
 	}

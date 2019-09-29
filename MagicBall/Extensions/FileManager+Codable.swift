@@ -1,5 +1,5 @@
 //
-//  FileManager+extensions.swift
+//  FileManager+Codable.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 8/12/19.
@@ -30,9 +30,7 @@ extension FileManager {
 	}
 
 	func loadSavedContent<T: Codable>(atPath path: String) -> T? {
-		guard let data = FileManager.default.contents(atPath: path) else {
-			return nil
-		}
+		guard let data = FileManager.default.contents(atPath: path) else { return nil }
 
 		let decoder = JSONDecoder()
 
