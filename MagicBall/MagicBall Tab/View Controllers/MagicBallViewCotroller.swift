@@ -44,7 +44,7 @@ final class MagicBallViewController: UIViewController {
 	// MARK: - Actions
 
 	@IBAction private func requestNewAnswer() {
-		guard magicBallView.isAnimationFinished == true else { return }
+		guard magicBallView.animationState == .showingEnded else { return }
 
 		if settings.hapticFeedbackIsOn {
 			generator.notificationOccurred(.success)
@@ -103,8 +103,10 @@ private extension MagicBallViewController {
 
 	func showAnswer(_ answer: String) {
 		if settings.readAnswerIsOn {
-			magicBallView.appearingAnimationDidFinishHandler = { [weak self] in
-				self?.textPronouncer.pronounce(answer)
+			magicBallView.animationStateDidChangeHandler = { [weak self] (animationState) in
+				if animationState == .showingEnded {
+					self?.textPronouncer.pronounce(answer)
+				}
 			}
 		}
 		magicBallView.state = .answerShown(answer)
