@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-final class TextPronouncer {
+final class TextPronouncer: AnswerPronouncer {
 
 	private var speechSynthesizer: AVSpeechSynthesizer = {
 		let audioSession = AVAudioSession.sharedInstance()

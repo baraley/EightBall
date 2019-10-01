@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Settings: Codable {
+struct Settings {
 
 	var lazyModeIsOn: Bool
 	var readAnswerIsOn: Bool

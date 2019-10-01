@@ -7,6 +7,11 @@
 */
 
 "initialMagicScreenMessage" = "Shake your phone, please!!!";
+"networkAnswerSourceTitle" = "Answers form network";
+
+//MARK: - TabBarItem Titles -
+"tabBar.title.magicBall" = "MagicBall";
+"tabBar.title.settings" = "Settings";
 
 //MARK: - Action Titles -
 

@@ -18,6 +18,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
 
+		let answerSetsModel = AnswerSetsModel(answerSetsService: AnswerSetsService())
+		let answerSourcesModel = AnswerSourcesModel(
+			answerSetsModel: answerSetsModel,
+			networkAnswerModel: NetworkAnswerModel()
+		)
+
+		let answerSettingsModel = AnswerSettingsModel(settingsService: SettingsService())
+
+		let magicBallModel = MagicBallModel(answerSourceModel: answerSourcesModel, answerPronouncer: TextPronouncer())
+
+		let appRootViewController = StoryboardScene.Main.appRootViewController.instantiate()
+
+		appRootViewController.magicBallModel = magicBallModel
+		appRootViewController.answerSourcesModel = answerSourcesModel
+		appRootViewController.answerSetsModel = answerSetsModel
+		appRootViewController.answerSettingsModel = answerSettingsModel
+
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.rootViewController = appRootViewController
+		window?.makeKeyAndVisible()
+
 		return true
 	}
 

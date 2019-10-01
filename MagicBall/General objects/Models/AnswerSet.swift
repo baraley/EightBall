@@ -8,11 +8,17 @@
 
 import Foundation
 
-struct AnswerSet: Codable, Equatable {
+struct AnswerSet: Equatable {
 
-	let id: UUID = .init()
+	let id: UUID
 	var name: String
 	var answers: [String]
+
+	init(id: UUID = .init(), name: String, answers: [String]) {
+		self.id = id
+		self.name = name
+		self.answers = answers
+	}
 
 }
 

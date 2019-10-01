@@ -13,6 +13,8 @@ import Foundation
 internal enum L10n {
   /// Shake your phone, please!!!
   internal static let initialMagicScreenMessage = L10n.tr("Localization", "initialMagicScreenMessage")
+  /// Answers form network
+  internal static let networkAnswerSourceTitle = L10n.tr("Localization", "networkAnswerSourceTitle")
 
   internal enum Action {
     internal enum Title {
@@ -49,6 +51,15 @@ internal enum L10n {
       internal static let newAnswer = L10n.tr("Localization", "alert.title.newAnswer")
       /// New answer set
       internal static let newAnswerSet = L10n.tr("Localization", "alert.title.newAnswerSet")
+    }
+  }
+
+  internal enum TabBar {
+    internal enum Title {
+      /// MagicBall
+      internal static let magicBall = L10n.tr("Localization", "tabBar.title.magicBall")
+      /// Settings
+      internal static let settings = L10n.tr("Localization", "tabBar.title.settings")
     }
   }
 }

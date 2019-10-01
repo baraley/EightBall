@@ -10,12 +10,15 @@ import UIKit
 
 final class AppRootViewController: UITabBarController {
 
+	var magicBallModel: MagicBallModel!
+	var answerSourcesModel: AnswerSourcesModel!
+	var answerSettingsModel: AnswerSettingsModel!
+	var answerSetsModel: AnswerSetsModel!
+
 	// MARK: - Private properties
 
-	private lazy var settingsStore: SettingsStore = .init()
-	private lazy var answerSetsStore: AnswerSetsStore = .init()
-
-	private var magicBallViewController: MagicBallViewController?
+	private let tabBarViewController: UITabBarController = .init()
+	private var magicBallContainerViewController: MagicBallContainerViewController?
 	private var settingsViewController: SettingsViewController?
 
 	// MARK: - Life cycle
@@ -36,24 +39,15 @@ private extension AppRootViewController {
 		view.backgroundColor = .white
 
 		parseViewControllers()
-		setupMagicBallViewController()
-		setupSettingsViewController()
-
-		answerSetsStore.answerSetsDidChangeHandler = { [weak self]  in
-			guard let self = self else { return }
-
-			self.setupMagicBallViewController()
-		}
+		setupMagicBallContainerViewController()
 	}
 
 	func parseViewControllers() {
 		viewControllers?.forEach({
 
-			if let magicBallViewController = $0 as? MagicBallViewController {
+			if let magicBallContainerViewController = $0 as? MagicBallContainerViewController {
 
-				self.magicBallViewController = magicBallViewController
-
-				self.magicBallViewController?.tabBarItem.image = Asset.ballTabIcon.image
+				self.magicBallContainerViewController = magicBallContainerViewController
 
 			} else if let navigationViewController = $0 as? UINavigationController,
 				let settingsViewController = navigationViewController.viewControllers[0] as? SettingsViewController {
@@ -65,24 +59,17 @@ private extension AppRootViewController {
 		})
 	}
 
-	func setupMagicBallViewController() {
-		magicBallViewController?.settings = settingsStore.currentSettings
-		magicBallViewController?.dataSource = MagicBallDataSource(
-			answerSets: answerSetsStore.answerSets
-		)
+	func setupMagicBallContainerViewController() {
+		magicBallContainerViewController?.tabBarItem.title = L10n.TabBar.Title.magicBall
+		magicBallContainerViewController?.tabBarItem.image = Asset.ballTabIcon.image
+
+		magicBallContainerViewController?.magicBallModel = magicBallModel
+		magicBallContainerViewController?.answerSourceModel = answerSourcesModel
+		magicBallContainerViewController?.answerSettingsModel = answerSettingsModel
 	}
 
 	func setupSettingsViewController() {
-		settingsViewController?.settings = settingsStore.currentSettings
-		settingsViewController?.answerSetsStore = answerSetsStore
 
-		settingsViewController?.settingsDidChangeAction = { [weak self] (settings) in
-			guard let self = self else { return }
-
-			self.settingsStore.save(settings)
-
-			self.magicBallViewController?.settings = settings
-		}
 	}
 
 }

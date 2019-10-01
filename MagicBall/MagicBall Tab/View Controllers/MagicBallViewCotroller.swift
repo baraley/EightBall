@@ -12,48 +12,35 @@ private let initialMessage = L10n.initialMagicScreenMessage
 
 final class MagicBallViewController: UIViewController {
 
-	// MARK: - Public properties
-
-	var settings: Settings! {
+	var generator: UINotificationFeedbackGenerator!
+	var magicBallViewModel: MagicBallViewModel! {
 		didSet {
-			settingsDidChange()
+			magicBallViewModelDidChange()
 		}
 	}
-	var dataSource: MagicBallDataSource! {
-		didSet {
-			dataSourceDidChange()
-		}
-	}
-
-	// MARK: - Outlets
 
 	@IBOutlet private weak var magicBallView: MagicBallView!
-	@IBOutlet private weak var answerSourcePickerView: UIPickerView!
-
-	// MARK: - Private properties
-
-	private let textPronouncer: TextPronouncer = .init()
-	private lazy var generator: UINotificationFeedbackGenerator = .init()
 
 	// MARK: - UIResponder
 
+	override var canBecomeFirstResponder: Bool {
+		return true
+	}
+
 	override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-		requestNewAnswer()
+		guard magicBallView.animationState == .showingEnded else { return }
+
+		generateHapticFeedbackIfNeeds()
+		magicBallViewModel.shakeWasDetected()
 	}
 
 	// MARK: - Actions
 
-	@IBAction private func requestNewAnswer() {
+	@IBAction private func magicButtonDidTap() {
 		guard magicBallView.animationState == .showingEnded else { return }
 
-		if settings.hapticFeedbackIsOn {
-			generator.notificationOccurred(.success)
-		}
-
-		magicBallView.state = .answerHidden
-		textPronouncer.stopPronouncing()
-
-		dataSource.findNewAnswer()
+		generateHapticFeedbackIfNeeds()
+		magicBallViewModel.tapWasDetected()
 	}
 
 	// MARK: - Life cycle
@@ -61,14 +48,25 @@ final class MagicBallViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		settingsDidChange()
-		dataSourceDidChange()
+		setup()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		becomeFirstResponder()
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		magicBallViewModel.viewDidDisappear()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		textPronouncer.stopPronouncing()
+		resignFirstResponder()
 	}
 
 }
@@ -77,52 +75,38 @@ final class MagicBallViewController: UIViewController {
 
 private extension MagicBallViewController {
 
-	func settingsDidChange() {
-		guard isViewLoaded else { return }
+	func setup() {
 
-		magicBallView.isUserInteractionEnabled = settings.lazyModeIsOn
-	}
+		magicBallViewModelDidChange()
 
-	func dataSourceDidChange() {
-		guard isViewLoaded else { return }
-
-		magicBallView.state = .initialMessage(initialMessage)
-
-		answerSourcePickerView.dataSource = dataSource
-		answerSourcePickerView.delegate = dataSource
-		answerSourcePickerView.reloadAllComponents()
-		answerSourcePickerView.selectRow(0, inComponent: 0, animated: false)
-
-		dataSource.answerDidFindHandler = { [weak self] result in
-			switch result {
-			case .success(let answer):	self?.showAnswer(answer)
-			case .failure(let error):	self?.showAlert(for: error)
+		magicBallView.animationStateDidChangeHandler = { [weak self] state in
+			if state == .showingEnded {
+				self?.magicBallViewModel?.didFinishMessageShowing()
 			}
 		}
 	}
 
-	func showAnswer(_ answer: String) {
-		if settings.readAnswerIsOn {
-			magicBallView.animationStateDidChangeHandler = { [weak self] (animationState) in
-				if animationState == .showingEnded {
-					self?.textPronouncer.pronounce(answer)
-				}
+	func magicBallViewModelDidChange() {
+		guard isViewLoaded else { return }
+
+		magicBallView.state = magicBallViewModel.messageState
+
+		magicBallViewModel.messageStateDidChangeHandler = { [weak self] messageState in
+			switch messageState {
+			case .shown(let message):
+				self?.magicBallView.state = .shown(message)
+
+			case .hidden:
+				self?.magicBallView.state = .hidden
 			}
 		}
-		magicBallView.state = .answerShown(answer)
 	}
 
-	func showAlert(for error: NetworkError) {
+	func generateHapticFeedbackIfNeeds() {
 
-		let alert = UIAlertController(
-			title: nil, message: error.errorDescription, preferredStyle: .alert
-		)
-
-		alert.addAction(UIAlertAction(title: L10n.Action.Title.ok, style: .default) { _ in
-			self.magicBallView.state = .initialMessage(initialMessage)
-		})
-
-		self.present(alert, animated: true, completion: nil)
+		if magicBallViewModel.hapticFeedbackIsOn {
+			generator.notificationOccurred(.success)
+		}
 	}
 
 }

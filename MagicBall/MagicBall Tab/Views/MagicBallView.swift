@@ -13,16 +13,15 @@ private let animationDuration: TimeInterval = 0.7
 final class MagicBallView: UIView {
 
 	enum State {
-		case initialMessage(String)
-		case answerHidden
-		case answerShown(String)
+		case hidden
+		case shown(String)
 	}
 
 	enum AnimationState {
 		case hidingBegun, hidingEnded, showingBegun, showingEnded
 	}
 
-	var state: State = .initialMessage("") {
+	var state: State = .hidden {
 		didSet {
 			stateDidChange()
 		}
@@ -58,19 +57,11 @@ private extension MagicBallView {
 
 	func stateDidChange() {
 		switch state {
-		case .initialMessage(let message):
-			if let currentAnimation = currentAnimation {
-				currentAnimation.addCompletion { (_) in
-					self.showAnswer(message)
-				}
-			} else {
-				showAnswer(message)
-			}
-		case .answerHidden:
+		case .hidden:
 			currentAnimation = hidingAnimation
 			currentAnimation?.startAnimation()
 
-		case .answerShown(let answerText):
+		case .shown(let answerText):
 			if let currentAnimation = currentAnimation {
 				currentAnimation.addCompletion { (_) in
 					self.showAnswer(answerText)
