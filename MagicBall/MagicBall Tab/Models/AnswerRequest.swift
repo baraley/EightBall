@@ -26,17 +26,14 @@ struct AnswerRequest: NetworkRequest {
 
 	func decode(_ data: Data?, response: URLResponse?, error: Error?) -> Result<NetworkAnswer, NetworkError> {
 
-		if let data = data {
-			let decoder = JSONDecoder()
+		if let data = data, let networkAnswer = try? JSONDecoder().decode(NetworkAnswer.self, from: data) {
 
-			if let networkAnswer = try? decoder.decode(NetworkAnswer.self, from: data) {
-				return .success(networkAnswer)
-			}
+			return .success(networkAnswer)
+		} else {
+			let error =	NetworkError(error: error)
+
+			return .failure(error)
 		}
-
-		let error =	NetworkError(error: error)
-
-		return .failure(error)
 	}
 
 }

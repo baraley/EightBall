@@ -10,16 +10,33 @@ import UIKit
 
 final class AppRootViewController: UITabBarController {
 
-	var magicBallModel: MagicBallModel!
-	var answerSourcesModel: AnswerSourcesModel!
-	var answerSettingsModel: AnswerSettingsModel!
-	var answerSetsModel: AnswerSetsModel!
+	var magicBallModel: MagicBallModel
+	var answerSourcesModel: AnswerSourcesModel
+	var answerSettingsModel: AnswerSettingsModel
+	var answerSetsModel: AnswerSetsModel
+
+	init(
+		magicBallModel: MagicBallModel,
+		answerSourcesModel: AnswerSourcesModel,
+		answerSettingsModel: AnswerSettingsModel,
+		answerSetsModel: AnswerSetsModel
+	) {
+		self.magicBallModel = magicBallModel
+		self.answerSourcesModel = answerSourcesModel
+		self.answerSettingsModel = answerSettingsModel
+		self.answerSetsModel = answerSetsModel
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - Private properties
 
-	private let tabBarViewController: UITabBarController = .init()
-	private var magicBallContainerViewController: MagicBallContainerViewController?
-	private var settingsNavigationController: UINavigationController?
+	private lazy var magicBallContainerViewController = initializeMagicBallContainerViewController()
+	private lazy var settingsNavigationController = initializeSettingsNavigationController()
 
 	// MARK: - Life cycle
 
@@ -38,46 +55,42 @@ private extension AppRootViewController {
 	func setup() {
 		view.backgroundColor = .white
 
-		parseViewControllers()
-		setupMagicBallContainerViewController()
-		setupSettingsNavigationController()
+		viewControllers = [magicBallContainerViewController, settingsNavigationController]
 	}
 
-	func parseViewControllers() {
-		viewControllers?.forEach({
+	func initializeMagicBallContainerViewController() -> MagicBallContainerViewController {
+		let viewController = StoryboardScene.Main.magicBallContainerViewController.instantiate()
 
-			if let magicBallContainerViewController = $0 as? MagicBallContainerViewController {
+		viewController.tabBarItem.title = L10n.TabBar.Title.magicBall
+		viewController.tabBarItem.image = Asset.ballTabIcon.image
 
-				self.magicBallContainerViewController = magicBallContainerViewController
+		viewController.magicBallModel = magicBallModel
+		viewController.answerSourceModel = answerSourcesModel
+		viewController.answerSettingsModel = answerSettingsModel
 
-			} else if let navigationViewController = $0 as? UINavigationController {
-
-				self.settingsNavigationController = navigationViewController
-			}
-		})
+		return viewController
 	}
 
-	func setupMagicBallContainerViewController() {
-		magicBallContainerViewController?.tabBarItem.title = L10n.TabBar.Title.magicBall
-		magicBallContainerViewController?.tabBarItem.image = Asset.ballTabIcon.image
+	func initializeSettingsNavigationController() -> UINavigationController {
+		let viewController = StoryboardScene.Main.settingsNavigationController.instantiate()
 
-		magicBallContainerViewController?.magicBallModel = magicBallModel
-		magicBallContainerViewController?.answerSourceModel = answerSourcesModel
-		magicBallContainerViewController?.answerSettingsModel = answerSettingsModel
-	}
+		viewController.tabBarItem.title = L10n.TabBar.Title.settings
+		viewController.tabBarItem.image = Asset.settingsTabIcon.image
 
-	func setupSettingsNavigationController() {
-		settingsNavigationController?.tabBarItem.title = L10n.TabBar.Title.settings
-		settingsNavigationController?.tabBarItem.image = Asset.settingsTabIcon.image
-
-		if let settingsViewController = settingsNavigationController?.viewControllers[0] as? SettingsViewController {
-			settingsViewController.settingsViewModel = SettingsViewModel(
-				answerSettingsModel: answerSettingsModel,
-				answerSetsModel: answerSetsModel,
-				didSelectAnswerSetsCellHandler: { [weak self] in
-					self?.presentAnswerSetsEditableListViewController()
-			})
+		if let settingsViewController = viewController.viewControllers[0] as? SettingsViewController {
+			setup(settingsViewController)
 		}
+
+		return viewController
+	}
+
+	func setup(_ viewController: SettingsViewController) {
+		viewController.settingsViewModel = SettingsViewModel(
+			answerSettingsModel: answerSettingsModel,
+			answerSetsModel: answerSetsModel,
+			didSelectAnswerSetsCellHandler: { [weak self] in
+				self?.presentAnswerSetsEditableListViewController()
+		})
 	}
 
 	func presentAnswerSetsEditableListViewController() {
@@ -89,27 +102,24 @@ private extension AppRootViewController {
 		let answerSetsEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
 		answerSetsEditableListViewController.editableListViewModel = viewModel
 
-		settingsNavigationController?.pushViewController(answerSetsEditableListViewController, animated: true)
+		settingsNavigationController.pushViewController(answerSetsEditableListViewController, animated: true)
 	}
 
 	func presentAnswersEditableListViewControllerForAnswerSet(at index: Int) {
-		let answerSet = answerSetsModel.answerSet(at: index)
+		let answerSet = answerSetsModel.answerSet(at: index).toPresentableAnswerSet()
 		let answersEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
 
-		let viewModel = AnswersEditableListViewModel(
-			answerSet: answerSet,
-			answersDidChangeHandler: { [weak self] answers in
-				let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
-				self?.answerSetsModel.save(updatedAnswerSet)
-		})
-		viewModel.didSelectItem = { [unowned answersEditableListViewController] index in
+		let viewModel = AnswersEditableListViewModel(answerSet: answerSet, answerSetsModel: answerSetsModel)
 
-			let presenter = MessageAlertPresenter(message: answerSet.answers[index], actionTitle: L10n.Action.Title.ok)
-			presenter.present(in: answersEditableListViewController)
+		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersEditableListViewController] selectedIndex in
+			let message = answerSetsModel.answerSet(at: index).answers[selectedIndex].toPresentableAnswer().text
+			let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
+
+			alertPresenter.present(in: answersEditableListViewController)
 		}
 
 		answersEditableListViewController.editableListViewModel = viewModel
-		settingsNavigationController?.pushViewController(answersEditableListViewController, animated: true)
+		settingsNavigationController.pushViewController(answersEditableListViewController, animated: true)
 	}
 
 }

@@ -8,7 +8,15 @@
 
 import Foundation
 
+protocol NetworkAnswerService {
+
+	func loadAnswer(with completionHandler: @escaping AnswerSourcesModel.CompletionHandler)
+
+}
+
 final class AnswerSourcesModel {
+
+	typealias CompletionHandler = ((Result<Answer, NetworkError>) -> Void)
 
 	enum Source {
 		case network, answerSet(Int)
@@ -17,11 +25,11 @@ final class AnswerSourcesModel {
 	var answerSource: Source = .network
 
 	private let answerSetsModel: AnswerSetsModel
-	private let networkAnswerModel: NetworkAnswerModel
+	private let networkAnswerService: NetworkAnswerService
 
-	init(answerSetsModel: AnswerSetsModel, networkAnswerModel: NetworkAnswerModel) {
+	init(answerSetsModel: AnswerSetsModel, networkAnswerService: NetworkAnswerService) {
 		self.answerSetsModel = answerSetsModel
-		self.networkAnswerModel = networkAnswerModel
+		self.networkAnswerService = networkAnswerService
 
 		answerSetsModel.addObserver(self)
 		answerSetsModel.loadAnswerSets()
@@ -29,6 +37,7 @@ final class AnswerSourcesModel {
 
 	private var answerSets: [AnswerSet] = []
 
+	var answerSetsDidChangeHandler: (() -> Void)?
 	var answerLoadingErrorHandler: ((String) -> Void)?
 
 	func loadAnswerSets() {
@@ -43,7 +52,7 @@ final class AnswerSourcesModel {
 		return answerSets[index]
 	}
 
-	func loadAnswer(_ completionHandler: @escaping (String?) -> Void) {
+	func loadAnswer(_ completionHandler: @escaping (Answer?) -> Void) {
 		switch answerSource {
 		case .network:
 			loadAnswerFromNetwork(with: completionHandler)
@@ -55,12 +64,11 @@ final class AnswerSourcesModel {
 		}
 	}
 
-	private func loadAnswerFromNetwork(with completionHandler: @escaping (String?) -> Void) {
-		networkAnswerModel.loadAnswer { [weak self] (result) in
+	private func loadAnswerFromNetwork(with completionHandler: @escaping (Answer?) -> Void) {
+		networkAnswerService.loadAnswer { [weak self] (result) in
 			DispatchQueue.main.async {
 				switch result {
-				case .success(let networkAnswer):
-					let answer = networkAnswer.magic.answer
+				case .success(let answer):
 					completionHandler(answer)
 
 				case .failure(let error):
@@ -79,6 +87,7 @@ extension AnswerSourcesModel: AnswerSetsModelObserver {
 
 	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel) {
 		loadAnswerSets()
+		answerSetsDidChangeHandler?()
 	}
 
 }

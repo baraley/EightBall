@@ -10,7 +10,7 @@ import Foundation
 
 protocol SettingsServiceProtocol {
 
-	func loadSettings() -> ManagedSettings
+	func loadSettings() -> Settings
 	func save(_ settings: Settings)
 
 }
@@ -29,10 +29,8 @@ final class AnswerSettingsModel {
 		self.settingsService = settingsService
 	}
 
-	private var observations: [ObjectIdentifier: Observation] = [:]
-
 	private(set) lazy var settings: Settings = {
-		return settingsService.loadSettings().toSettings()
+		return settingsService.loadSettings()
 	}()
 
 	func save(_ settings: Settings) {
@@ -42,6 +40,8 @@ final class AnswerSettingsModel {
 	}
 
 	// MARK: - Observation -
+
+	private var observations: [ObjectIdentifier: Observation] = [:]
 
 	func addObserver(_ observer: AnswerSettingsObserver) {
         let id = ObjectIdentifier(observer)

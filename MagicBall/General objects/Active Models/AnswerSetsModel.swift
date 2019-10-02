@@ -10,7 +10,7 @@ import Foundation
 
 protocol AnswerSetsServiceProtocol {
 
-	func loadAnswerSets() -> [ManagedAnswerSet]
+	func loadAnswerSets() -> [AnswerSet]
 	func save(_ answerSets: [AnswerSet])
 
 }
@@ -39,7 +39,7 @@ final class AnswerSetsModel {
 	// MARK: - Public -
 
 	func loadAnswerSets() {
-		return answerSets = answerSetsService.loadAnswerSets().map { $0.toAnswerSet()}
+		return answerSets = answerSetsService.loadAnswerSets()
 	}
 
 	func notEmptyAnswerSets() -> [AnswerSet] {

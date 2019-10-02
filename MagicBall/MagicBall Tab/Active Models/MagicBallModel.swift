@@ -26,14 +26,12 @@ final class MagicBallModel {
 		self.answerPronouncer = answerPronouncer
 	}
 
-	private(set) var answer: String? {
+	private(set) var answer: Answer? {
 		didSet {
 			answerDidChangeHandler?(answer)
 		}
 	}
-	var answerDidChangeHandler: ((String?) -> Void)?
-
-	var answerSettingsDidChangeHandler: ((Settings) -> Void)?
+	var answerDidChangeHandler: ((Answer?) -> Void)?
 
 	func loadAnswer() {
 		answerSourceModel.loadAnswer { [weak self] (answer) in
@@ -43,7 +41,7 @@ final class MagicBallModel {
 
 	func pronounceAnswer() {
 		if let answer = answer {
-			answerPronouncer.pronounce(answer)
+			answerPronouncer.pronounce(answer.text)
 		}
 	}
 

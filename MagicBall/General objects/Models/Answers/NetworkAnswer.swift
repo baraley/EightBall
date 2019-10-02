@@ -29,3 +29,11 @@ extension NetworkAnswer.Magic: Decodable {
 	}
 
 }
+
+extension NetworkAnswer {
+
+	func toAnswer() -> Answer {
+		return Answer(text: magic.answer)
+	}
+
+}

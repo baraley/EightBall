@@ -11,6 +11,6 @@ import Foundation
 enum DefaultResourceName: String {
 
 	case settings = "DefaultSettings"
-	case rudeAnswers = "RudeAnswers"
+	case rudeAnswers = "Rude Answers"
 
 }

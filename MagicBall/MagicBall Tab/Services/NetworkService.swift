@@ -17,7 +17,7 @@ protocol NetworkRequest {
 	func decode(_ data: Data?, response: URLResponse?, error: Error?) -> Result<ResultModel, ResultError>
 }
 
-class NetworkService: NetworkServiceProtocol {
+class NetworkService {
 
     private let session: URLSession
 
@@ -56,4 +56,26 @@ class NetworkService: NetworkServiceProtocol {
     private func cancelAllRequests() {
         tasks.forEach { $1.cancel() }
     }
+}
+
+extension NetworkService: NetworkAnswerService {
+
+	func loadAnswer(with completionHandler: @escaping AnswerSourcesModel.CompletionHandler) {
+		let answerRequest = AnswerRequest()
+
+		performRequest(answerRequest) { result in
+			DispatchQueue.main.async {
+				switch result {
+				case .success(let networkAnswer):
+					let answer = networkAnswer.toAnswer()
+					completionHandler(.success(answer))
+
+				case .failure(let error):
+
+					completionHandler(.failure(error))
+				}
+			}
+		}
+	}
+
 }

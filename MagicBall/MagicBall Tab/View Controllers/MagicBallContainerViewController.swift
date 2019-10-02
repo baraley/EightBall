@@ -47,14 +47,9 @@ final class MagicBallContainerViewController: UIViewController {
 	}
 
 	private func showAlert(with message: String) {
+		let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
 
-		let alert = UIAlertController(
-			title: nil, message: message, preferredStyle: .alert
-		)
-
-		alert.addAction(UIAlertAction(title: L10n.Action.Title.ok, style: .default))
-
-		self.present(alert, animated: true, completion: nil)
+		alertPresenter.present(in: self)
 	}
 
 	private func magicBallViewModel() -> MagicBallViewModel {

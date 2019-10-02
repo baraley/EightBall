@@ -14,7 +14,7 @@ final class MagicBallView: UIView {
 
 	enum State {
 		case hidden
-		case shown(String)
+		case shown(PresentableAnswer)
 	}
 
 	enum AnimationState {
@@ -61,13 +61,13 @@ private extension MagicBallView {
 			currentAnimation = hidingAnimation
 			currentAnimation?.startAnimation()
 
-		case .shown(let answerText):
+		case .shown(let answer):
 			if let currentAnimation = currentAnimation {
 				currentAnimation.addCompletion { (_) in
-					self.showAnswer(answerText)
+					self.showAnswer(answer.text)
 				}
 			} else {
-				showAnswer(answerText)
+				showAnswer(answer.text)
 			}
 		}
 	}

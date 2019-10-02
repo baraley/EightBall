@@ -29,12 +29,11 @@ final class ManagedAnswerSet: Codable, Equatable {
 extension ManagedAnswerSet {
 
 	convenience init(from answerSet: AnswerSet) {
-
-		self.init(id: answerSet.id, name: answerSet.name, answers: answerSet.answers)
+		let answers = answerSet.answers.map { $0.text }
+		self.init(id: answerSet.id, name: answerSet.name, answers: answers)
 	}
 
 	func toAnswerSet() -> AnswerSet {
-
-		return AnswerSet(id: id, name: name, answers: answers)
+		return AnswerSet(id: id, name: name, answers: answers.map { Answer(text: $0) })
 	}
 }

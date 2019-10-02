@@ -11,19 +11,19 @@
         <!--Item-->
         <scene sceneID="79l-zz-Udy">
             <objects>
-                <viewController id="F9M-eS-dWw" customClass="MagicBallContainerViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MagicBallContainerViewController" id="F9M-eS-dWw" customClass="MagicBallContainerViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qsq-7L-xCe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbS-A1-zIU" userLabel="Magic Ball Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="401.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="433.5"/>
                                 <connections>
                                     <segue destination="dOe-9C-UYe" kind="embed" identifier="MagicBallViewController" id="uUR-2Q-wEK"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MvG-QS-sD8" userLabel="Answer Source Container View">
-                                <rect key="frame" x="0.0" y="401.5" width="375" height="216.5"/>
+                                <rect key="frame" x="0.0" y="433.5" width="375" height="233.5"/>
                                 <connections>
                                     <segue destination="hWk-gE-3rN" kind="embed" identifier="AnswerSourceViewController" id="u2X-1D-T0d"/>
                                 </connections>
@@ -48,28 +48,10 @@
             </objects>
             <point key="canvasLocation" x="1110" y="-633"/>
         </scene>
-        <!--App Root View Controller-->
-        <scene sceneID="eua-FW-fDx">
-            <objects>
-                <tabBarController storyboardIdentifier="AppRootViewController" id="yZz-Yb-lio" customClass="AppRootViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fcX-TX-RvO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="F9M-eS-dWw" kind="relationship" relationship="viewControllers" id="Omh-w7-Jqy"/>
-                        <segue destination="zLN-nq-5Xi" kind="relationship" relationship="viewControllers" id="NqS-Q2-fjn"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wpc-rl-nSZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7" y="-222"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="g6C-4K-3ao">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="zLN-nq-5Xi" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SettingsNavigationController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="zLN-nq-5Xi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" id="Mhc-Li-luP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="FOK-B7-uCN">
@@ -78,7 +60,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tia-nX-9dk">
-                        <rect key="frame" x="0.0" y="525" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -242,11 +224,11 @@
             <objects>
                 <viewController storyboardIdentifier="AnswerSourceViewController" id="hWk-gE-3rN" customClass="AnswerSourceViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CPq-jy-AHf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVb-BX-I7G">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
                                 <connections>
                                     <outlet property="dataSource" destination="hWk-gE-3rN" id="Pf1-dn-AwO"/>
                                     <outlet property="delegate" destination="hWk-gE-3rN" id="pUy-TC-dXd"/>
@@ -268,31 +250,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JYc-mH-Int" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="-417"/>
+            <point key="canvasLocation" x="2028" y="-390"/>
         </scene>
         <!--Magic Ball View Controller-->
         <scene sceneID="054-Hg-5lp">
             <objects>
                 <viewController storyboardIdentifier="MagicBallViewController" id="dOe-9C-UYe" customClass="MagicBallViewController" customModule="MagicBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Npy-aa-uTB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="401.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="433.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTZ-Su-DRr" customClass="MagicBallView" customModule="MagicBall" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="401.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="433.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-xq-s3t" userLabel="Top layout View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="245"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="269"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScZ-tC-sTQ">
-                                        <rect key="frame" x="15" y="106.5" width="345" height="31.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone, please!!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ScZ-tC-sTQ">
+                                        <rect key="frame" x="15" y="118.5" width="345" height="31.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54Z-yf-x2y" customClass="MagicButton" customModule="MagicBall" customModuleProvider="target">
-                                        <rect key="frame" x="131.5" y="245" width="112.5" height="112.5"/>
+                                        <rect key="frame" x="131.5" y="269" width="112.5" height="112.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="54Z-yf-x2y" secondAttribute="height" multiplier="1:1" id="w5a-ff-ifj"/>
                                         </constraints>
@@ -337,7 +319,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TiV-3A-HBJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="-739"/>
+            <point key="canvasLocation" x="2028" y="-777"/>
         </scene>
         <!--Editable List View Controller-->
         <scene sceneID="2yz-px-lP9">

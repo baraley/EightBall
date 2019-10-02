@@ -8,9 +8,7 @@
 
 import Foundation
 
-private let defaultSettingsFilePath = FileManager.pathForFileInDocumentDirectory(
-	withName: String(describing: Settings.self)
-)
+private let defaultSettingsFilePath = FileManager.pathForFileInDocumentDirectory(withName: "Settings")
 
 final class SettingsService: SettingsServiceProtocol {
 
@@ -20,15 +18,16 @@ final class SettingsService: SettingsServiceProtocol {
 		self.settingsFilePath = settingsFilePath
 	}
 
-	func loadSettings() -> ManagedSettings {
+	func loadSettings() -> Settings {
+		let managedSettings: ManagedSettings
+
 		if let settings = FileManager.default.loadSavedContent(atPath: settingsFilePath) as ManagedSettings? {
-
-			return settings
+			managedSettings = settings
 		} else {
-			let name = DefaultResourceName.settings.rawValue
-
-			return FileManager.default.loadContentFromBundle(withName: name)
+			managedSettings = FileManager.default.loadContentFromBundle(withName: DefaultResourceName.settings.rawValue)
 		}
+
+		return managedSettings.toSettings()
 	}
 
 	func save(_ settings: Settings) {

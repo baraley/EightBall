@@ -81,7 +81,7 @@ private extension MagicBallViewController {
 		magicBallViewModelDidChange()
 
 		magicBallView.animationStateDidChangeHandler = { [weak self] state in
-			if state == .showingEnded {
+			if state == .showingEnded, self?.view.window != nil {
 				self?.magicBallViewModel?.didFinishMessageShowing()
 			}
 		}

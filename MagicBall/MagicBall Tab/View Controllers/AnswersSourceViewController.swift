@@ -10,7 +10,11 @@ import UIKit
 
 final class AnswerSourceViewController: UIViewController {
 
-	var answerSourceViewModel: AnswerSourceViewModel!
+	var answerSourceViewModel: AnswerSourceViewModel! {
+		didSet {
+			answerSourceViewModelDidChange()
+		}
+	}
 
 	@IBOutlet private weak var answerSourcePickerView: UIPickerView!
 
@@ -18,6 +22,15 @@ final class AnswerSourceViewController: UIViewController {
 		super.viewWillAppear(animated)
 
 		answerSourcePickerView.reloadAllComponents()
+
+	}
+
+	private func answerSourceViewModelDidChange() {
+		answerSourceViewModel?.answerSourceOptionsDidChangeHandler = { [weak self] in
+			self?.answerSourcePickerView.reloadAllComponents()
+			self?.answerSourcePickerView.selectRow(0, inComponent: 0, animated: false)
+			self?.answerSourceViewModel.didSelectOption(at: 0)
+		}
 	}
 
 }

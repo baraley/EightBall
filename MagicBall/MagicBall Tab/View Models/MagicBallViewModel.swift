@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let defaultMessage = L10n.initialMagicScreenMessage.uppercased()
+private let defaultAnswer = PresentableAnswer(text: L10n.initialMagicScreenMessage.uppercased())
 
 final class MagicBallViewModel {
 
@@ -25,11 +25,11 @@ final class MagicBallViewModel {
 		self.isNeedToPronounce = settings.readAnswerIsOn
 
 		magicBallModel.answerDidChangeHandler = { [weak self] answer in
-			self?.updateMessageState(with: answer)
+			self?.updateMessageState(with: answer?.toPresentableAnswer())
 		}
 	}
 
-	private(set) var messageState: MagicBallView.State = .shown(defaultMessage) {
+	private(set) var messageState: MagicBallView.State = .shown(defaultAnswer) {
 		didSet {
 			messageStateDidChangeHandler?(messageState)
 		}
@@ -63,11 +63,11 @@ final class MagicBallViewModel {
 		magicBallModel.loadAnswer()
 	}
 
-	private func updateMessageState(with answer: String?) {
+	private func updateMessageState(with answer: PresentableAnswer?) {
 		if let answer = answer {
-			messageState = .shown(answer.uppercased())
+			messageState = .shown(answer)
 		} else {
-			messageState = .shown(defaultMessage)
+			messageState = .shown(defaultAnswer)
 		}
 	}
 

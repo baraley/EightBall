@@ -12,16 +12,18 @@ private let cellIdentifier = "AnswerCell"
 
 final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
-	private(set) var answers: [String] {
+	private var presentableAnswer: [PresentableAnswer] {
 		didSet {
-			answersDidChangeHandler(answers)
+			answersDidChange()
 		}
 	}
-	private let answersDidChangeHandler: (([String]) -> Void)
+	private let answerSet: PresentableAnswerSet
+	private let answerSetsModel: AnswerSetsModel
 
-	init(answerSet: AnswerSet, answersDidChangeHandler: @escaping (([String]) -> Void)) {
-		self.answers = answerSet.answers
-		self.answersDidChangeHandler = answersDidChangeHandler
+	init(answerSet: PresentableAnswerSet, answerSetsModel: AnswerSetsModel) {
+		self.presentableAnswer = answerSet.answers
+		self.answerSet = answerSet
+		self.answerSetsModel = answerSetsModel
 		self.listTitle = answerSet.name
 		super.init()
 	}
@@ -29,30 +31,37 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 	// MARK: - EditableListViewModel -
 
 	var listTitle: String
-
 	var nameOfItems: String = L10n.EditableItems.Name.answers
-
 	var didSelectItem: ((Int) -> Void)?
 
 	func numberOfItems() -> Int {
-		return answers.count
+		return presentableAnswer.count
 	}
 
 	func item(at index: Int) -> String {
-		return answers[index]
+		return presentableAnswer[index].text
 	}
 
 	func updateItem(at index: Int, with text: String) {
-		answers[index] = text
+		presentableAnswer[index] = PresentableAnswer(text: text)
 	}
 
 	func createNewItem(with text: String) {
-		answers.append(text)
+		presentableAnswer.append(PresentableAnswer(text: text))
 	}
 
 	func deleteItem(at index: Int) {
-		answers.remove(at: index)
+		presentableAnswer.remove(at: index)
 	}
+
+	// MARK: - Private -
+
+	private func answersDidChange() {
+		let answers = presentableAnswer.map { Answer(from: $0)}
+		let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
+		answerSetsModel.save(updatedAnswerSet)
+	}
+
 }
 
 // MARK: - UITableViewDataSource -
@@ -67,7 +76,7 @@ extension AnswersEditableListViewModel {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-		cell.textLabel?.text = answers[indexPath.row]
+		cell.textLabel?.text = presentableAnswer[indexPath.row].text
 
 		return cell
 	}

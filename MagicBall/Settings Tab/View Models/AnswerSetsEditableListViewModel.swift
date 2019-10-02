@@ -23,9 +23,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 	// MARK: - EditableListViewModel -
 
 	var listTitle: String = L10n.NavigationBar.Title.answerSets
-
 	var nameOfItems: String = L10n.EditableItems.Name.answerSets
-
 	var didSelectItem: ((Int) -> Void)?
 
 	func numberOfItems() -> Int {
@@ -33,7 +31,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 	}
 
 	func item(at index: Int) -> String {
-		answerSetsModel.answerSet(at: index).name
+		answerSetsModel.answerSet(at: index).toPresentableAnswerSet().name
 	}
 
 	func updateItem(at index: Int, with text: String) {

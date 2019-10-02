@@ -32,6 +32,8 @@ class EditableListViewController: UITableViewController {
 
 	private lazy var inputTextAlertController: InputTextAlertController = .init(presentingViewController: self)
 
+	// MARK: - Life cycle -
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,12 +47,6 @@ class EditableListViewController: UITableViewController {
 		navigationController?.setToolbarHidden(false, animated: true)
 
 		tableView.reloadData()
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	// MARK: - UITableViewDelegate

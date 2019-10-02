@@ -16,8 +16,12 @@ final class AnswerSourceViewModel {
 		self.answerSourceModel = answerSourceModel
 
 		answerSourceModel.loadAnswerSets()
+		answerSourceModel.answerSetsDidChangeHandler = { [weak self] in
+			self?.answerSourceOptionsDidChangeHandler?()
+		}
 	}
 
+	var answerSourceOptionsDidChangeHandler: (() -> Void)?
 	var numberOfOptions: Int {
 		return answerSourceModel.numberOfAnswerSets() + 1
 	}
