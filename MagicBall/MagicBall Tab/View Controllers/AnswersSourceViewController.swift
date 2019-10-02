@@ -10,20 +10,14 @@ import UIKit
 
 final class AnswerSourceViewController: UIViewController {
 
-	var answerSourceViewModel: AnswerSourceViewModel! {
-		didSet {
-			answerSourceViewModelDidChange()
-		}
-	}
+	var answerSourceViewModel: AnswerSourceViewModel!
 
 	@IBOutlet private weak var answerSourcePickerView: UIPickerView!
 
-	private func answerSourceViewModelDidChange() {
-		guard isViewLoaded else { return }
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 
-		answerSourceViewModel.answerSourceOptionsDidChangeHandler = { [weak self] in
-			self?.answerSourcePickerView.reloadAllComponents()
-		}
+		answerSourcePickerView.reloadAllComponents()
 	}
 
 }

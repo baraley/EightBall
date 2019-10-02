@@ -15,3 +15,18 @@ struct Settings {
 	var hapticFeedbackIsOn: Bool
 
 }
+
+extension Settings {
+
+	init(from presentableSettings: PresentableSetting) {
+		self = .init(
+			lazyModeIsOn: presentableSettings.lazyModeIsOn,
+			readAnswerIsOn: presentableSettings.readAnswerIsOn,
+			hapticFeedbackIsOn: presentableSettings.hapticFeedbackIsOn
+		)
+	}
+
+	func toPresentableSettings() -> PresentableSetting {
+		return .init(lazyModeIsOn: lazyModeIsOn, readAnswerIsOn: readAnswerIsOn, hapticFeedbackIsOn: hapticFeedbackIsOn)
+	}
+}

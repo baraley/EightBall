@@ -10,18 +10,18 @@ import Foundation
 
 struct AnswerSet: Equatable {
 
+	static func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
+		return	lhs.id == rhs.id
+	}
+
 	let id: UUID
 	var name: String
 	var answers: [String]
 
-	init(id: UUID = .init(), name: String, answers: [String]) {
+	init(id: UUID = .init(), name: String, answers: [String] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers
 	}
 
-}
-
-func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
-	return	lhs.id == rhs.id
 }

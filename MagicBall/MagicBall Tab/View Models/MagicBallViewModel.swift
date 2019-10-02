@@ -17,16 +17,12 @@ final class MagicBallViewModel {
 	private var isNeedToPronounce: Bool
 
 	private let magicBallModel: MagicBallModel
-	private let answerSettingsModel: AnswerSettingsModel
 
-	init(magicBallModel: MagicBallModel, answerSettingsModel: AnswerSettingsModel) {
+	init(magicBallModel: MagicBallModel, settings: PresentableSetting) {
 		self.magicBallModel = magicBallModel
-		self.answerSettingsModel = answerSettingsModel
-		self.isTapAllowed = answerSettingsModel.settings.lazyModeIsOn
-		self.hapticFeedbackIsOn = answerSettingsModel.settings.hapticFeedbackIsOn
-		self.isNeedToPronounce = answerSettingsModel.settings.readAnswerIsOn
-
-		answerSettingsModel.addObserver(self)
+		self.isTapAllowed = settings.lazyModeIsOn
+		self.hapticFeedbackIsOn = settings.hapticFeedbackIsOn
+		self.isNeedToPronounce = settings.readAnswerIsOn
 
 		magicBallModel.answerDidChangeHandler = { [weak self] answer in
 			self?.updateMessageState(with: answer)
@@ -50,7 +46,9 @@ final class MagicBallViewModel {
 	}
 
 	func didFinishMessageShowing() {
-		magicBallModel.pronounceAnswer()
+		if isNeedToPronounce {
+			magicBallModel.pronounceAnswer()
+		}
 	}
 
 	func viewDidDisappear() {
@@ -58,12 +56,6 @@ final class MagicBallViewModel {
 	}
 
 	// MARK: - Private -
-
-	private func updateSettings(with settings: Settings) {
-		isTapAllowed = settings.lazyModeIsOn
-		hapticFeedbackIsOn = settings.hapticFeedbackIsOn
-		isNeedToPronounce = settings.readAnswerIsOn
-	}
 
 	private func requestNewAnswer() {
 		magicBallModel.stopPronouncing()
@@ -77,14 +69,6 @@ final class MagicBallViewModel {
 		} else {
 			messageState = .shown(defaultMessage)
 		}
-	}
-
-}
-
-extension MagicBallViewModel: AnswerSettingsObserver {
-
-	func answerSettingsModelSettingsDidChange(_ model: AnswerSettingsModel) {
-		updateSettings(with: answerSettingsModel.settings)
 	}
 
 }

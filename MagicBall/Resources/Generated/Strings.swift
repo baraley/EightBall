@@ -22,10 +22,14 @@ internal enum L10n {
       internal static let add = L10n.tr("Localization", "action.title.add")
       /// Cancel
       internal static let cancel = L10n.tr("Localization", "action.title.cancel")
+      /// Create
+      internal static let create = L10n.tr("Localization", "action.title.create")
       /// Delete
       internal static let delete = L10n.tr("Localization", "action.title.delete")
       /// OK
       internal static let ok = L10n.tr("Localization", "action.title.ok")
+      /// Rename
+      internal static let rename = L10n.tr("Localization", "action.title.rename")
       /// Save
       internal static let save = L10n.tr("Localization", "action.title.save")
     }
@@ -33,24 +37,42 @@ internal enum L10n {
 
   internal enum Alert {
     internal enum Message {
-      /// Are you sure you want to delete set of answers that contains %d answers?
-      internal static func deleteAnswerSet(_ p1: Int) -> String {
-        return L10n.tr("Localization", "alert.message.deleteAnswerSet", p1)
+      /// Are you sure you want to delete "%@"?
+      internal static func delete(_ p1: String) -> String {
+        return L10n.tr("Localization", "alert.message.delete", p1)
       }
       /// There is no internet conection. Please try to use answers from answer sets.
       internal static let noInternet = L10n.tr("Localization", "alert.message.noInternet")
     }
     internal enum Title {
-      /// Delete answer set?
-      internal static let deleteAnswerSet = L10n.tr("Localization", "alert.title.deleteAnswerSet")
-      /// Edit the answer
-      internal static let editAnswer = L10n.tr("Localization", "alert.title.editAnswer")
-      /// Edit the answer set name
-      internal static let editAnswerSet = L10n.tr("Localization", "alert.title.editAnswerSet")
-      /// New answer
-      internal static let newAnswer = L10n.tr("Localization", "alert.title.newAnswer")
-      /// New answer set
-      internal static let newAnswerSet = L10n.tr("Localization", "alert.title.newAnswerSet")
+      /// Create new %@
+      internal static func createNew(_ p1: String) -> String {
+        return L10n.tr("Localization", "alert.title.createNew", p1)
+      }
+      /// Delete %@
+      internal static func delete(_ p1: String) -> String {
+        return L10n.tr("Localization", "alert.title.delete", p1)
+      }
+      /// Edit %@
+      internal static func edit(_ p1: String) -> String {
+        return L10n.tr("Localization", "alert.title.edit", p1)
+      }
+    }
+  }
+
+  internal enum EditableItems {
+    internal enum Name {
+      /// answer
+      internal static let answers = L10n.tr("Localization", "editableItems.name.answers")
+      /// answer set
+      internal static let answerSets = L10n.tr("Localization", "editableItems.name.answerSets")
+    }
+  }
+
+  internal enum NavigationBar {
+    internal enum Title {
+      /// Answer Sets
+      internal static let answerSets = L10n.tr("Localization", "navigationBar.title.answerSets")
     }
   }
 

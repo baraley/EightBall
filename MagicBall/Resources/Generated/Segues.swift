@@ -15,8 +15,6 @@ internal enum StoryboardSegue {
   internal enum Main: String, SegueType {
     case answerSourceViewController = "AnswerSourceViewController"
     case magicBallViewController = "MagicBallViewController"
-    case answerSets
-    case answers
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

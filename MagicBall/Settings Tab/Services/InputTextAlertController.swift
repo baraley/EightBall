@@ -23,7 +23,7 @@ final class InputTextAlertController: NSObject, UITextFieldDelegate {
 	// MARK: - Public
 
 	func showInputTextAlert(
-		with title: String,
+		withTitle title: String,
 		actionTitle: String,
 		textFieldPlaceholder placeholder: String = "",
 		handler: @escaping ((String) -> Void)

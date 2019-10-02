@@ -29,8 +29,6 @@ final class AnswerSetsModel {
 		self.answerSetsService = answerSetsService
 	}
 
-	private var observations: [ObjectIdentifier: Observation] = [:]
-
 	private var answerSets: [AnswerSet] = [] {
 		didSet {
 			answerSetsService.save(answerSets)
@@ -38,8 +36,14 @@ final class AnswerSetsModel {
 		}
 	}
 
-	func loadAnswerSets() -> [AnswerSet] {
-		return answerSetsService.loadAnswerSets().map { $0.toAnswerSet()}
+	// MARK: - Public -
+
+	func loadAnswerSets() {
+		return answerSets = answerSetsService.loadAnswerSets().map { $0.toAnswerSet()}
+	}
+
+	func notEmptyAnswerSets() -> [AnswerSet] {
+		return answerSets.filter { !$0.answers.isEmpty }
 	}
 
 	func numberOfAnswerSets() -> Int {
@@ -66,6 +70,8 @@ final class AnswerSetsModel {
 
 	// MARK: - Observation -
 
+	private var observations: [ObjectIdentifier: Observation] = [:]
+
 	func addObserver(_ observer: AnswerSetsModelObserver) {
         let id = ObjectIdentifier(observer)
         observations[id] = Observation(observer: observer)
@@ -75,6 +81,8 @@ final class AnswerSetsModel {
         let id = ObjectIdentifier(observer)
         observations.removeValue(forKey: id)
     }
+
+	// MARK: - Private -
 
 	private func notifyObservers() {
 		observations.forEach { (id, observation) in

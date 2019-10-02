@@ -24,17 +24,15 @@ final class AnswerSourcesModel {
 		self.networkAnswerModel = networkAnswerModel
 
 		answerSetsModel.addObserver(self)
+		answerSetsModel.loadAnswerSets()
 	}
 
 	private var answerSets: [AnswerSet] = []
 
-	var answerSetsDidChangeHandler: (() -> Void)?
-
 	var answerLoadingErrorHandler: ((String) -> Void)?
 
 	func loadAnswerSets() {
-		let notEmptyAnswerSets = answerSetsModel.loadAnswerSets().filter { !$0.answers.isEmpty }
-		answerSets = notEmptyAnswerSets
+		answerSets = answerSetsModel.notEmptyAnswerSets()
 	}
 
 	func numberOfAnswerSets() -> Int {
@@ -81,7 +79,6 @@ extension AnswerSourcesModel: AnswerSetsModelObserver {
 
 	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel) {
 		loadAnswerSets()
-		answerSetsDidChangeHandler?()
 	}
 
 }

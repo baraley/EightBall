@@ -19,7 +19,7 @@ final class AppRootViewController: UITabBarController {
 
 	private let tabBarViewController: UITabBarController = .init()
 	private var magicBallContainerViewController: MagicBallContainerViewController?
-	private var settingsViewController: SettingsViewController?
+	private var settingsNavigationController: UINavigationController?
 
 	// MARK: - Life cycle
 
@@ -40,6 +40,7 @@ private extension AppRootViewController {
 
 		parseViewControllers()
 		setupMagicBallContainerViewController()
+		setupSettingsNavigationController()
 	}
 
 	func parseViewControllers() {
@@ -49,12 +50,9 @@ private extension AppRootViewController {
 
 				self.magicBallContainerViewController = magicBallContainerViewController
 
-			} else if let navigationViewController = $0 as? UINavigationController,
-				let settingsViewController = navigationViewController.viewControllers[0] as? SettingsViewController {
+			} else if let navigationViewController = $0 as? UINavigationController {
 
-				self.settingsViewController = settingsViewController
-
-				navigationViewController.tabBarItem.image = Asset.settingsTabIcon.image
+				self.settingsNavigationController = navigationViewController
 			}
 		})
 	}
@@ -68,8 +66,50 @@ private extension AppRootViewController {
 		magicBallContainerViewController?.answerSettingsModel = answerSettingsModel
 	}
 
-	func setupSettingsViewController() {
+	func setupSettingsNavigationController() {
+		settingsNavigationController?.tabBarItem.title = L10n.TabBar.Title.settings
+		settingsNavigationController?.tabBarItem.image = Asset.settingsTabIcon.image
 
+		if let settingsViewController = settingsNavigationController?.viewControllers[0] as? SettingsViewController {
+			settingsViewController.settingsViewModel = SettingsViewModel(
+				answerSettingsModel: answerSettingsModel,
+				answerSetsModel: answerSetsModel,
+				didSelectAnswerSetsCellHandler: { [weak self] in
+					self?.presentAnswerSetsEditableListViewController()
+			})
+		}
+	}
+
+	func presentAnswerSetsEditableListViewController() {
+		let viewModel = AnswerSetsEditableListViewModel(answerSetsModel: answerSetsModel)
+		viewModel.didSelectItem = { [weak self] index in
+			self?.presentAnswersEditableListViewControllerForAnswerSet(at: index)
+		}
+
+		let answerSetsEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
+		answerSetsEditableListViewController.editableListViewModel = viewModel
+
+		settingsNavigationController?.pushViewController(answerSetsEditableListViewController, animated: true)
+	}
+
+	func presentAnswersEditableListViewControllerForAnswerSet(at index: Int) {
+		let answerSet = answerSetsModel.answerSet(at: index)
+		let answersEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
+
+		let viewModel = AnswersEditableListViewModel(
+			answerSet: answerSet,
+			answersDidChangeHandler: { [weak self] answers in
+				let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
+				self?.answerSetsModel.save(updatedAnswerSet)
+		})
+		viewModel.didSelectItem = { [unowned answersEditableListViewController] index in
+
+			let presenter = MessageAlertPresenter(message: answerSet.answers[index], actionTitle: L10n.Action.Title.ok)
+			presenter.present(in: answersEditableListViewController)
+		}
+
+		answersEditableListViewController.editableListViewModel = viewModel
+		settingsNavigationController?.pushViewController(answersEditableListViewController, animated: true)
 	}
 
 }

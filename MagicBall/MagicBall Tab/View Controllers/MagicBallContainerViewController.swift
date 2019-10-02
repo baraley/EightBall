@@ -23,6 +23,8 @@ final class MagicBallContainerViewController: UIViewController {
 		answerSourceModel.answerLoadingErrorHandler = { [weak self] errorMessage in
 			self?.showAlert(with: errorMessage)
 		}
+
+		answerSettingsModel.addObserver(self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -31,10 +33,7 @@ final class MagicBallContainerViewController: UIViewController {
 
 			magicBallViewController = segue.destination as? MagicBallViewController
 			magicBallViewController?.generator = UINotificationFeedbackGenerator()
-			magicBallViewController?.magicBallViewModel = MagicBallViewModel(
-				magicBallModel: magicBallModel,
-				answerSettingsModel: answerSettingsModel
-			)
+			magicBallViewController?.magicBallViewModel = magicBallViewModel()
 
 		case .answerSourceViewController:
 			answerSourceViewController = segue.destination as? AnswerSourceViewController
@@ -47,7 +46,7 @@ final class MagicBallContainerViewController: UIViewController {
 		}
 	}
 
-	func showAlert(with message: String) {
+	private func showAlert(with message: String) {
 
 		let alert = UIAlertController(
 			title: nil, message: message, preferredStyle: .alert
@@ -56,5 +55,17 @@ final class MagicBallContainerViewController: UIViewController {
 		alert.addAction(UIAlertAction(title: L10n.Action.Title.ok, style: .default))
 
 		self.present(alert, animated: true, completion: nil)
+	}
+
+	private func magicBallViewModel() -> MagicBallViewModel {
+		let settings = answerSettingsModel.settings.toPresentableSettings()
+		return MagicBallViewModel(magicBallModel: magicBallModel, settings: settings)
+	}
+}
+
+extension MagicBallContainerViewController: AnswerSettingsObserver {
+
+	func answerSettingsModelSettingsDidChange(_ model: AnswerSettingsModel) {
+		magicBallViewController?.magicBallViewModel = magicBallViewModel()
 	}
 }

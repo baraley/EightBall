@@ -77,6 +77,7 @@ private extension MagicBallViewController {
 
 	func setup() {
 
+		magicBallView.state =  magicBallViewModel.messageState
 		magicBallViewModelDidChange()
 
 		magicBallView.animationStateDidChangeHandler = { [weak self] state in
@@ -89,21 +90,14 @@ private extension MagicBallViewController {
 	func magicBallViewModelDidChange() {
 		guard isViewLoaded else { return }
 
-		magicBallView.state = magicBallViewModel.messageState
+		magicBallView.isUserInteractionEnabled = magicBallViewModel.isTapAllowed
 
 		magicBallViewModel.messageStateDidChangeHandler = { [weak self] messageState in
-			switch messageState {
-			case .shown(let message):
-				self?.magicBallView.state = .shown(message)
-
-			case .hidden:
-				self?.magicBallView.state = .hidden
-			}
+			self?.magicBallView.state =  messageState
 		}
 	}
 
 	func generateHapticFeedbackIfNeeds() {
-
 		if magicBallViewModel.hapticFeedbackIsOn {
 			generator.notificationOccurred(.success)
 		}

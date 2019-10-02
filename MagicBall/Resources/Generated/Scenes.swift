@@ -20,13 +20,11 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
-    internal static let answerSetTableViewController = SceneType<MagicBall.AnswerSetTableViewController>(storyboard: Main.self, identifier: "AnswerSetTableViewController")
-
     internal static let answerSourceViewController = SceneType<MagicBall.AnswerSourceViewController>(storyboard: Main.self, identifier: "AnswerSourceViewController")
 
     internal static let appRootViewController = SceneType<MagicBall.AppRootViewController>(storyboard: Main.self, identifier: "AppRootViewController")
 
-    internal static let listOfAnswerSetsViewController = SceneType<MagicBall.ListOfAnswerSetsViewController>(storyboard: Main.self, identifier: "ListOfAnswerSetsViewController")
+    internal static let editableListViewController = SceneType<MagicBall.EditableListViewController>(storyboard: Main.self, identifier: "EditableListViewController")
 
     internal static let magicBallViewController = SceneType<MagicBall.MagicBallViewController>(storyboard: Main.self, identifier: "MagicBallViewController")
 

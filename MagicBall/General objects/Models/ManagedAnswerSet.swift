@@ -18,7 +18,7 @@ final class ManagedAnswerSet: Codable, Equatable {
 	var name: String
 	var answers: [String]
 
-	init(id: UUID = .init(), name: String, answers: [String]) {
+	init(id: UUID = .init(), name: String, answers: [String] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers
