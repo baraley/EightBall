@@ -7,24 +7,37 @@
 */
 
 "initialMagicScreenMessage" = "Shake your phone, please!!!";
+"networkAnswerSourceTitle" = "Answers form network";
+
+// MARK: - Navigation Title -
+"navigationBar.title.answerSets" = "Answer Sets";
+
+//MARK: - TabBarItem Titles -
+"tabBar.title.magicBall" = "MagicBall";
+"tabBar.title.settings" = "Settings";
 
 //MARK: - Action Titles -
 
 "action.title.ok" = "OK";
+"action.title.create" = "Create";
 "action.title.cancel" = "Cancel";
 "action.title.delete" = "Delete";
 "action.title.save" = "Save";
 "action.title.add" = "Add";
+"action.title.rename" = "Rename";
 
 //MARK: - Alert Titles -
 
-"alert.title.editAnswerSet" = "Edit the answer set name";
-"alert.title.newAnswerSet" = "New answer set";
-"alert.title.deleteAnswerSet" = "Delete answer set?";
-"alert.title.editAnswer" = "Edit the answer";
-"alert.title.newAnswer" = "New answer";
+"alert.title.delete" = "Delete %@";
+"alert.title.edit" = "Edit %@";
+"alert.title.createNew" = "Create new %@";
 
 //MARK: - Alert Messages -
 
 "alert.message.noInternet" = "There is no internet conection. Please try to use answers from answer sets.";
-"alert.message.deleteAnswerSet" = "Are you sure you want to delete set of answers that contains %d answers?";
+"alert.message.delete" = "Are you sure you want to delete \"%@\"?";
+
+//MARK: - Editable Items -
+
+"editableItems.name.answerSets" = "answer set";
+"editableItems.name.answers" = "answer";

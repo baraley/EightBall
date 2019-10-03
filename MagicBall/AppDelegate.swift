@@ -18,7 +18,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
 
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.rootViewController = initializeAppRootViewController()
+		window?.makeKeyAndVisible()
+
 		return true
+	}
+
+	private func initializeAppRootViewController() -> AppRootViewController {
+
+		let answerSetsModel = AnswerSetsModel(answerSetsService: AnswerSetsService())
+		let answerSourcesModel = AnswerSourcesModel(
+			answerSetsModel: answerSetsModel,
+			networkAnswerService: NetworkService()
+		)
+		let magicBallModel = MagicBallModel(answerSourceModel: answerSourcesModel, answerPronouncer: TextPronouncer())
+
+		let viewController = AppRootViewController(
+			magicBallModel: magicBallModel,
+			answerSourcesModel: answerSourcesModel,
+			answerSettingsModel: AnswerSettingsModel(settingsService: SettingsService()),
+			answerSetsModel: answerSetsModel
+		)
+
+		return viewController
 	}
 
 }
