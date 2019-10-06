@@ -10,13 +10,35 @@ import UIKit
 
 final class AnswerSourceViewController: UIViewController {
 
-	var answerSourceViewModel: AnswerSourceViewModel! {
+	var answerSourceViewModel: AnswerSourceViewModel {
 		didSet {
 			answerSourceViewModelDidChange()
 		}
 	}
 
-	@IBOutlet private weak var answerSourcePickerView: UIPickerView!
+	private lazy var answerSourcePickerView: UIPickerView = initializeAnswerSourcePickerView()
+
+	// MARK: - Initialization
+
+	init(answerSourceViewModel: AnswerSourceViewModel) {
+		self.answerSourceViewModel = answerSourceViewModel
+
+		super.init(nibName: nil, bundle: nil)
+
+		answerSourceViewModelDidChange()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Life cycle
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		initialSetup()
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -25,8 +47,30 @@ final class AnswerSourceViewController: UIViewController {
 
 	}
 
-	private func answerSourceViewModelDidChange() {
-		answerSourceViewModel?.answerSourceOptionsDidChangeHandler = { [weak self] in
+}
+
+// MARK: - Private Methods
+
+private extension AnswerSourceViewController {
+
+	func initialSetup() {
+		view.addSubview(answerSourcePickerView)
+
+		answerSourcePickerView.snp.makeConstraints { (make) in
+			make.edges.equalToSuperview()
+		}
+	}
+
+	func initializeAnswerSourcePickerView() -> UIPickerView {
+		let pickerView = UIPickerView()
+		pickerView.delegate = self
+		pickerView.dataSource = self
+
+		return pickerView
+	}
+
+	func answerSourceViewModelDidChange() {
+		answerSourceViewModel.answerSourceOptionsDidChangeHandler = { [weak self] in
 			self?.answerSourcePickerView.reloadAllComponents()
 			self?.answerSourcePickerView.selectRow(0, inComponent: 0, animated: false)
 			self?.answerSourceViewModel.didSelectOption(at: 0)

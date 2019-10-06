@@ -9,14 +9,14 @@
 "initialMagicScreenMessage" = "Shake your phone, please!!!";
 "networkAnswerSourceTitle" = "Answers form network";
 
-// MARK: - Navigation Title -
+// MARK: - Navigation Title
 "navigationBar.title.answerSets" = "Answer Sets";
 
-//MARK: - TabBarItem Titles -
+//MARK: - TabBarItem Titles
 "tabBar.title.magicBall" = "MagicBall";
 "tabBar.title.settings" = "Settings";
 
-//MARK: - Action Titles -
+//MARK: - Action Titles
 
 "action.title.ok" = "OK";
 "action.title.create" = "Create";
@@ -26,18 +26,18 @@
 "action.title.add" = "Add";
 "action.title.rename" = "Rename";
 
-//MARK: - Alert Titles -
+//MARK: - Alert Titles
 
 "alert.title.delete" = "Delete %@";
 "alert.title.edit" = "Edit %@";
 "alert.title.createNew" = "Create new %@";
 
-//MARK: - Alert Messages -
+//MARK: - Alert Messages
 
 "alert.message.noInternet" = "There is no internet conection. Please try to use answers from answer sets.";
 "alert.message.delete" = "Are you sure you want to delete \"%@\"?";
 
-//MARK: - Editable Items -
+//MARK: - Editable Items
 
 "editableItems.name.answerSets" = "answer set";
 "editableItems.name.answers" = "answer";

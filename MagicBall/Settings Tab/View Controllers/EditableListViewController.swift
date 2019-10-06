@@ -32,7 +32,7 @@ class EditableListViewController: UITableViewController {
 
 	private lazy var inputTextAlertController: InputTextAlertController = .init(presentingViewController: self)
 
-	// MARK: - Life cycle -
+	// MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +80,7 @@ class EditableListViewController: UITableViewController {
 
 }
 
-// MARK: - Private
+// MARK: - Private Methods
 
 private extension EditableListViewController {
 

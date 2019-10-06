@@ -29,13 +29,13 @@ final class MagicBallViewModel {
 		}
 	}
 
-	private(set) var messageState: MagicBallView.State = .shown(defaultAnswer) {
+	private(set) var messageState: MagicBallView.AnswerState = .shown(defaultAnswer) {
 		didSet {
 			messageStateDidChangeHandler?(messageState)
 		}
 	}
 
-	var messageStateDidChangeHandler: ((MagicBallView.State) -> Void)?
+	var messageStateDidChangeHandler: ((MagicBallView.AnswerState) -> Void)?
 
 	func shakeWasDetected() {
 		requestNewAnswer()
@@ -45,17 +45,17 @@ final class MagicBallViewModel {
 		requestNewAnswer()
 	}
 
-	func didFinishMessageShowing() {
+	func handleMessageShowingDidFinish() {
 		if isNeedToPronounce {
 			magicBallModel.pronounceAnswer()
 		}
 	}
 
-	func viewDidDisappear() {
+	func endHandlingMessageShowing() {
 		magicBallModel.stopPronouncing()
 	}
 
-	// MARK: - Private -
+	// MARK: - Private Methods
 
 	private func requestNewAnswer() {
 		magicBallModel.stopPronouncing()

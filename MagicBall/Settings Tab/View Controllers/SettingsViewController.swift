@@ -69,7 +69,7 @@ final class SettingsViewController: UITableViewController {
 		settingsViewModel.didSelectAnswerSetsCell()
 	}
 
-	// MARK: - Private -
+	// MARK: - Private Methods
 
 	private func settingsViewModelDidChange() {
 		lazyModeSwitch.isOn = settingsViewModel.settings.lazyModeIsOn

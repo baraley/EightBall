@@ -24,4 +24,10 @@ extension UIViewController {
         removeFromParent()
     }
 
+	func showAlert(with message: String) {
+		let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
+
+		alertPresenter.present(in: self)
+	}
+
 }

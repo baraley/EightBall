@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class AppRootViewController: UITabBarController {
 
@@ -14,6 +15,8 @@ final class AppRootViewController: UITabBarController {
 	var answerSourcesModel: AnswerSourcesModel
 	var answerSettingsModel: AnswerSettingsModel
 	var answerSetsModel: AnswerSetsModel
+
+	// MARK: - Initialization
 
 	init(
 		magicBallModel: MagicBallModel,
@@ -33,7 +36,7 @@ final class AppRootViewController: UITabBarController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Private properties
+	// MARK: - Child View Controllers
 
 	private lazy var magicBallContainerViewController = initializeMagicBallContainerViewController()
 	private lazy var settingsNavigationController = initializeSettingsNavigationController()
@@ -43,7 +46,7 @@ final class AppRootViewController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setup()
+		initialSetup()
 	}
 
 }
@@ -52,21 +55,34 @@ final class AppRootViewController: UITabBarController {
 
 private extension AppRootViewController {
 
-	func setup() {
+	// MARK: - Setup
+
+	func initialSetup() {
 		view.backgroundColor = .white
 
 		viewControllers = [magicBallContainerViewController, settingsNavigationController]
 	}
 
+	func setup(_ viewController: SettingsViewController) {
+		viewController.settingsViewModel = SettingsViewModel(
+			answerSettingsModel: answerSettingsModel,
+			answerSetsModel: answerSetsModel,
+			didSelectAnswerSetsCellHandler: { [weak self] in
+				self?.presentAnswerSetsEditableListViewController()
+		})
+	}
+
+	// MARK: - Properties Initialization
+
 	func initializeMagicBallContainerViewController() -> MagicBallContainerViewController {
-		let viewController = StoryboardScene.Main.magicBallContainerViewController.instantiate()
+		let viewController = MagicBallContainerViewController(
+			magicBallModel: magicBallModel,
+			answerSourceModel: answerSourcesModel,
+			answerSettingsModel: answerSettingsModel
+		)
 
 		viewController.tabBarItem.title = L10n.TabBar.Title.magicBall
 		viewController.tabBarItem.image = Asset.ballTabIcon.image
-
-		viewController.magicBallModel = magicBallModel
-		viewController.answerSourceModel = answerSourcesModel
-		viewController.answerSettingsModel = answerSettingsModel
 
 		return viewController
 	}
@@ -84,14 +100,7 @@ private extension AppRootViewController {
 		return viewController
 	}
 
-	func setup(_ viewController: SettingsViewController) {
-		viewController.settingsViewModel = SettingsViewModel(
-			answerSettingsModel: answerSettingsModel,
-			answerSetsModel: answerSetsModel,
-			didSelectAnswerSetsCellHandler: { [weak self] in
-				self?.presentAnswerSetsEditableListViewController()
-		})
-	}
+	// MARK: - Answer Sets Editing Flow
 
 	func presentAnswerSetsEditableListViewController() {
 		let viewModel = AnswerSetsEditableListViewModel(answerSetsModel: answerSetsModel)
@@ -113,9 +122,8 @@ private extension AppRootViewController {
 
 		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersEditableListViewController] selectedIndex in
 			let message = answerSetsModel.answerSet(at: index).answers[selectedIndex].toPresentableAnswer().text
-			let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
 
-			alertPresenter.present(in: answersEditableListViewController)
+			answersEditableListViewController.showAlert(with: message)
 		}
 
 		answersEditableListViewController.editableListViewModel = viewModel

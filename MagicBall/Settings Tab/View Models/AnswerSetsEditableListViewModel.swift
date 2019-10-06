@@ -20,7 +20,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 		super.init()
 	}
 
-	// MARK: - EditableListViewModel -
+	// MARK: - EditableListViewModel
 
 	var listTitle: String = L10n.NavigationBar.Title.answerSets
 	var nameOfItems: String = L10n.EditableItems.Name.answerSets
@@ -51,7 +51,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
 }
 
-// MARK: - UITableViewDataSource -
+// MARK: - UITableViewDataSource
 
 extension AnswerSetsEditableListViewModel {
 

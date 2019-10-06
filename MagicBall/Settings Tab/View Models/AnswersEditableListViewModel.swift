@@ -28,7 +28,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 		super.init()
 	}
 
-	// MARK: - EditableListViewModel -
+	// MARK: - EditableListViewModel
 
 	var listTitle: String
 	var nameOfItems: String = L10n.EditableItems.Name.answers
@@ -54,7 +54,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 		presentableAnswer.remove(at: index)
 	}
 
-	// MARK: - Private -
+	// MARK: - Private Methods
 
 	private func answersDidChange() {
 		let answers = presentableAnswer.map { Answer(from: $0)}
@@ -64,7 +64,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
 }
 
-// MARK: - UITableViewDataSource -
+// MARK: - UITableViewDataSource
 
 extension AnswersEditableListViewModel {
 
