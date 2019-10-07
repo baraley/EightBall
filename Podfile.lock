@@ -1,24 +1,28 @@
 PODS:
   - SnapKit (5.0.1)
   - SwiftGen (6.1.0)
+  - SwiftKeychainWrapper (3.4.0)
   - SwiftLint (0.35.0)
 
 DEPENDENCIES:
   - SnapKit (~> 5.0.0)
   - SwiftGen (~> 6.0)
+  - SwiftKeychainWrapper (~> 3.4)
   - SwiftLint (~> 0.35.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SnapKit
     - SwiftGen
+    - SwiftKeychainWrapper
     - SwiftLint
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
+  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 727bebd1bfd061e8046e39898cd0d4c8ca6a7ba1
+PODFILE CHECKSUM: d8f52f93148feeaad6c618dbaf1741ab65037ecf
 
 COCOAPODS: 1.7.5
