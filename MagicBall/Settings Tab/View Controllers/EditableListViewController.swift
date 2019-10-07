@@ -114,6 +114,7 @@ private extension EditableListViewController {
 
 		tableView.dataSource = editableListViewModel
 		tableView.tableFooterView = UIView()
+		tableView.allowsSelectionDuringEditing = true
 	}
 
 	func setupToolBar() {
