@@ -31,8 +31,6 @@ final class MagicBallViewController: UIViewController {
 		self.generator = generator
 
 		super.init(nibName: nil, bundle: nil)
-
-		magicBallViewModelDidChange()
 	}
 
 	required init?(coder: NSCoder) {
@@ -104,12 +102,14 @@ private extension MagicBallViewController {
 
 		magicBallView.answerState =  magicBallViewModel.messageState
 
-		magicBallView.animationStateDidChangeHandler = { [weak self] state in
-			if state == .showingEnded, self?.view.window != nil {
-				self?.magicBallViewModel.handleMessageShowingDidFinish()
+		magicBallView.animationStateDidChangeHandler = { [unowned self] state in
+			if state == .showingEnded, self.view.window != nil {
+				self.magicBallViewModel.handleMessageShowingDidFinish()
 			}
 		}
 		magicBallView.magicButton.addTarget(self, action: #selector(magicButtonDidTap), for: .touchUpInside)
+
+		magicBallViewModelDidChange()
 	}
 
 	func magicBallViewModelDidChange() {

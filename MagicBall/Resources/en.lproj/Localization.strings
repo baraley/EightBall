@@ -41,3 +41,15 @@
 
 "editableItems.name.answerSets" = "answer set";
 "editableItems.name.answers" = "answer";
+
+//MARK: - Settings View Controller
+
+"settingsViewController.title" = "Settings";
+
+"settingsViewController.cellText.lazyMode" = "Lazy mode";
+"settingsViewController.cellText.readAnswer" = "Read answer";
+"settingsViewController.cellText.hapticFeedback" = "Haptic feedback";
+"settingsViewController.cellText.answerSets" = "Answer sets";
+
+"settingsViewController.sectionFooterText.lazyMode"
+= "When \"Lazy mode\" is on: tap the magic ball to request an answer";

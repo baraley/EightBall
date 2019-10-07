@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let cellIdentifier = "AnswerCell"
+private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
@@ -74,7 +74,13 @@ extension AnswersEditableListViewModel {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		let cell: UITableViewCell
+
+		if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: cellID) {
+			cell = dequeuedCell
+		} else {
+			cell = UITableViewCell(style: .default, reuseIdentifier: cellID)
+		}
 
 		cell.textLabel?.text = presentableAnswer[indexPath.row].text
 

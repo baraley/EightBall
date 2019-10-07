@@ -76,6 +76,25 @@ internal enum L10n {
     }
   }
 
+  internal enum SettingsViewController {
+    /// Settings
+    internal static let title = L10n.tr("Localization", "settingsViewController.title")
+    internal enum CellText {
+      /// Answer sets
+      internal static let answerSets = L10n.tr("Localization", "settingsViewController.cellText.answerSets")
+      /// Haptic feedback
+      internal static let hapticFeedback = L10n.tr("Localization", "settingsViewController.cellText.hapticFeedback")
+      /// Lazy mode
+      internal static let lazyMode = L10n.tr("Localization", "settingsViewController.cellText.lazyMode")
+      /// Read answer
+      internal static let readAnswer = L10n.tr("Localization", "settingsViewController.cellText.readAnswer")
+    }
+    internal enum SectionFooterText {
+      /// When "Lazy mode" is on: tap the magic ball to request an answer
+      internal static let lazyMode = L10n.tr("Localization", "settingsViewController.sectionFooterText.lazyMode")
+    }
+  }
+
   internal enum TabBar {
     internal enum Title {
       /// MagicBall

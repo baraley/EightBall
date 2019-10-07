@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let cellIdentifier = "AnswerSetCell"
+private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
@@ -61,7 +61,14 @@ extension AnswerSetsEditableListViewModel {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		let cell: UITableViewCell
+
+		if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: cellID) {
+			cell = dequeuedCell
+		} else {
+			cell = UITableViewCell(style: .value1, reuseIdentifier: cellID)
+			cell.accessoryType = .disclosureIndicator
+		}
 
 		let answerSet = answerSetsModel.answerSet(at: indexPath.row)
 
