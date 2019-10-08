@@ -33,6 +33,7 @@ final class MagicBallView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
+		setupSubviews()
 		setupLayout()
 	}
 
@@ -45,6 +46,11 @@ final class MagicBallView: UIView {
 	var answerState: AnswerState = .hidden {
 		didSet {
 			stateDidChange()
+		}
+	}
+	var answersNumber: Int = 0 {
+		didSet {
+			obtainedAnswersLabel.text = String(answersNumber)
 		}
 	}
 
@@ -62,6 +68,7 @@ final class MagicBallView: UIView {
 
 	private var answerLabelLayoutWrapper: UIView = .init()
 	private lazy var answerLabel: UILabel = initializeAnswerLabel()
+	private lazy var obtainedAnswersLabel: UILabel = initializeObtainedAnswersLabel()
 
 	private var currentAnimation: UIViewPropertyAnimator? {
 		didSet {
@@ -126,15 +133,23 @@ private extension MagicBallView {
 
 private extension MagicBallView {
 
-	func setupLayout() {
-
+	func setupSubviews() {
+		answerLabelLayoutWrapper.addSubview(obtainedAnswersLabel)
 		answerLabelLayoutWrapper.addSubview(answerLabel)
 		addSubview(answerLabelLayoutWrapper)
 		addSubview(magicButton)
+	}
+
+	func setupLayout() {
 
 		answerLabelLayoutWrapper.snp.makeConstraints { (make) in
 			make.leading.top.trailing.equalToSuperview()
 			make.bottom.equalTo(magicButton.snp.top)
+		}
+
+		obtainedAnswersLabel.snp.makeConstraints { (make) in
+			make.top.equalTo(answerLabelLayoutWrapper.snp_topMargin)
+			make.trailing.equalTo(answerLabelLayoutWrapper.snp_trailingMargin)
 		}
 
 		answerLabel.snp.makeConstraints { (make) in
@@ -149,6 +164,15 @@ private extension MagicBallView {
 			make.centerX.equalToSuperview()
 			make.centerY.equalToSuperview().multipliedBy(Constants.MagicButton.yPositionMultiplier)
 		}
+	}
+
+	func initializeObtainedAnswersLabel() -> UILabel {
+		let label = UILabel()
+		label.textAlignment = .center
+		label.adjustsFontForContentSizeCategory = true
+		label.font = UIFont.preferredFont(forTextStyle: .body)
+
+		return label
 	}
 
 	func initializeAnswerLabel() -> UILabel {

@@ -56,9 +56,7 @@ private extension AnswerSourceViewController {
 	func initialSetup() {
 		view.addSubview(answerSourcePickerView)
 
-		answerSourcePickerView.snp.makeConstraints { (make) in
-			make.edges.equalToSuperview()
-		}
+		answerSourcePickerView.snp.makeConstraints { $0.edges.equalToSuperview() }
 	}
 
 	func initializeAnswerSourcePickerView() -> UIPickerView {

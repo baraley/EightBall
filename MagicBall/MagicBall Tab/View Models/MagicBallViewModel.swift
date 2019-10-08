@@ -12,6 +12,10 @@ private let defaultAnswer = PresentableAnswer(text: L10n.initialMagicScreenMessa
 
 final class MagicBallViewModel {
 
+	enum Change {
+		case answerNumber(Int), messageState(MagicBallView.AnswerState)
+	}
+
 	private(set) var isTapAllowed: Bool
 	private(set) var hapticFeedbackIsOn: Bool
 	private var isNeedToPronounce: Bool
@@ -24,18 +28,22 @@ final class MagicBallViewModel {
 		self.hapticFeedbackIsOn = settings.hapticFeedbackIsOn
 		self.isNeedToPronounce = settings.readAnswerIsOn
 
-		magicBallModel.answerDidChangeHandler = { [weak self] answer in
-			self?.updateMessageState(with: answer?.toPresentableAnswer())
+		magicBallModel.changesHandler = { [weak self] change in
+			self?.handleMagicBallModelChange(change)
 		}
 	}
 
-	private(set) var messageState: MagicBallView.AnswerState = .shown(defaultAnswer) {
+	var obtainedAnswersNumber: Int {
+		return magicBallModel.loadedAnswersNumber
+	}
+
+	private(set) var state: MagicBallView.AnswerState = .shown(defaultAnswer) {
 		didSet {
-			messageStateDidChangeHandler?(messageState)
+			changesHandler?(.messageState(state))
 		}
 	}
 
-	var messageStateDidChangeHandler: ((MagicBallView.AnswerState) -> Void)?
+	var changesHandler: ((Change) -> Void)?
 
 	func shakeWasDetected() {
 		requestNewAnswer()
@@ -55,19 +63,30 @@ final class MagicBallViewModel {
 		magicBallModel.stopPronouncing()
 	}
 
-	// MARK: - Private Methods
+}
 
-	private func requestNewAnswer() {
+// MARK: - Private Methods
+
+private extension MagicBallViewModel {
+
+	func requestNewAnswer() {
 		magicBallModel.stopPronouncing()
-		messageState = .hidden
+		state = .hidden
 		magicBallModel.loadAnswer()
 	}
 
-	private func updateMessageState(with answer: PresentableAnswer?) {
+	func updateMessageState(with answer: PresentableAnswer?) {
 		if let answer = answer {
-			messageState = .shown(answer)
+			state = .shown(answer)
 		} else {
-			messageState = .shown(defaultAnswer)
+			state = .shown(defaultAnswer)
+		}
+	}
+
+	func handleMagicBallModelChange(_ change: MagicBallModel.Change) {
+		switch change {
+		case .answerNumber(let number):	changesHandler?(.answerNumber(number))
+		case .answerLoaded(let answer): updateMessageState(with: answer?.toPresentableAnswer())
 		}
 	}
 

@@ -17,24 +17,39 @@ protocol AnswerPronouncer: class {
 
 final class MagicBallModel {
 
+	enum Change {
+		case answerNumber(Int), answerLoaded(Answer?)
+	}
+
 	private let answerSourceModel: AnswerSourcesModel
 	private let answerPronouncer: AnswerPronouncer
+	private let answersCountingModel: AnswersCountingModel
 
-	init (answerSourceModel: AnswerSourcesModel, answerPronouncer: AnswerPronouncer) {
-
+	init (
+		answerSourceModel: AnswerSourcesModel,
+		answerPronouncer: AnswerPronouncer,
+		answersCountingModel: AnswersCountingModel
+	) {
 		self.answerSourceModel = answerSourceModel
 		self.answerPronouncer = answerPronouncer
+		self.answersCountingModel = answersCountingModel
+
+		answersCountingModel.addObserver(self)
 	}
 
+	var loadedAnswersNumber: Int {
+		return answersCountingModel.answersNumber
+	}
 	private(set) var answer: Answer? {
 		didSet {
-			answerDidChangeHandler?(answer)
+			changesHandler?(.answerLoaded(answer))
 		}
 	}
-	var answerDidChangeHandler: ((Answer?) -> Void)?
+	var changesHandler: ((Change) -> Void)?
 
 	func loadAnswer() {
 		answerSourceModel.loadAnswer { [weak self] (answer) in
+			self?.answersCountingModel.increase()
 			self?.answer = answer
 		}
 	}
@@ -47,6 +62,14 @@ final class MagicBallModel {
 
 	func stopPronouncing() {
 		answerPronouncer.stopPronouncing()
+	}
+
+}
+
+extension MagicBallModel: AnswersNumberObserver {
+
+	func answersCountingModel(_ model: AnswersCountingModel, didChangeAnswersNumberTo number: Int) {
+		changesHandler?(.answerNumber(number))
 	}
 
 }

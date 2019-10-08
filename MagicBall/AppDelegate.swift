@@ -27,13 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private func initializeAppRootViewController() -> AppRootViewController {
 
+		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
 		let answerSetsModel = AnswerSetsModel(answerSetsService: AnswerSetsService())
+
 		let answerSourcesModel = AnswerSourcesModel(
 			answerSetsModel: answerSetsModel,
 			networkAnswerService: NetworkService()
 		)
-		let magicBallModel = MagicBallModel(answerSourceModel: answerSourcesModel, answerPronouncer: TextPronouncer())
-
+		let magicBallModel = MagicBallModel(
+			answerSourceModel: answerSourcesModel,
+			answerPronouncer: TextPronouncer(),
+			answersCountingModel: answersCountingModel
+		)
 		let viewController = AppRootViewController(
 			magicBallModel: magicBallModel,
 			answerSourcesModel: answerSourcesModel,

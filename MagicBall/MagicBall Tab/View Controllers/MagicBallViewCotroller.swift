@@ -19,7 +19,7 @@ final class MagicBallViewController: UIViewController {
 	}
 
 	private var generator: UINotificationFeedbackGenerator
-	private lazy var magicBallView: MagicBallView = .init()
+	private lazy var magicBallView: MagicBallView = initializeMagicBallView()
 
 	// MARK: - Initialization
 
@@ -92,21 +92,26 @@ final class MagicBallViewController: UIViewController {
 
 private extension MagicBallViewController {
 
-	func initialSetup() {
+	func initializeMagicBallView() -> MagicBallView {
+		let initializedView = MagicBallView()
 
-		view.addSubview(magicBallView)
+		view.addSubview(initializedView)
 
-		magicBallView.snp.makeConstraints { (make) in
-			make.edges.equalToSuperview()
-		}
-
-		magicBallView.answerState =  magicBallViewModel.messageState
-
-		magicBallView.animationStateDidChangeHandler = { [unowned self] state in
+		initializedView.snp.makeConstraints { $0.edges.equalToSuperview() }
+		initializedView.animationStateDidChangeHandler = { [unowned self] state in
 			if state == .showingEnded, self.view.window != nil {
 				self.magicBallViewModel.handleMessageShowingDidFinish()
+				self.magicBallView.answersNumber = self.magicBallViewModel.obtainedAnswersNumber
 			}
 		}
+
+		return initializedView
+	}
+
+	func initialSetup() {
+
+		magicBallView.answerState =  magicBallViewModel.state
+		magicBallView.answersNumber = magicBallViewModel.obtainedAnswersNumber
 		magicBallView.magicButton.addTarget(self, action: #selector(magicButtonDidTap), for: .touchUpInside)
 
 		magicBallViewModelDidChange()
@@ -117,8 +122,19 @@ private extension MagicBallViewController {
 
 		magicBallView.isUserInteractionEnabled = magicBallViewModel.isTapAllowed
 
-		magicBallViewModel.messageStateDidChangeHandler = { [weak self] messageState in
-			self?.magicBallView.answerState =  messageState
+		magicBallViewModel.changesHandler = { [weak self] change in
+			self?.handleMagicBallViewModelChange(change)
+		}
+	}
+
+	func handleMagicBallViewModelChange(_ change: MagicBallViewModel.Change) {
+		switch change {
+		case .answerNumber(let number):
+			if magicBallView.answerAnimationState == .showingEnded {
+				magicBallView.answersNumber = number
+			}
+		case .messageState(let state):
+			magicBallView.answerState =  state
 		}
 	}
 
