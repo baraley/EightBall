@@ -11,10 +11,11 @@ import SnapKit
 
 final class AppRootViewController: UITabBarController {
 
-	private var magicBallModel: MagicBallModel
-	private var answerSourcesModel: AnswerSourcesModel
-	private var answerSettingsModel: AnswerSettingsModel
-	private var answerSetsModel: AnswerSetsModel
+	private let magicBallModel: MagicBallModel
+	private let answerSourcesModel: AnswerSourcesModel
+	private let answerSettingsModel: AnswerSettingsModel
+	private let answerSetsModel: AnswerSetsModel
+	private let answersCountingModel: AnswersCountingModel
 
 	// MARK: - Initialization
 
@@ -22,12 +23,14 @@ final class AppRootViewController: UITabBarController {
 		magicBallModel: MagicBallModel,
 		answerSourcesModel: AnswerSourcesModel,
 		answerSettingsModel: AnswerSettingsModel,
-		answerSetsModel: AnswerSetsModel
+		answerSetsModel: AnswerSetsModel,
+		answersCountingModel: AnswersCountingModel
 	) {
 		self.magicBallModel = magicBallModel
 		self.answerSourcesModel = answerSourcesModel
 		self.answerSettingsModel = answerSettingsModel
 		self.answerSetsModel = answerSetsModel
+		self.answersCountingModel = answersCountingModel
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -82,6 +85,7 @@ private extension AppRootViewController {
 		let settingsViewModel = SettingsViewModel(
 			answerSettingsModel: answerSettingsModel,
 			answerSetsModel: answerSetsModel,
+			answersCountingModel: answersCountingModel,
 			didSelectAnswerSetsCellHandler: { [weak self] in
 				self?.presentAnswerSetsEditableListViewController()
 		})

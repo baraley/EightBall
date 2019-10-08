@@ -12,15 +12,18 @@ final class SettingsViewModel {
 
 	private let answerSettingsModel: AnswerSettingsModel
 	private let answerSetsModel: AnswerSetsModel
+	private let answersCountingModel: AnswersCountingModel
 	private let didSelectAnswerSetsCellHandler: (() -> Void)
 
 	init(
 		answerSettingsModel: AnswerSettingsModel,
 		answerSetsModel: AnswerSetsModel,
+		answersCountingModel: AnswersCountingModel,
 		didSelectAnswerSetsCellHandler: @escaping (() -> Void)
 	) {
 		self.answerSettingsModel = answerSettingsModel
 		self.answerSetsModel = answerSetsModel
+		self.answersCountingModel = answersCountingModel
 		self.didSelectAnswerSetsCellHandler = didSelectAnswerSetsCellHandler
 		self.settings = answerSettingsModel.settings.toPresentableSettings()
 
@@ -42,6 +45,10 @@ final class SettingsViewModel {
 
 	func didSelectAnswerSetsCell() {
 		didSelectAnswerSetsCellHandler()
+	}
+
+	func resetAnswersNumber() {
+		answersCountingModel.reset()
 	}
 }
 

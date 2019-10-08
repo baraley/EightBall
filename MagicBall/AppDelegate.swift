@@ -43,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			magicBallModel: magicBallModel,
 			answerSourcesModel: answerSourcesModel,
 			answerSettingsModel: AnswerSettingsModel(settingsService: SettingsService()),
-			answerSetsModel: answerSetsModel
+			answerSetsModel: answerSetsModel,
+			answersCountingModel: answersCountingModel
 		)
 
 		return viewController

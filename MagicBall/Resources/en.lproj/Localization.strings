@@ -25,17 +25,20 @@
 "action.title.save" = "Save";
 "action.title.add" = "Add";
 "action.title.rename" = "Rename";
+"action.title.reset" = "Reset";
 
 //MARK: - Alert Titles
 
 "alert.title.delete" = "Delete %@";
 "alert.title.edit" = "Edit %@";
 "alert.title.createNew" = "Create new %@";
+"alert.title.resetAnswersNumber" = "Reset Answers Number";
 
 //MARK: - Alert Messages
 
-"alert.message.noInternet" = "There is no internet conection. Please try to use answers from answer sets.";
+"alert.message.noInternet" = "There is no internet connection. Please try to use answers from answer sets.";
 "alert.message.delete" = "Are you sure you want to delete \"%@\"?";
+"alert.message.resetAnswersNumber" = "Are you sure you want to  reset answers number?";
 
 //MARK: - Editable Items
 
@@ -50,6 +53,7 @@
 "settingsViewController.cellText.readAnswer" = "Read answer";
 "settingsViewController.cellText.hapticFeedback" = "Haptic feedback";
 "settingsViewController.cellText.answerSets" = "Answer sets";
+"settingsViewController.cellText.resetAnswersNumber" = "Reset Answers Number";
 
 "settingsViewController.sectionFooterText.lazyMode"
 = "When \"Lazy mode\" is on: tap the magic ball to request an answer";

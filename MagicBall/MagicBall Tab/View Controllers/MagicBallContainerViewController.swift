@@ -10,9 +10,9 @@ import UIKit
 
 final class MagicBallContainerViewController: UIViewController {
 
-	private var magicBallModel: MagicBallModel
-	private var answerSourceModel: AnswerSourcesModel
-	private var answerSettingsModel: AnswerSettingsModel
+	private let magicBallModel: MagicBallModel
+	private let answerSourceModel: AnswerSourcesModel
+	private let answerSettingsModel: AnswerSettingsModel
 
 	// MARK: - Initialization
 

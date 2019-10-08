@@ -10,6 +10,7 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 private let answerSetsCellID = "AnswerSetsCell"
+private let resetAnswersNumberCellID = "resetAnswersNumberCell"
 
 final class SettingsViewController: UITableViewController {
 
@@ -40,6 +41,10 @@ final class SettingsViewController: UITableViewController {
 	private lazy var hapticFeedbackSwitch: UISwitch = initializeUISwitch()
 
 	private var answerSetsCell: UITableViewCell = UITableViewCell(style: .value1, reuseIdentifier: answerSetsCellID)
+	private var resetAnswersNumberCell: UITableViewCell = UITableViewCell(
+		style: .default,
+		reuseIdentifier: resetAnswersNumberCellID
+	)
 
 	// MARK: - Actions
 
@@ -80,6 +85,8 @@ final class SettingsViewController: UITableViewController {
 			cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
 		case .answerSets:
 			cell = answerSetsCell
+		case .resetAnswersNumber:
+			cell = resetAnswersNumberCell
 		}
 		configure(cell, at: indexPath)
 
@@ -96,13 +103,21 @@ final class SettingsViewController: UITableViewController {
         _ tableView: UITableView,
         shouldHighlightRowAt indexPath: IndexPath) -> Bool {
 
-		return Section(at: indexPath) == .answerSets
+		return Section(at: indexPath).isSelectable
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard Section(at: indexPath) == .answerSets else { return }
 
-		settingsViewModel.didSelectAnswerSetsCell()
+		switch Section(at: indexPath) {
+		case .answerSets:
+			settingsViewModel.didSelectAnswerSetsCell()
+		case .resetAnswersNumber:
+			showAlertToResetAnswersNumber()
+		default:
+			break
+		}
+
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
 
 }
@@ -139,7 +154,25 @@ private extension SettingsViewController {
 		case .answerSets:
 			cell.detailTextLabel?.text = String(settingsViewModel.answerSetsNumber)
 			cell.accessoryType = .disclosureIndicator
+		case .resetAnswersNumber:
+			cell.textLabel?.textAlignment = .center
+			cell.textLabel?.textColor = .red
 		}
+	}
+
+	func showAlertToResetAnswersNumber() {
+		let alert = UIAlertController(
+			title: L10n.Alert.Title.resetAnswersNumber,
+			message: L10n.Alert.Message.resetAnswersNumber,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(UIAlertAction(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
+		alert.addAction(UIAlertAction(title: L10n.Action.Title.reset, style: .destructive) { (_) in
+			self.settingsViewModel.resetAnswersNumber()
+		})
+
+		present(alert, animated: true)
 	}
 
 }
@@ -147,9 +180,9 @@ private extension SettingsViewController {
 extension SettingsViewController {
 
 	enum Section: Int {
-		case lazyMode, readAnswer, hapticFeedback, answerSets
+		case lazyMode, readAnswer, hapticFeedback, answerSets, resetAnswersNumber
 
-		static let count = 4
+		static let count = 5
 
 		init(at indexPath: IndexPath) {
 			self = Section.init(rawValue: indexPath.section)!
@@ -161,17 +194,28 @@ extension SettingsViewController {
 
 		var cellText: String {
 			switch self {
-			case .lazyMode:			return L10n.SettingsViewController.CellText.lazyMode
-			case .readAnswer:		return L10n.SettingsViewController.CellText.readAnswer
-			case .hapticFeedback:	return L10n.SettingsViewController.CellText.hapticFeedback
-			case .answerSets:		return L10n.SettingsViewController.CellText.answerSets
+			case .lazyMode:				return L10n.SettingsViewController.CellText.lazyMode
+			case .readAnswer:			return L10n.SettingsViewController.CellText.readAnswer
+			case .hapticFeedback:		return L10n.SettingsViewController.CellText.hapticFeedback
+			case .answerSets:			return L10n.SettingsViewController.CellText.answerSets
+			case .resetAnswersNumber:	return L10n.SettingsViewController.CellText.resetAnswersNumber
 			}
 		}
 
 		var sectionFooterText: String? {
 			switch self {
-			case .lazyMode: return L10n.SettingsViewController.SectionFooterText.lazyMode
-			default:		return nil
+			case .lazyMode:
+				return L10n.SettingsViewController.SectionFooterText.lazyMode
+
+			case .readAnswer, .hapticFeedback, .answerSets, .resetAnswersNumber:
+				return nil
+			}
+		}
+
+		var isSelectable: Bool {
+			switch self {
+			case .lazyMode, .readAnswer, .hapticFeedback:	return false
+			case .answerSets, .resetAnswersNumber: 			return true
 			}
 		}
 	}
