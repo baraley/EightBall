@@ -1,6 +1,6 @@
 import Foundation
 
-let secondsToPrint = 3
+let secondsOfPrinting = 2
 
 let backgroundQueue = DispatchQueue(label: "com.my.backgroundQueue", qos: .background, attributes: .concurrent)
 
@@ -11,13 +11,12 @@ infinitePrintWorkItem = DispatchWorkItem {
 	while infinitePrintWorkItem?.isCancelled == false {
 		print(iteration)
 		iteration += 1
-		sleep(1)
 	}
 }
 
 backgroundQueue.async(execute: infinitePrintWorkItem!)
 
-backgroundQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(secondsToPrint)) {
-	print("infinitePrintWorkItem was canceled after \(secondsToPrint) seconds")
+backgroundQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(secondsOfPrinting)) {
+	print("infinitePrintWorkItem was canceled after \(secondsOfPrinting) seconds")
 	infinitePrintWorkItem?.cancel()
 }

@@ -1,7 +1,7 @@
 import Foundation
 
-let firstQueue = DispatchQueue(label: "first queue")
-let secondQueue = DispatchQueue(label: "second queue")
+let firstQueue = DispatchQueue(label: "com.my.firstQueue")
+let secondQueue = DispatchQueue(label: "com.my.secondQueue")
 
 firstQueue.async {
 	print("first queue begin execution") // flow 1
