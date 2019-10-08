@@ -10,7 +10,6 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 private let answerSetsCellID = "AnswerSetsCell"
-private let resetAnswersNumberCellID = "resetAnswersNumberCell"
 
 final class SettingsViewController: UITableViewController {
 
@@ -40,11 +39,8 @@ final class SettingsViewController: UITableViewController {
 	private lazy var readAnswerSwitch: UISwitch = initializeUISwitch()
 	private lazy var hapticFeedbackSwitch: UISwitch = initializeUISwitch()
 
-	private var answerSetsCell: UITableViewCell = UITableViewCell(style: .value1, reuseIdentifier: answerSetsCellID)
-	private var resetAnswersNumberCell: UITableViewCell = UITableViewCell(
-		style: .default,
-		reuseIdentifier: resetAnswersNumberCellID
-	)
+    private var answerSetsCell: UITableViewCell = .init(style: .value1, reuseIdentifier: answerSetsCellID)
+	private var resetAnswersNumberCell: UITableViewCell = .init()
 
 	// MARK: - Actions
 
@@ -65,6 +61,12 @@ final class SettingsViewController: UITableViewController {
 		super.viewDidLoad()
 
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	// MARK: - UITableViewDataSource

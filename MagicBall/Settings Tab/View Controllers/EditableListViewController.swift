@@ -64,13 +64,7 @@ class EditableListViewController: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		setupToolBar()
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		navigationController?.setToolbarHidden(true, animated: true)
+		navigationController?.setToolbarHidden(false, animated: false)
 	}
 
 	// MARK: - UITableViewDelegate
@@ -115,6 +109,8 @@ private extension EditableListViewController {
 		tableView.dataSource = editableListViewModel
 		tableView.tableFooterView = UIView()
 		tableView.allowsSelectionDuringEditing = true
+
+		setupToolBar()
 	}
 
 	func setupToolBar() {
@@ -125,8 +121,6 @@ private extension EditableListViewController {
 		]
 
 		setToolbarItems(items, animated: true)
-
-		navigationController?.setToolbarHidden(false, animated: false)
 	}
 
 	func showDeletionAlertForItem(at indexPath: IndexPath) {
