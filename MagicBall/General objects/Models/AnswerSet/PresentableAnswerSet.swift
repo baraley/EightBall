@@ -18,7 +18,7 @@ struct PresentableAnswerSet: Equatable {
 	var name: String
 	var answers: [PresentableAnswer]
 
-	init(id: UUID = .init(), name: String, answers: [PresentableAnswer] = []) {
+	init(id: UUID = UUID(), name: String, answers: [PresentableAnswer] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers

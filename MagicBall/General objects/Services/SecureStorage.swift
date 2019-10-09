@@ -18,12 +18,23 @@ class SecureStorage {
 		let wrapper = KeychainWrapper.standard
 
 		switch value {
-		case let boolValue as Bool:		wrapper.set(boolValue, forKey: key)
-		case let integerValue as Int: 	wrapper.set(integerValue, forKey: key)
-		case let floatValue as Float: 	wrapper.set(floatValue, forKey: key)
-		case let doubleValue as Double: wrapper.set(doubleValue, forKey: key)
-		case let stringValue as String: wrapper.set(stringValue, forKey: key)
-		default: 						return false
+		case let boolValue as Bool:
+			wrapper.set(boolValue, forKey: key)
+
+		case let integerValue as Int:
+			wrapper.set(integerValue, forKey: key)
+
+		case let floatValue as Float:
+			wrapper.set(floatValue, forKey: key)
+
+		case let doubleValue as Double:
+			wrapper.set(doubleValue, forKey: key)
+
+		case let stringValue as String:
+			wrapper.set(stringValue, forKey: key)
+
+		default:
+			return false
 		}
 
 		return true
@@ -33,12 +44,23 @@ class SecureStorage {
 		let wrapper = KeychainWrapper.standard
 
 		switch T.self {
-		case is Bool.Type: 		return wrapper.bool(forKey: key) as? T
-		case is Int.Type: 		return wrapper.integer(forKey: key) as? T
-		case is Float.Type: 	return wrapper.float(forKey: key) as? T
-		case is Double.Type: 	return wrapper.double(forKey: key) as? T
-		case is String.Type: 	return wrapper.string(forKey: key) as? T
-		default: 				return nil
+		case is Bool.Type:
+			return wrapper.bool(forKey: key) as? T
+
+		case is Int.Type:
+			return wrapper.integer(forKey: key) as? T
+
+		case is Float.Type:
+			return wrapper.float(forKey: key) as? T
+
+		case is Double.Type:
+			return wrapper.double(forKey: key) as? T
+
+		case is String.Type:
+			return wrapper.string(forKey: key) as? T
+
+		default:
+			return nil
 		}
 	}
 

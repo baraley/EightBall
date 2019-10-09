@@ -44,7 +44,6 @@ final class AnswerSourceViewController: UIViewController {
 		super.viewWillAppear(animated)
 
 		answerSourcePickerView.reloadAllComponents()
-
 	}
 
 }

@@ -35,10 +35,10 @@ final class MagicBallContainerViewController: UIViewController {
 
 	// MARK: - Child View Controllers
 
-	private lazy var magicBallViewController: MagicBallViewController = .init(
+	private lazy var magicBallViewController = MagicBallViewController(
 		magicBallViewModel: initializeMagicBallViewModel()
 	)
-	private lazy var answerSourceViewController: AnswerSourceViewController = .init(
+	private lazy var answerSourceViewController = AnswerSourceViewController(
 		answerSourceViewModel: AnswerSourceViewModel(answerSourceModel: answerSourceModel)
 	)
 

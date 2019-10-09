@@ -85,8 +85,11 @@ private extension MagicBallViewModel {
 
 	func handleMagicBallModelChange(_ change: MagicBallModel.Change) {
 		switch change {
-		case .answerNumber(let number):	changesHandler?(.answerNumber(number))
-		case .answerLoaded(let answer): updateMessageState(with: answer?.toPresentableAnswer())
+		case .answerNumber(let number):
+			changesHandler?(.answerNumber(number))
+
+		case .answerLoaded(let answer):
+			updateMessageState(with: answer?.toPresentableAnswer())
 		}
 	}
 

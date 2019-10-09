@@ -39,17 +39,23 @@ final class SettingsViewController: UITableViewController {
 	private lazy var readAnswerSwitch: UISwitch = initializeUISwitch()
 	private lazy var hapticFeedbackSwitch: UISwitch = initializeUISwitch()
 
-    private var answerSetsCell: UITableViewCell = .init(style: .value1, reuseIdentifier: answerSetsCellID)
-	private var resetAnswersNumberCell: UITableViewCell = .init()
+    private lazy var answerSetsCell = UITableViewCell(style: .value1, reuseIdentifier: answerSetsCellID)
+	private lazy var resetAnswersNumberCell = UITableViewCell()
 
 	// MARK: - Actions
 
 	@objc
 	private func switcherDidChange(_ switcher: UISwitch) {
 		switch switcher {
-		case lazyModeSwitch:		settingsViewModel.settings.lazyModeIsOn.toggle()
-		case readAnswerSwitch:		settingsViewModel.settings.readAnswerIsOn.toggle()
-		case hapticFeedbackSwitch:	settingsViewModel.settings.hapticFeedbackIsOn.toggle()
+		case lazyModeSwitch:
+			settingsViewModel.settings.lazyModeIsOn.toggle()
+
+		case readAnswerSwitch:
+			settingsViewModel.settings.readAnswerIsOn.toggle()
+
+		case hapticFeedbackSwitch:
+			settingsViewModel.settings.hapticFeedbackIsOn.toggle()
+
 		default:
 			fatalError("Unhandled switcher did change \(switcher)")
 		}
@@ -85,8 +91,10 @@ final class SettingsViewController: UITableViewController {
 		switch Section(at: indexPath) {
 		case .lazyMode, .readAnswer, .hapticFeedback:
 			cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+
 		case .answerSets:
 			cell = answerSetsCell
+
 		case .resetAnswersNumber:
 			cell = resetAnswersNumberCell
 		}
@@ -113,6 +121,7 @@ final class SettingsViewController: UITableViewController {
 		switch Section(at: indexPath) {
 		case .answerSets:
 			settingsViewModel.didSelectAnswerSetsCell()
+
 		case .resetAnswersNumber:
 			showAlertToResetAnswersNumber()
 		default:
@@ -150,12 +159,19 @@ private extension SettingsViewController {
 		cell.textLabel?.text = section.cellText
 
 		switch section {
-		case .lazyMode:  		cell.accessoryView = lazyModeSwitch
-		case .readAnswer:		cell.accessoryView = readAnswerSwitch
-		case .hapticFeedback: 	cell.accessoryView = hapticFeedbackSwitch
+		case .lazyMode:
+			cell.accessoryView = lazyModeSwitch
+
+		case .readAnswer:
+			cell.accessoryView = readAnswerSwitch
+
+		case .hapticFeedback:
+			cell.accessoryView = hapticFeedbackSwitch
+
 		case .answerSets:
 			cell.detailTextLabel?.text = String(settingsViewModel.answerSetsNumber)
 			cell.accessoryType = .disclosureIndicator
+
 		case .resetAnswersNumber:
 			cell.textLabel?.textAlignment = .center
 			cell.textLabel?.textColor = .red
@@ -196,11 +212,20 @@ extension SettingsViewController {
 
 		var cellText: String {
 			switch self {
-			case .lazyMode:				return L10n.SettingsViewController.CellText.lazyMode
-			case .readAnswer:			return L10n.SettingsViewController.CellText.readAnswer
-			case .hapticFeedback:		return L10n.SettingsViewController.CellText.hapticFeedback
-			case .answerSets:			return L10n.SettingsViewController.CellText.answerSets
-			case .resetAnswersNumber:	return L10n.SettingsViewController.CellText.resetAnswersNumber
+			case .lazyMode:
+				return L10n.SettingsViewController.CellText.lazyMode
+
+			case .readAnswer:
+				return L10n.SettingsViewController.CellText.readAnswer
+
+			case .hapticFeedback:
+				return L10n.SettingsViewController.CellText.hapticFeedback
+
+			case .answerSets:
+				return L10n.SettingsViewController.CellText.answerSets
+
+			case .resetAnswersNumber:
+				return L10n.SettingsViewController.CellText.resetAnswersNumber
 			}
 		}
 
@@ -216,8 +241,11 @@ extension SettingsViewController {
 
 		var isSelectable: Bool {
 			switch self {
-			case .lazyMode, .readAnswer, .hapticFeedback:	return false
-			case .answerSets, .resetAnswersNumber: 			return true
+			case .lazyMode, .readAnswer, .hapticFeedback:
+				return false
+
+			case .answerSets, .resetAnswersNumber:
+				return true
 			}
 		}
 	}

@@ -45,7 +45,7 @@ class EditableListViewController: UITableViewController {
 
 	// MARK: - Private Properties
 
-	private lazy var inputTextAlertController: InputTextAlertController = .init(presentingViewController: self)
+	private lazy var inputTextAlertController = InputTextAlertController(presentingViewController: self)
 
 	// MARK: - Life cycle
 

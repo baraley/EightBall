@@ -66,7 +66,7 @@ final class MagicBallView: UIView {
 
 	// MARK: - Private properties
 
-	private var answerLabelLayoutWrapper: UIView = .init()
+	private var answerLabelLayoutWrapper = UIView()
 	private lazy var answerLabel: UILabel = initializeAnswerLabel()
 	private lazy var obtainedAnswersLabel: UILabel = initializeObtainedAnswersLabel()
 
