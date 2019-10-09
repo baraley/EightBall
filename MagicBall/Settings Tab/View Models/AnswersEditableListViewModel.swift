@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let cellIdentifier = "AnswerCell"
+private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
@@ -28,7 +28,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 		super.init()
 	}
 
-	// MARK: - EditableListViewModel -
+	// MARK: - EditableListViewModel
 
 	var listTitle: String
 	var nameOfItems: String = L10n.EditableItems.Name.answers
@@ -54,7 +54,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 		presentableAnswer.remove(at: index)
 	}
 
-	// MARK: - Private -
+	// MARK: - Private Methods
 
 	private func answersDidChange() {
 		let answers = presentableAnswer.map { Answer(from: $0)}
@@ -64,7 +64,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
 }
 
-// MARK: - UITableViewDataSource -
+// MARK: - UITableViewDataSource
 
 extension AnswersEditableListViewModel {
 
@@ -74,7 +74,13 @@ extension AnswersEditableListViewModel {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		let cell: UITableViewCell
+
+		if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: cellID) {
+			cell = dequeuedCell
+		} else {
+			cell = UITableViewCell(style: .default, reuseIdentifier: cellID)
+		}
 
 		cell.textLabel?.text = presentableAnswer[indexPath.row].text
 

@@ -39,7 +39,7 @@ final class AnswerSettingsModel {
 		notifyObservers()
 	}
 
-	// MARK: - Observation -
+	// MARK: - Observation
 
 	private var observations: [ObjectIdentifier: Observation] = [:]
 

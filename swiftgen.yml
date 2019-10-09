@@ -10,10 +10,3 @@ xcassets:
   outputs:
     - templateName: swift4
       output: MagicBall/Resources/Generated/Assets.swift
-ib:
-  inputs: MagicBall/Storyboards
-  outputs:
-    - templateName: scenes-swift4
-      output: MagicBall/Resources/Generated/Scenes.swift
-    - templateName: segues-swift4
-      output: MagicBall/Resources/Generated/Segues.swift

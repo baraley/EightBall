@@ -18,7 +18,7 @@ struct AnswerSet: Equatable {
 	var name: String
 	var answers: [Answer]
 
-	init(id: UUID = .init(), name: String, answers: [Answer] = []) {
+	init(id: UUID = UUID(), name: String, answers: [Answer] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers

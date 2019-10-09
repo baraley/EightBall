@@ -10,57 +10,102 @@ import UIKit
 
 final class MagicBallContainerViewController: UIViewController {
 
-	var magicBallModel: MagicBallModel!
-	var answerSourceModel: AnswerSourcesModel!
-	var answerSettingsModel: AnswerSettingsModel!
+	private let magicBallModel: MagicBallModel
+	private let answerSourceModel: AnswerSourcesModel
+	private let answerSettingsModel: AnswerSettingsModel
 
-	private var magicBallViewController: MagicBallViewController?
-	private var answerSourceViewController: AnswerSourceViewController?
+	// MARK: - Initialization
+
+	init(
+		magicBallModel: MagicBallModel,
+		answerSourceModel: AnswerSourcesModel,
+		answerSettingsModel: AnswerSettingsModel
+	) {
+
+		self.magicBallModel = magicBallModel
+		self.answerSourceModel = answerSourceModel
+		self.answerSettingsModel = answerSettingsModel
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Child View Controllers
+
+	private lazy var magicBallViewController = MagicBallViewController(
+		magicBallViewModel: initializeMagicBallViewModel()
+	)
+	private lazy var answerSourceViewController = AnswerSourceViewController(
+		answerSourceViewModel: AnswerSourceViewModel(answerSourceModel: answerSourceModel)
+	)
+
+	// MARK: - Life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		initialSetup()
+	}
+
+}
+
+// MARK: - Private Methods
+
+private extension MagicBallContainerViewController {
+
+	// MARK: - Setup
+
+	func initialSetup() {
+		setupModels()
+		setupUI()
+	}
+
+	func setupModels() {
+		answerSettingsModel.addObserver(self)
+
 		answerSourceModel.answerLoadingErrorHandler = { [weak self] errorMessage in
 			self?.showAlert(with: errorMessage)
 		}
-
-		answerSettingsModel.addObserver(self)
 	}
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		switch StoryboardSegue.Main(segue) {
-		case .magicBallViewController:
+	func setupUI() {
+		add(magicBallViewController)
+		add(answerSourceViewController)
 
-			magicBallViewController = segue.destination as? MagicBallViewController
-			magicBallViewController?.generator = UINotificationFeedbackGenerator()
-			magicBallViewController?.magicBallViewModel = magicBallViewModel()
+		let stackView = initializeContainerStackView()
+		view.addSubview(stackView)
 
-		case .answerSourceViewController:
-			answerSourceViewController = segue.destination as? AnswerSourceViewController
-			answerSourceViewController?.answerSourceViewModel = AnswerSourceViewModel(
-				answerSourceModel: answerSourceModel
-			)
-
-		default:
-			fatalError("Unhandled segue was performed: \(segue)")
+		stackView.snp.makeConstraints { (make) in
+			make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
 		}
 	}
 
-	private func showAlert(with message: String) {
-		let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
+	// MARK: - Properties Initialization
 
-		alertPresenter.present(in: self)
+	func initializeContainerStackView() -> UIStackView {
+		let stackView = UIStackView(arrangedSubviews: [magicBallViewController.view, answerSourceViewController.view])
+		stackView.axis = .vertical
+		stackView.alignment = .fill
+		stackView.distribution = .fill
+
+		return stackView
 	}
 
-	private func magicBallViewModel() -> MagicBallViewModel {
+	func initializeMagicBallViewModel() -> MagicBallViewModel {
 		let settings = answerSettingsModel.settings.toPresentableSettings()
 		return MagicBallViewModel(magicBallModel: magicBallModel, settings: settings)
 	}
+
 }
+
+// MARK: - AnswerSettingsObserver
 
 extension MagicBallContainerViewController: AnswerSettingsObserver {
 
 	func answerSettingsModelSettingsDidChange(_ model: AnswerSettingsModel) {
-		magicBallViewController?.magicBallViewModel = magicBallViewModel()
+		magicBallViewController.magicBallViewModel = initializeMagicBallViewModel()
 	}
 }

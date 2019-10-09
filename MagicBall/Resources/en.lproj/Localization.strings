@@ -9,14 +9,14 @@
 "initialMagicScreenMessage" = "Shake your phone, please!!!";
 "networkAnswerSourceTitle" = "Answers form network";
 
-// MARK: - Navigation Title -
+// MARK: - Navigation Title
 "navigationBar.title.answerSets" = "Answer Sets";
 
-//MARK: - TabBarItem Titles -
+//MARK: - TabBarItem Titles
 "tabBar.title.magicBall" = "MagicBall";
 "tabBar.title.settings" = "Settings";
 
-//MARK: - Action Titles -
+//MARK: - Action Titles
 
 "action.title.ok" = "OK";
 "action.title.create" = "Create";
@@ -25,19 +25,35 @@
 "action.title.save" = "Save";
 "action.title.add" = "Add";
 "action.title.rename" = "Rename";
+"action.title.reset" = "Reset";
 
-//MARK: - Alert Titles -
+//MARK: - Alert Titles
 
 "alert.title.delete" = "Delete %@";
 "alert.title.edit" = "Edit %@";
 "alert.title.createNew" = "Create new %@";
+"alert.title.resetAnswersNumber" = "Reset Answers Number";
 
-//MARK: - Alert Messages -
+//MARK: - Alert Messages
 
-"alert.message.noInternet" = "There is no internet conection. Please try to use answers from answer sets.";
+"alert.message.noInternet" = "There is no internet connection. Please try to use answers from answer sets.";
 "alert.message.delete" = "Are you sure you want to delete \"%@\"?";
+"alert.message.resetAnswersNumber" = "Are you sure you want to  reset answers number?";
 
-//MARK: - Editable Items -
+//MARK: - Editable Items
 
 "editableItems.name.answerSets" = "answer set";
 "editableItems.name.answers" = "answer";
+
+//MARK: - Settings View Controller
+
+"settingsViewController.title" = "Settings";
+
+"settingsViewController.cellText.lazyMode" = "Lazy mode";
+"settingsViewController.cellText.readAnswer" = "Read answer";
+"settingsViewController.cellText.hapticFeedback" = "Haptic feedback";
+"settingsViewController.cellText.answerSets" = "Answer sets";
+"settingsViewController.cellText.resetAnswersNumber" = "Reset Answers Number";
+
+"settingsViewController.sectionFooterText.lazyMode"
+= "When \"Lazy mode\" is on: tap the magic ball to request an answer";

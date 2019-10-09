@@ -30,6 +30,8 @@ internal enum L10n {
       internal static let ok = L10n.tr("Localization", "action.title.ok")
       /// Rename
       internal static let rename = L10n.tr("Localization", "action.title.rename")
+      /// Reset
+      internal static let reset = L10n.tr("Localization", "action.title.reset")
       /// Save
       internal static let save = L10n.tr("Localization", "action.title.save")
     }
@@ -41,8 +43,10 @@ internal enum L10n {
       internal static func delete(_ p1: String) -> String {
         return L10n.tr("Localization", "alert.message.delete", p1)
       }
-      /// There is no internet conection. Please try to use answers from answer sets.
+      /// There is no internet connection. Please try to use answers from answer sets.
       internal static let noInternet = L10n.tr("Localization", "alert.message.noInternet")
+      /// Are you sure you want to  reset answers number?
+      internal static let resetAnswersNumber = L10n.tr("Localization", "alert.message.resetAnswersNumber")
     }
     internal enum Title {
       /// Create new %@
@@ -57,6 +61,8 @@ internal enum L10n {
       internal static func edit(_ p1: String) -> String {
         return L10n.tr("Localization", "alert.title.edit", p1)
       }
+      /// Reset Answers Number
+      internal static let resetAnswersNumber = L10n.tr("Localization", "alert.title.resetAnswersNumber")
     }
   }
 
@@ -73,6 +79,27 @@ internal enum L10n {
     internal enum Title {
       /// Answer Sets
       internal static let answerSets = L10n.tr("Localization", "navigationBar.title.answerSets")
+    }
+  }
+
+  internal enum SettingsViewController {
+    /// Settings
+    internal static let title = L10n.tr("Localization", "settingsViewController.title")
+    internal enum CellText {
+      /// Answer sets
+      internal static let answerSets = L10n.tr("Localization", "settingsViewController.cellText.answerSets")
+      /// Haptic feedback
+      internal static let hapticFeedback = L10n.tr("Localization", "settingsViewController.cellText.hapticFeedback")
+      /// Lazy mode
+      internal static let lazyMode = L10n.tr("Localization", "settingsViewController.cellText.lazyMode")
+      /// Read answer
+      internal static let readAnswer = L10n.tr("Localization", "settingsViewController.cellText.readAnswer")
+      /// Reset Answers Number
+      internal static let resetAnswersNumber = L10n.tr("Localization", "settingsViewController.cellText.resetAnswersNumber")
+    }
+    internal enum SectionFooterText {
+      /// When "Lazy mode" is on: tap the magic ball to request an answer
+      internal static let lazyMode = L10n.tr("Localization", "settingsViewController.sectionFooterText.lazyMode")
     }
   }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let cellIdentifier = "AnswerSetCell"
+private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
@@ -20,7 +20,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 		super.init()
 	}
 
-	// MARK: - EditableListViewModel -
+	// MARK: - EditableListViewModel
 
 	var listTitle: String = L10n.NavigationBar.Title.answerSets
 	var nameOfItems: String = L10n.EditableItems.Name.answerSets
@@ -51,7 +51,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
 }
 
-// MARK: - UITableViewDataSource -
+// MARK: - UITableViewDataSource
 
 extension AnswerSetsEditableListViewModel {
 
@@ -61,7 +61,14 @@ extension AnswerSetsEditableListViewModel {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		let cell: UITableViewCell
+
+		if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: cellID) {
+			cell = dequeuedCell
+		} else {
+			cell = UITableViewCell(style: .value1, reuseIdentifier: cellID)
+			cell.accessoryType = .disclosureIndicator
+		}
 
 		let answerSet = answerSetsModel.answerSet(at: indexPath.row)
 

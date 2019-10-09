@@ -7,24 +7,30 @@
 //
 
 import UIKit
+import SnapKit
 
 final class AppRootViewController: UITabBarController {
 
-	var magicBallModel: MagicBallModel
-	var answerSourcesModel: AnswerSourcesModel
-	var answerSettingsModel: AnswerSettingsModel
-	var answerSetsModel: AnswerSetsModel
+	private let magicBallModel: MagicBallModel
+	private let answerSourcesModel: AnswerSourcesModel
+	private let answerSettingsModel: AnswerSettingsModel
+	private let answerSetsModel: AnswerSetsModel
+	private let answersCountingModel: AnswersCountingModel
+
+	// MARK: - Initialization
 
 	init(
 		magicBallModel: MagicBallModel,
 		answerSourcesModel: AnswerSourcesModel,
 		answerSettingsModel: AnswerSettingsModel,
-		answerSetsModel: AnswerSetsModel
+		answerSetsModel: AnswerSetsModel,
+		answersCountingModel: AnswersCountingModel
 	) {
 		self.magicBallModel = magicBallModel
 		self.answerSourcesModel = answerSourcesModel
 		self.answerSettingsModel = answerSettingsModel
 		self.answerSetsModel = answerSetsModel
+		self.answersCountingModel = answersCountingModel
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -33,7 +39,7 @@ final class AppRootViewController: UITabBarController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Private properties
+	// MARK: - Child View Controllers
 
 	private lazy var magicBallContainerViewController = initializeMagicBallContainerViewController()
 	private lazy var settingsNavigationController = initializeSettingsNavigationController()
@@ -43,7 +49,7 @@ final class AppRootViewController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setup()
+		initialSetup()
 	}
 
 }
@@ -52,73 +58,79 @@ final class AppRootViewController: UITabBarController {
 
 private extension AppRootViewController {
 
-	func setup() {
+	// MARK: - Setup
+
+	func initialSetup() {
 		view.backgroundColor = .white
 
 		viewControllers = [magicBallContainerViewController, settingsNavigationController]
 	}
 
+	// MARK: - Properties Initialization
+
 	func initializeMagicBallContainerViewController() -> MagicBallContainerViewController {
-		let viewController = StoryboardScene.Main.magicBallContainerViewController.instantiate()
+		let viewController = MagicBallContainerViewController(
+			magicBallModel: magicBallModel,
+			answerSourceModel: answerSourcesModel,
+			answerSettingsModel: answerSettingsModel
+		)
 
 		viewController.tabBarItem.title = L10n.TabBar.Title.magicBall
 		viewController.tabBarItem.image = Asset.ballTabIcon.image
 
-		viewController.magicBallModel = magicBallModel
-		viewController.answerSourceModel = answerSourcesModel
-		viewController.answerSettingsModel = answerSettingsModel
+		return viewController
+	}
+
+	func initializeSettingsViewController() -> SettingsViewController {
+		let settingsViewModel = SettingsViewModel(
+			answerSettingsModel: answerSettingsModel,
+			answerSetsModel: answerSetsModel,
+			answersCountingModel: answersCountingModel,
+			didSelectAnswerSetsCellHandler: { [weak self] in
+				self?.presentAnswerSetsEditableListViewController()
+		})
+
+		let viewController = SettingsViewController(settingsViewModel: settingsViewModel)
+		viewController.title = L10n.SettingsViewController.title
 
 		return viewController
 	}
 
 	func initializeSettingsNavigationController() -> UINavigationController {
-		let viewController = StoryboardScene.Main.settingsNavigationController.instantiate()
+		let settingsViewController = initializeSettingsViewController()
+		let viewController = UINavigationController(rootViewController: settingsViewController)
 
 		viewController.tabBarItem.title = L10n.TabBar.Title.settings
 		viewController.tabBarItem.image = Asset.settingsTabIcon.image
-
-		if let settingsViewController = viewController.viewControllers[0] as? SettingsViewController {
-			setup(settingsViewController)
-		}
+		viewController.navigationBar.prefersLargeTitles = true
 
 		return viewController
 	}
 
-	func setup(_ viewController: SettingsViewController) {
-		viewController.settingsViewModel = SettingsViewModel(
-			answerSettingsModel: answerSettingsModel,
-			answerSetsModel: answerSetsModel,
-			didSelectAnswerSetsCellHandler: { [weak self] in
-				self?.presentAnswerSetsEditableListViewController()
-		})
-	}
+	// MARK: - Answer Sets Editing Flow
 
 	func presentAnswerSetsEditableListViewController() {
 		let viewModel = AnswerSetsEditableListViewModel(answerSetsModel: answerSetsModel)
-		viewModel.didSelectItem = { [weak self] index in
-			self?.presentAnswersEditableListViewControllerForAnswerSet(at: index)
+		viewModel.didSelectItem = { [unowned self] index in
+			self.presentAnswersEditableListViewControllerForAnswerSet(at: index)
 		}
 
-		let answerSetsEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
-		answerSetsEditableListViewController.editableListViewModel = viewModel
+		let answerSetsEditableListViewController = EditableListViewController(editableListViewModel: viewModel)
 
 		settingsNavigationController.pushViewController(answerSetsEditableListViewController, animated: true)
 	}
 
 	func presentAnswersEditableListViewControllerForAnswerSet(at index: Int) {
 		let answerSet = answerSetsModel.answerSet(at: index).toPresentableAnswerSet()
-		let answersEditableListViewController = StoryboardScene.Main.editableListViewController.instantiate()
-
 		let viewModel = AnswersEditableListViewModel(answerSet: answerSet, answerSetsModel: answerSetsModel)
+		let answersEditableListViewController = EditableListViewController(editableListViewModel: viewModel)
 
 		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersEditableListViewController] selectedIndex in
 			let message = answerSetsModel.answerSet(at: index).answers[selectedIndex].toPresentableAnswer().text
-			let alertPresenter = MessageAlertPresenter(message: message, actionTitle: L10n.Action.Title.ok)
 
-			alertPresenter.present(in: answersEditableListViewController)
+			answersEditableListViewController.showAlert(with: message)
 		}
 
-		answersEditableListViewController.editableListViewModel = viewModel
 		settingsNavigationController.pushViewController(answersEditableListViewController, animated: true)
 	}
 

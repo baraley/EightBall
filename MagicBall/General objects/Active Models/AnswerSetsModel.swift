@@ -36,7 +36,7 @@ final class AnswerSetsModel {
 		}
 	}
 
-	// MARK: - Public -
+	// MARK: - Public
 
 	func loadAnswerSets() {
 		return answerSets = answerSetsService.loadAnswerSets()
@@ -68,7 +68,7 @@ final class AnswerSetsModel {
 		answerSets.remove(at: index)
 	}
 
-	// MARK: - Observation -
+	// MARK: - Observation
 
 	private var observations: [ObjectIdentifier: Observation] = [:]
 
@@ -82,7 +82,7 @@ final class AnswerSetsModel {
         observations.removeValue(forKey: id)
     }
 
-	// MARK: - Private -
+	// MARK: - Private
 
 	private func notifyObservers() {
 		observations.forEach { (id, observation) in
