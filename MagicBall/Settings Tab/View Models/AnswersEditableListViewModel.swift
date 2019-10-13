@@ -12,7 +12,7 @@ private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
-	private var presentableAnswer: [PresentableAnswer] {
+	private var presentableAnswers: [PresentableAnswer] {
 		didSet {
 			answersDidChange()
 		}
@@ -21,7 +21,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 	private let answerSetsModel: AnswerSetsModel
 
 	init(answerSet: PresentableAnswerSet, answerSetsModel: AnswerSetsModel) {
-		self.presentableAnswer = answerSet.answers
+		self.presentableAnswers = answerSet.answers
 		self.answerSet = answerSet
 		self.answerSetsModel = answerSetsModel
 		self.listTitle = answerSet.name
@@ -35,29 +35,29 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 	var didSelectItem: ((Int) -> Void)?
 
 	func numberOfItems() -> Int {
-		return presentableAnswer.count
+		return presentableAnswers.count
 	}
 
 	func item(at index: Int) -> String {
-		return presentableAnswer[index].text
+		return presentableAnswers[index].text
 	}
 
 	func updateItem(at index: Int, with text: String) {
-		presentableAnswer[index] = PresentableAnswer(text: text)
+		presentableAnswers[index] = PresentableAnswer(text: text)
 	}
 
 	func createNewItem(with text: String) {
-		presentableAnswer.append(PresentableAnswer(text: text))
+		presentableAnswers.append(PresentableAnswer(text: text))
 	}
 
 	func deleteItem(at index: Int) {
-		presentableAnswer.remove(at: index)
+		presentableAnswers.remove(at: index)
 	}
 
 	// MARK: - Private Methods
 
 	private func answersDidChange() {
-		let answers = presentableAnswer.map { Answer(from: $0)}
+		let answers = presentableAnswers.map { Answer(from: $0)}
 		let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
 		answerSetsModel.save(updatedAnswerSet)
 	}
@@ -82,7 +82,7 @@ extension AnswersEditableListViewModel {
 			cell = UITableViewCell(style: .default, reuseIdentifier: cellID)
 		}
 
-		cell.textLabel?.text = presentableAnswer[indexPath.row].text
+		cell.textLabel?.text = presentableAnswers[indexPath.row].text
 
 		return cell
 	}

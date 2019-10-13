@@ -10,8 +10,10 @@ import Foundation
 
 protocol AnswerSetsServiceProtocol {
 
-	func loadAnswerSets() -> [AnswerSet]
-	func save(_ answerSets: [AnswerSet])
+	func loadAnswerSets(_ completionHandler: @escaping ([AnswerSet]) -> Void)
+	func update(_ answerSet: AnswerSet)
+	func appendNew(_ answerSet: AnswerSet)
+	func delete(_ answerSet: AnswerSet)
 
 }
 
@@ -31,7 +33,6 @@ final class AnswerSetsModel {
 
 	private var answerSets: [AnswerSet] = [] {
 		didSet {
-			answerSetsService.save(answerSets)
 			notifyObservers()
 		}
 	}
@@ -39,7 +40,9 @@ final class AnswerSetsModel {
 	// MARK: - Public
 
 	func loadAnswerSets() {
-		return answerSets = answerSetsService.loadAnswerSets()
+		answerSetsService.loadAnswerSets { (answerSets) in
+			self.answerSets = answerSets
+		}
 	}
 
 	func notEmptyAnswerSets() -> [AnswerSet] {
@@ -57,15 +60,19 @@ final class AnswerSetsModel {
 	func save(_ answerSet: AnswerSet) {
 		if let index = answerSets.firstIndex(of: answerSet) {
 			answerSets[index] = answerSet
+			answerSetsService.update(answerSet)
 		} else {
 			answerSets.append(answerSet)
+			answerSetsService.appendNew(answerSet)
 		}
 	}
 
 	func deleteAnswerSet(at index: Int) {
 		guard index >= 0, index < answerSets.count else { return }
 
-		answerSets.remove(at: index)
+		let answerSet = answerSets.remove(at: index)
+
+		answerSetsService.delete(answerSet)
 	}
 
 	// MARK: - Observation

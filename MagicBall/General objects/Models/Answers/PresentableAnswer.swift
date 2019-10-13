@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PresentableAnswer {
+struct PresentableAnswer: Equatable {
 
 	let text: String
 

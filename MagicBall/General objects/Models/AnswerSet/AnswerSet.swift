@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct AnswerSet: Equatable {
+struct AnswerSet: Equatable, Codable {
 
 	static func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
 		return	lhs.id == rhs.id
 	}
 
-	let id: UUID
+	let id: String
 	var name: String
 	var answers: [Answer]
 
-	init(id: UUID = UUID(), name: String, answers: [Answer] = []) {
+	init(id: String = UUID().uuidString, name: String, answers: [Answer] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers

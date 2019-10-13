@@ -14,11 +14,11 @@ struct PresentableAnswerSet: Equatable {
 		return	lhs.id == rhs.id
 	}
 
-	let id: UUID
+	let id: String
 	var name: String
 	var answers: [PresentableAnswer]
 
-	init(id: UUID = UUID(), name: String, answers: [PresentableAnswer] = []) {
+	init(id: String, name: String, answers: [PresentableAnswer] = []) {
 		self.id = id
 		self.name = name
 		self.answers = answers

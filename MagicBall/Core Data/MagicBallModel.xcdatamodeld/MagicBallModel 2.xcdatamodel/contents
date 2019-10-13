@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2.0">
+    <entity name="Answer" representedClassName="Answer" syncable="YES" codeGenerationType="class">
+        <attribute name="text" attributeType="String"/>
+        <relationship name="answerSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnswerSet" inverseName="answers" inverseEntity="AnswerSet"/>
+    </entity>
+    <entity name="AnswerSet" representedClassName="AnswerSet" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="answers" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Answer" inverseName="answerSet" inverseEntity="Answer"/>
+    </entity>
+    <elements>
+        <element name="Answer" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="AnswerSet" positionX="-54" positionY="-9" width="128" height="73"/>
+    </elements>
+</model>

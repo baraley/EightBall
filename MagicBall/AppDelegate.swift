@@ -27,8 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private func initializeAppRootViewController() -> AppRootViewController {
 
+		let persistentContainer = PersistentContainer()
+		let answerSetsService = AnswerSetsService(persistentContainer: persistentContainer)
+
 		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
-		let answerSetsModel = AnswerSetsModel(answerSetsService: AnswerSetsService())
+		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsService)
 
 		let answerSourcesModel = AnswerSourcesModel(
 			answerSetsModel: answerSetsModel,
