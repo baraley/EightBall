@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import CoreData
+
+private let modelFileName = "MagicBallModel"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
+
+	private var persistentContainer = NSPersistentContainer(name: modelFileName)
 
 	func application(
 		_ application: UIApplication,
@@ -19,16 +24,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> Bool {
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = initializeAppRootViewController()
-		window?.makeKeyAndVisible()
+
+		let isNeedToCreateDefaultData = NSPersistentContainer.isPersistentStoreEmpty()
+
+		persistentContainer.loadPersistentStores { (_, error) in
+			if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+			}
+			self.handlePersistentContainerLoadingAnd(createDefaultData: isNeedToCreateDefaultData)
+		}
 
 		return true
 	}
 
-	private func initializeAppRootViewController() -> AppRootViewController {
+	private func handlePersistentContainerLoadingAnd(createDefaultData isNeedDefaultData: Bool) {
+		let backgroundContext = persistentContainer.newBackgroundContext()
 
-		let persistentContainer = PersistentContainer()
-		let answerSetsService = AnswerSetsService(persistentContainer: persistentContainer)
+		 if isNeedDefaultData {
+			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(backgroundContext)
+
+			if !wasMigrated {
+				DefaultDataProvider.createDefaultAnswerSetIn(backgroundContext)
+			}
+		}
+		let answerSetsService = AnswerSetsService(context: backgroundContext)
+
+		window?.rootViewController = initializeAppRootViewController(with: answerSetsService)
+		window?.makeKeyAndVisible()
+	}
+
+	private func initializeAppRootViewController(with answerSetsService: AnswerSetsService) -> AppRootViewController {
 
 		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
 		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsService)

@@ -12,21 +12,9 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 
 	private let context: NSManagedObjectContext
 
-	init(persistentContainer: PersistentContainer) {
-		self.context = persistentContainer.newBackgroundContext()
+	init(context: NSManagedObjectContext) {
+		self.context = context
 	}
-
-//	func createDefaultAnswersSetsIfNeeds() {
-//		guard PersistentContainer.isPersistenceStoreEmpty() else { return }
-//
-//		let name = DefaultResourceName.rudeAnswers.rawValue
-//		let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
-//		let answers = rudeAnswers.map { Answer(text: $0) }
-//
-//		let answerSets = [AnswerSet(name: name, answers: answers)]
-//
-//		save(answerSets)
-//	}
 
 	private var loadedAnswerSets: [String: ManagedAnswerSet] = [:]
 

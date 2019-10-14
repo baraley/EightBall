@@ -32,6 +32,7 @@ extension ManagedAnswerSet {
 
 	func populateWith(_ answerSet: AnswerSet) {
 		guard let context = managedObjectContext else { return }
+
 		name = answerSet.name
 		id = answerSet.id
 

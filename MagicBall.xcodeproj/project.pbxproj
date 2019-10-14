@@ -35,10 +35,9 @@
 		115ED2A023436CFE005499E0 /* AnswersSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115ED29F23436CFD005499E0 /* AnswersSourceViewController.swift */; };
 		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
 		117272AB2337437B006D6A02 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 117272AD2337437B006D6A02 /* Localization.strings */; };
-		117691A023526D79000ED5E5 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176919F23526D79000ED5E5 /* PersistentContainer.swift */; };
+		117691A023526D79000ED5E5 /* NSPersistentContainer+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176919F23526D79000ED5E5 /* NSPersistentContainer+extensions.swift */; };
 		117889F52305870800983E8A /* InputTextAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlertController.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
-		11B5009923521E1300620DF4 /* MagicBallModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B5009723521E1300620DF4 /* MagicBallModel.xcdatamodeld */; };
 		11B770DD2344A50E00371CC9 /* MessageAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B770DC2344A50E00371CC9 /* MessageAlertPresenter.swift */; };
 		11B7E23D23437DAF00319147 /* MagicBallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B7E23C23437DAF00319147 /* MagicBallViewModel.swift */; };
 		11B7E23F23437DC900319147 /* MagicBallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B7E23E23437DC900319147 /* MagicBallModel.swift */; };
@@ -60,6 +59,9 @@
 		11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */; };
 		11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */; };
 		11DEF3E22353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DEF3E12353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift */; };
+		11DEF3EC235457BE00CF9FBC /* MagicBallModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 11DEF3EB235457BE00CF9FBC /* MagicBallModel.xcdatamodel */; };
+		11DEF3EE2354FF9A00CF9FBC /* DefaultDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DEF3ED2354FF9A00CF9FBC /* DefaultDataProvider.swift */; };
+		11DEF3F02354FFED00CF9FBC /* MigratorFromDataFilesToCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DEF3EF2354FFED00CF9FBC /* MigratorFromDataFilesToCoreData.swift */; };
 		F56735552363E184326BCF59 /* Pods_MagicBall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FB2280872908656F03718 /* Pods_MagicBall.framework */; };
 /* End PBXBuildFile section */
 
@@ -92,11 +94,9 @@
 		115ED29F23436CFD005499E0 /* AnswersSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersSourceViewController.swift; sourceTree = "<group>"; };
 		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		117272AC2337437B006D6A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
-		1176919F23526D79000ED5E5 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
+		1176919F23526D79000ED5E5 /* NSPersistentContainer+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+extensions.swift"; sourceTree = "<group>"; };
 		117889F42305870800983E8A /* InputTextAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlertController.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
-		11B5009823521E1300620DF4 /* MagicBallModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagicBallModel.xcdatamodel; sourceTree = "<group>"; };
-		11B5009A2352280700620DF4 /* MagicBallModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MagicBallModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		11B770DC2344A50E00371CC9 /* MessageAlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAlertPresenter.swift; sourceTree = "<group>"; };
 		11B7E23C23437DAF00319147 /* MagicBallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicBallViewModel.swift; sourceTree = "<group>"; };
 		11B7E23E23437DC900319147 /* MagicBallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallModel.swift; sourceTree = "<group>"; };
@@ -120,6 +120,9 @@
 		11D2F75422FE70C4000E8881 /* AppRootViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRootViewCotroller.swift; sourceTree = "<group>"; };
 		11D2F75722FE7934000E8881 /* MagicBallViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicBallViewCotroller.swift; sourceTree = "<group>"; };
 		11DEF3E12353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extension.swift"; sourceTree = "<group>"; };
+		11DEF3EB235457BE00CF9FBC /* MagicBallModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagicBallModel.xcdatamodel; sourceTree = "<group>"; };
+		11DEF3ED2354FF9A00CF9FBC /* DefaultDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDataProvider.swift; sourceTree = "<group>"; };
+		11DEF3EF2354FFED00CF9FBC /* MigratorFromDataFilesToCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigratorFromDataFilesToCoreData.swift; sourceTree = "<group>"; };
 		CA6FB2280872908656F03718 /* Pods_MagicBall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicBall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE26AE802748A833930F2F1E /* Pods-MagicBall.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.debug.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.debug.xcconfig"; sourceTree = "<group>"; };
 		F4D248FC0038C3FFF9453FBB /* Pods-MagicBall.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.release.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +154,30 @@
 			children = (
 				11B770DC2344A50E00371CC9 /* MessageAlertPresenter.swift */,
 				117889F42305870800983E8A /* InputTextAlertController.swift */,
+				11DEF3ED2354FF9A00CF9FBC /* DefaultDataProvider.swift */,
+				11DEF3EF2354FFED00CF9FBC /* MigratorFromDataFilesToCoreData.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		115AE3EA235502F5005F1B50 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1176919F23526D79000ED5E5 /* NSPersistentContainer+extensions.swift */,
+				11DEF3E12353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		115AE3EB23550313005F1B50 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				113C2AB523524EB8007B3DA2 /* ManagedAnswer+CoreDataClass.swift */,
+				113C2AB723524EB8007B3DA2 /* ManagedAnswerSet+CoreDataClass.swift */,
+				113C2AB623524EB8007B3DA2 /* ManagedAnswer+CoreDataProperties.swift */,
+				113C2AB823524EB8007B3DA2 /* ManagedAnswerSet+CoreDataProperties.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		117272A823374307006D6A02 /* Generated */ = {
@@ -167,13 +192,9 @@
 		11B5009B2352285A00620DF4 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				1176919F23526D79000ED5E5 /* PersistentContainer.swift */,
-				113C2AB523524EB8007B3DA2 /* ManagedAnswer+CoreDataClass.swift */,
-				113C2AB623524EB8007B3DA2 /* ManagedAnswer+CoreDataProperties.swift */,
-				113C2AB723524EB8007B3DA2 /* ManagedAnswerSet+CoreDataClass.swift */,
-				113C2AB823524EB8007B3DA2 /* ManagedAnswerSet+CoreDataProperties.swift */,
-				11B5009723521E1300620DF4 /* MagicBallModel.xcdatamodeld */,
-				11DEF3E12353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift */,
+				115AE3EB23550313005F1B50 /* Models */,
+				115AE3EA235502F5005F1B50 /* Extensions */,
+				11DEF3EB235457BE00CF9FBC /* MagicBallModel.xcdatamodel */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -580,7 +601,7 @@
 				115ED28A234349AE005499E0 /* ManagedSettings.swift in Sources */,
 				1145E386234C910F006F51EC /* SecureStorage.swift in Sources */,
 				115ED29223434F71005499E0 /* AnswerRequest.swift in Sources */,
-				117691A023526D79000ED5E5 /* PersistentContainer.swift in Sources */,
+				117691A023526D79000ED5E5 /* NSPersistentContainer+extensions.swift in Sources */,
 				11CF2A5E23408E7900F394B1 /* UIViewController+ChildManagment.swift in Sources */,
 				110A534222FB50A40026BA79 /* MagicButton.swift in Sources */,
 				115ED29023434F3D005499E0 /* NetworkService.swift in Sources */,
@@ -599,10 +620,11 @@
 				11B7E25C2344042F00319147 /* AnswersEditableListViewModel.swift in Sources */,
 				11B7E23F23437DC900319147 /* MagicBallModel.swift in Sources */,
 				11447FB023396AC300CE3DF6 /* Assets.swift in Sources */,
+				11DEF3EC235457BE00CF9FBC /* MagicBallModel.xcdatamodel in Sources */,
+				11DEF3EE2354FF9A00CF9FBC /* DefaultDataProvider.swift in Sources */,
 				115ED29A23435D24005499E0 /* AnswerSettingsModel.swift in Sources */,
 				117889F52305870800983E8A /* InputTextAlertController.swift in Sources */,
 				11B7E2542343EEF600319147 /* PresentableSetting.swift in Sources */,
-				11B5009923521E1300620DF4 /* MagicBallModel.xcdatamodeld in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				112B515D23011AB80063E18B /* DefaultResourceName.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */,
@@ -611,6 +633,7 @@
 				112B515B23011A890063E18B /* FileManager+Codable.swift in Sources */,
 				11DEF3E22353B4D200CF9FBC /* NSManagedObjectContext+Extension.swift in Sources */,
 				115ED29E23436AAF005499E0 /* AnswerSourceViewModel.swift in Sources */,
+				11DEF3F02354FFED00CF9FBC /* MigratorFromDataFilesToCoreData.swift in Sources */,
 				11D2F74122FD4D3C000E8881 /* MagicBallView.swift in Sources */,
 				11B7E23D23437DAF00319147 /* MagicBallViewModel.swift in Sources */,
 				115ED2A023436CFE005499E0 /* AnswersSourceViewController.swift in Sources */,
@@ -821,20 +844,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		11B5009723521E1300620DF4 /* MagicBallModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				11B5009A2352280700620DF4 /* MagicBallModel 2.xcdatamodel */,
-				11B5009823521E1300620DF4 /* MagicBallModel.xcdatamodel */,
-			);
-			currentVersion = 11B5009823521E1300620DF4 /* MagicBallModel.xcdatamodel */;
-			path = MagicBallModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 11C919B622F9368E005F71BC /* Project object */;
 }
