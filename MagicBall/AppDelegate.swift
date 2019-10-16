@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private func handlePersistentContainerLoadingAnd(createDefaultData isNeedDefaultData: Bool) {
 		let backgroundContext = persistentContainer.newBackgroundContext()
+		backgroundContext.automaticallyMergesChangesFromParent = true
 
 		 if isNeedDefaultData {
 			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(backgroundContext)

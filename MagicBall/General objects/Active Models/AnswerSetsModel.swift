@@ -8,11 +8,12 @@
 
 import Foundation
 
-protocol AnswerSetsServiceProtocol {
+protocol AnswerSetsServiceProtocol: class {
 
-	func loadAnswerSets(_ completionHandler: @escaping ([AnswerSet]) -> Void)
-	func update(_ answerSet: AnswerSet)
-	func appendNew(_ answerSet: AnswerSet)
+	var answersSetsDidChange: (([AnswerSet]) -> Void)? { get set }
+
+	func loadAnswerSets()
+	func upsert(_ answerSet: AnswerSet)
 	func delete(_ answerSet: AnswerSet)
 
 }
@@ -29,6 +30,11 @@ final class AnswerSetsModel {
 
 	init(answerSetsService: AnswerSetsServiceProtocol) {
 		self.answerSetsService = answerSetsService
+		self.answerSetsService.answersSetsDidChange = { [weak self] (answerSets) in
+			DispatchQueue.main.async {
+				self?.answerSets = answerSets
+			}
+		}
 	}
 
 	private var answerSets: [AnswerSet] = [] {
@@ -40,9 +46,7 @@ final class AnswerSetsModel {
 	// MARK: - Public
 
 	func loadAnswerSets() {
-		answerSetsService.loadAnswerSets { (answerSets) in
-			self.answerSets = answerSets
-		}
+		answerSetsService.loadAnswerSets()
 	}
 
 	func notEmptyAnswerSets() -> [AnswerSet] {
@@ -60,11 +64,10 @@ final class AnswerSetsModel {
 	func save(_ answerSet: AnswerSet) {
 		if let index = answerSets.firstIndex(of: answerSet) {
 			answerSets[index] = answerSet
-			answerSetsService.update(answerSet)
 		} else {
 			answerSets.append(answerSet)
-			answerSetsService.appendNew(answerSet)
 		}
+		answerSetsService.upsert(answerSet)
 	}
 
 	func deleteAnswerSet(at index: Int) {

@@ -14,11 +14,14 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 
 	init(context: NSManagedObjectContext) {
 		self.context = context
+		assignToContextNotifications()
 	}
+
+	var answersSetsDidChange: (([AnswerSet]) -> Void)?
 
 	private var loadedAnswerSets: [String: ManagedAnswerSet] = [:]
 
-	func loadAnswerSets(_ completionHandler: @escaping ([AnswerSet]) -> Void) {
+	func loadAnswerSets() {
 		context.perform { [weak self] in
 			guard let self = self else { return }
 
@@ -27,29 +30,16 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 			self.loadedAnswerSets = Dictionary(uniqueKeysWithValues: managedAnswerSets.map { ($0.id, $0)})
 
 			let answerSets = managedAnswerSets.map { $0.toAnswerSet()}
-			completionHandler(answerSets)
+			self.answersSetsDidChange?(answerSets)
 		}
 	}
 
-	func update(_ answerSet: AnswerSet) {
+	func upsert(_ answerSet: AnswerSet) {
 		context.perform { [weak self] in
 			guard let self = self else { return }
 
-			if let managedAnswerSet = self.loadedAnswerSets[answerSet.id] {
-				managedAnswerSet.populateWith(answerSet)
-			}
-			self.context.saveIfNeeds()
-		}
-	}
-
-	func appendNew(_ answerSet: AnswerSet) {
-		context.perform { [weak self] in
-			guard let self = self else { return }
-			let managedAnswerSet = ManagedAnswerSet(context: self.context)
+			let managedAnswerSet = self.loadedAnswerSets[answerSet.id] ?? ManagedAnswerSet(context: self.context)
 			managedAnswerSet.populateWith(answerSet)
-
-			self.loadedAnswerSets[managedAnswerSet.id] = managedAnswerSet
-
 			self.context.saveIfNeeds()
 		}
 	}
@@ -71,6 +61,17 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 			NSSortDescriptor(key: #keyPath(ManagedAnswerSet.dateCreated), ascending: true)
 		]
 		return request
+	}
+
+	private func assignToContextNotifications() {
+		let name = Notification.Name.NSManagedObjectContextDidSave
+		let selector = #selector(contextObjectsDidChange(_:))
+
+		NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
+	}
+
+	@objc private func contextObjectsDidChange(_ notification: Notification) {
+		loadAnswerSets()
 	}
 
 }

@@ -14,3 +14,14 @@ import CoreData
 public class ManagedAnswer: NSManagedObject {
 
 }
+
+extension ManagedAnswer {
+
+    @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedAnswer> {
+        return NSFetchRequest<ManagedAnswer>(entityName: "Answer")
+    }
+
+    @NSManaged public var text: String
+    @NSManaged public var answerSet: ManagedAnswerSet
+
+}
