@@ -26,10 +26,17 @@ final class AnswerSourcesModel {
 
 	private let answerSetsModel: AnswerSetsModel
 	private let networkAnswerService: NetworkAnswerService
+	private let historyAnswersModel: HistoryAnswersModel
 
-	init(answerSetsModel: AnswerSetsModel, networkAnswerService: NetworkAnswerService) {
+	init(
+		answerSetsModel: AnswerSetsModel,
+		networkAnswerService: NetworkAnswerService,
+		historyAnswersModel: HistoryAnswersModel
+	) {
+
 		self.answerSetsModel = answerSetsModel
 		self.networkAnswerService = networkAnswerService
+		self.historyAnswersModel = historyAnswersModel
 
 		answerSetsModel.addObserver(self)
 		answerSetsModel.loadAnswerSets()
@@ -59,6 +66,7 @@ final class AnswerSourcesModel {
 
 		case .answerSet(let index):
 			if let answer = answerSets[index].answers.randomElement() {
+				historyAnswersModel.save(HistoryAnswer(text: answer.text))
 				completionHandler(answer)
 			}
 		}
@@ -69,6 +77,7 @@ final class AnswerSourcesModel {
 			DispatchQueue.main.async {
 				switch result {
 				case .success(let answer):
+					self?.historyAnswersModel.save(HistoryAnswer(text: answer.text))
 					completionHandler(answer)
 
 				case .failure(let error):

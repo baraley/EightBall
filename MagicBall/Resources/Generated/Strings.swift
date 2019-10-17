@@ -72,6 +72,8 @@ internal enum L10n {
       internal static let answers = L10n.tr("Localization", "editableItems.name.answers")
       /// answer set
       internal static let answerSets = L10n.tr("Localization", "editableItems.name.answerSets")
+      /// history answer
+      internal static let historyAnswers = L10n.tr("Localization", "editableItems.name.historyAnswers")
     }
   }
 
@@ -79,6 +81,8 @@ internal enum L10n {
     internal enum Title {
       /// Answer Sets
       internal static let answerSets = L10n.tr("Localization", "navigationBar.title.answerSets")
+      /// Answers History
+      internal static let history = L10n.tr("Localization", "navigationBar.title.history")
     }
   }
 
@@ -105,6 +109,8 @@ internal enum L10n {
 
   internal enum TabBar {
     internal enum Title {
+      /// History
+      internal static let history = L10n.tr("Localization", "tabBar.title.history")
       /// MagicBall
       internal static let magicBall = L10n.tr("Localization", "tabBar.title.magicBall")
       /// Settings

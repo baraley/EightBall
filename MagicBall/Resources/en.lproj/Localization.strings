@@ -11,9 +11,11 @@
 
 // MARK: - Navigation Title
 "navigationBar.title.answerSets" = "Answer Sets";
+"navigationBar.title.history" = "Answers History";
 
 //MARK: - TabBarItem Titles
 "tabBar.title.magicBall" = "MagicBall";
+"tabBar.title.history" = "History";
 "tabBar.title.settings" = "Settings";
 
 //MARK: - Action Titles
@@ -44,6 +46,7 @@
 
 "editableItems.name.answerSets" = "answer set";
 "editableItems.name.answers" = "answer";
+"editableItems.name.historyAnswers" = "history answer";
 
 //MARK: - Settings View Controller
 

@@ -10,7 +10,7 @@ import Foundation
 
 protocol AnswerSetsServiceProtocol: class {
 
-	var answersSetsDidChange: (([AnswerSet]) -> Void)? { get set }
+	var answersSetsDidChangeHandler: (([AnswerSet]) -> Void)? { get set }
 
 	func loadAnswerSets()
 	func upsert(_ answerSet: AnswerSet)
@@ -30,7 +30,7 @@ final class AnswerSetsModel {
 
 	init(answerSetsService: AnswerSetsServiceProtocol) {
 		self.answerSetsService = answerSetsService
-		self.answerSetsService.answersSetsDidChange = { [weak self] (answerSets) in
+		self.answerSetsService.answersSetsDidChangeHandler = { [weak self] (answerSets) in
 			DispatchQueue.main.async {
 				self?.answerSets = answerSets
 			}

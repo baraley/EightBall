@@ -27,7 +27,7 @@ extension ManagedAnswerSet {
 
 	func toAnswerSet() -> AnswerSet {
 		let answersArray: [ManagedAnswer] = answers.array.compactMap { $0 as? ManagedAnswer}
-		return AnswerSet(id: id, name: name, answers: answersArray.map { Answer(text: $0.text) })
+		return AnswerSet(id: id, name: name, answers: answersArray.map { $0.toAnswer() })
 	}
 
 	func populateWith(_ answerSet: AnswerSet) {
@@ -56,7 +56,7 @@ extension ManagedAnswerSet {
     }
 
 	@NSManaged private(set) var dateCreated: Date
-	@NSManaged public var id: String
+	@NSManaged private(set) var id: String
     @NSManaged public var name: String
     @NSManaged public var answers: NSOrderedSet
 

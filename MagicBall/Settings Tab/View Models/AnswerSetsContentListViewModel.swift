@@ -1,5 +1,5 @@
 //
-//  AnswerSetsEditableListViewModel.swift
+//  AnswerSetsContentListViewModel.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 02.10.2019.
@@ -10,7 +10,7 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 
-final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
+final class AnswerSetsContentListViewModel: NSObject, ContentListViewModel {
 
 	private let answerSetsModel: AnswerSetsModel
 
@@ -25,6 +25,13 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 	var listTitle: String = L10n.NavigationBar.Title.answerSets
 	var nameOfItems: String = L10n.EditableItems.Name.answerSets
 	var didSelectItem: ((Int) -> Void)?
+
+	var isChangesProvider: Bool = false
+	var changesHandler: (([ContentListViewController.Change]) -> Void)?
+
+	var isCreationAvailable: Bool = true
+	var isEditAvailable: Bool = true
+	var isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
 		return answerSetsModel.numberOfAnswerSets()
@@ -53,7 +60,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
 // MARK: - UITableViewDataSource
 
-extension AnswerSetsEditableListViewModel {
+extension AnswerSetsContentListViewModel {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return numberOfItems()

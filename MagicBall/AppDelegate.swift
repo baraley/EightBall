@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	private var persistentContainer = NSPersistentContainer(name: modelFileName)
+	private var persistentContainer: NSPersistentContainer = NSPersistentContainer(name: modelFileName)
 
 	func application(
 		_ application: UIApplication,
@@ -38,30 +38,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	private func handlePersistentContainerLoadingAnd(createDefaultData isNeedDefaultData: Bool) {
-		let backgroundContext = persistentContainer.newBackgroundContext()
-		backgroundContext.automaticallyMergesChangesFromParent = true
+		let answerSetsContext = persistentContainer.newBackgroundContext()
+		let historyAnswersContext = persistentContainer.newBackgroundContext()
 
 		 if isNeedDefaultData {
-			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(backgroundContext)
+			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(answerSetsContext)
 
 			if !wasMigrated {
-				DefaultDataProvider.createDefaultAnswerSetIn(backgroundContext)
+				DefaultDataProvider.createDefaultAnswerSetIn(answerSetsContext)
 			}
 		}
-		let answerSetsService = AnswerSetsService(context: backgroundContext)
+		let answerSetsService = AnswerSetsService(context: answerSetsContext)
+		let historyAnswersService = HistoryAnswersService(context: historyAnswersContext)
 
-		window?.rootViewController = initializeAppRootViewController(with: answerSetsService)
+		window?.rootViewController = initializeAppRootViewController(with: answerSetsService, and: historyAnswersService)
 		window?.makeKeyAndVisible()
 	}
 
-	private func initializeAppRootViewController(with answerSetsService: AnswerSetsService) -> AppRootViewController {
+	private func initializeAppRootViewController(
+		with answerSetsService: AnswerSetsService,
+		and historyAnswersService: HistoryAnswersService
+	) -> AppRootViewController {
 
 		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
 		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsService)
+		let historyAnswersModel = HistoryAnswersModel(historyAnswerService: historyAnswersService)
+		let answerSettingsModel = AnswerSettingsModel(
+			settingsService: SettingsService(),
+			historyAnswersModel: historyAnswersModel
+		)
 
 		let answerSourcesModel = AnswerSourcesModel(
 			answerSetsModel: answerSetsModel,
-			networkAnswerService: NetworkService()
+			networkAnswerService: NetworkService(),
+			historyAnswersModel: historyAnswersModel
 		)
 		let magicBallModel = MagicBallModel(
 			answerSourceModel: answerSourcesModel,
@@ -71,7 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let viewController = AppRootViewController(
 			magicBallModel: magicBallModel,
 			answerSourcesModel: answerSourcesModel,
-			answerSettingsModel: AnswerSettingsModel(settingsService: SettingsService()),
+			historyAnswersModel: historyAnswersModel,
+			answerSettingsModel: answerSettingsModel,
 			answerSetsModel: answerSetsModel,
 			answersCountingModel: answersCountingModel
 		)

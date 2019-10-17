@@ -24,9 +24,11 @@ protocol AnswerSettingsObserver: class {
 final class AnswerSettingsModel {
 
 	private let settingsService: SettingsServiceProtocol
+	private let historyAnswersModel: HistoryAnswersModel
 
-	init(settingsService: SettingsServiceProtocol) {
+	init(settingsService: SettingsServiceProtocol, historyAnswersModel: HistoryAnswersModel) {
 		self.settingsService = settingsService
+		self.historyAnswersModel = historyAnswersModel
 	}
 
 	private(set) lazy var settings: Settings = {

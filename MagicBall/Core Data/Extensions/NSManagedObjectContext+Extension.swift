@@ -18,7 +18,7 @@ extension NSManagedObjectContext {
 
 		} catch let error as NSError {
 
-			print("Unable to save context. Error: \(error), \(error.userInfo)")
+			fatalError("Unable to save context. Error: \(error), \(error.userInfo)")
 		}
 	}
 }

@@ -13,6 +13,7 @@ final class AppRootViewController: UITabBarController {
 
 	private let magicBallModel: MagicBallModel
 	private let answerSourcesModel: AnswerSourcesModel
+	private let historyAnswersModel: HistoryAnswersModel
 	private let answerSettingsModel: AnswerSettingsModel
 	private let answerSetsModel: AnswerSetsModel
 	private let answersCountingModel: AnswersCountingModel
@@ -22,12 +23,14 @@ final class AppRootViewController: UITabBarController {
 	init(
 		magicBallModel: MagicBallModel,
 		answerSourcesModel: AnswerSourcesModel,
+		historyAnswersModel: HistoryAnswersModel,
 		answerSettingsModel: AnswerSettingsModel,
 		answerSetsModel: AnswerSetsModel,
 		answersCountingModel: AnswersCountingModel
 	) {
 		self.magicBallModel = magicBallModel
 		self.answerSourcesModel = answerSourcesModel
+		self.historyAnswersModel = historyAnswersModel
 		self.answerSettingsModel = answerSettingsModel
 		self.answerSetsModel = answerSetsModel
 		self.answersCountingModel = answersCountingModel
@@ -42,6 +45,7 @@ final class AppRootViewController: UITabBarController {
 	// MARK: - Child View Controllers
 
 	private lazy var magicBallContainerViewController = initializeMagicBallContainerViewController()
+	private lazy var historyViewController = initializeHistoryTabViewController()
 	private lazy var settingsNavigationController = initializeSettingsNavigationController()
 
 	// MARK: - Life cycle
@@ -63,7 +67,7 @@ private extension AppRootViewController {
 	func initialSetup() {
 		view.backgroundColor = .white
 
-		viewControllers = [magicBallContainerViewController, settingsNavigationController]
+		viewControllers = [magicBallContainerViewController, historyViewController, settingsNavigationController]
 	}
 
 	// MARK: - Properties Initialization
@@ -81,13 +85,28 @@ private extension AppRootViewController {
 		return viewController
 	}
 
+	func initializeHistoryTabViewController() -> UINavigationController {
+		let viewModel = HistoryAnswerContentListViewModel(historyAnswersModel: historyAnswersModel)
+		let viewController = ContentListViewController(contentListViewModel: viewModel)
+		viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
+
+		viewModel.didSelectItem = { selectedIndex in
+			viewController.showAlert(with: viewModel.item(at: selectedIndex))
+		}
+
+		let navigationViewController = UINavigationController(rootViewController: viewController)
+		navigationViewController.navigationBar.prefersLargeTitles = true
+
+		return navigationViewController
+	}
+
 	func initializeSettingsViewController() -> SettingsViewController {
 		let settingsViewModel = SettingsViewModel(
 			answerSettingsModel: answerSettingsModel,
 			answerSetsModel: answerSetsModel,
 			answersCountingModel: answersCountingModel,
 			didSelectAnswerSetsCellHandler: { [weak self] in
-				self?.presentAnswerSetsEditableListViewController()
+				self?.presentAnswerSetsContentListViewController()
 		})
 
 		let viewController = SettingsViewController(settingsViewModel: settingsViewModel)
@@ -109,29 +128,29 @@ private extension AppRootViewController {
 
 	// MARK: - Answer Sets Editing Flow
 
-	func presentAnswerSetsEditableListViewController() {
-		let viewModel = AnswerSetsEditableListViewModel(answerSetsModel: answerSetsModel)
+	func presentAnswerSetsContentListViewController() {
+		let viewModel = AnswerSetsContentListViewModel(answerSetsModel: answerSetsModel)
 		viewModel.didSelectItem = { [unowned self] index in
-			self.presentAnswersEditableListViewControllerForAnswerSet(at: index)
+			self.presentAnswersContentListViewControllerForAnswerSet(at: index)
 		}
 
-		let answerSetsEditableListViewController = EditableListViewController(editableListViewModel: viewModel)
+		let answerSetsContentListViewController = ContentListViewController(contentListViewModel: viewModel)
 
-		settingsNavigationController.pushViewController(answerSetsEditableListViewController, animated: true)
+		settingsNavigationController.pushViewController(answerSetsContentListViewController, animated: true)
 	}
 
-	func presentAnswersEditableListViewControllerForAnswerSet(at index: Int) {
+	func presentAnswersContentListViewControllerForAnswerSet(at index: Int) {
 		let answerSet = answerSetsModel.answerSet(at: index).toPresentableAnswerSet()
-		let viewModel = AnswersEditableListViewModel(answerSet: answerSet, answerSetsModel: answerSetsModel)
-		let answersEditableListViewController = EditableListViewController(editableListViewModel: viewModel)
+		let viewModel = AnswersContentListViewModel(answerSet: answerSet, answerSetsModel: answerSetsModel)
+		let answersContentListViewController = ContentListViewController(contentListViewModel: viewModel)
 
-		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersEditableListViewController] selectedIndex in
+		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersContentListViewController] selectedIndex in
 			let message = answerSetsModel.answerSet(at: index).answers[selectedIndex].toPresentableAnswer().text
 
-			answersEditableListViewController.showAlert(with: message)
+			answersContentListViewController.showAlert(with: message)
 		}
 
-		settingsNavigationController.pushViewController(answersEditableListViewController, animated: true)
+		settingsNavigationController.pushViewController(answersContentListViewController, animated: true)
 	}
 
 }

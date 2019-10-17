@@ -17,27 +17,25 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 		assignToContextNotifications()
 	}
 
-	var answersSetsDidChange: (([AnswerSet]) -> Void)?
-
 	private var loadedAnswerSets: [String: ManagedAnswerSet] = [:]
 
-	func loadAnswerSets() {
-		context.perform { [weak self] in
-			guard let self = self else { return }
+	// MARK: - AnswerSetsServiceProtocol
 
+	var answersSetsDidChangeHandler: (([AnswerSet]) -> Void)?
+
+	func loadAnswerSets() {
+		performInContext {
 			let managedAnswerSets = (try? self.context.fetch(self.answerSetsRequest)) ?? []
 
 			self.loadedAnswerSets = Dictionary(uniqueKeysWithValues: managedAnswerSets.map { ($0.id, $0)})
 
 			let answerSets = managedAnswerSets.map { $0.toAnswerSet()}
-			self.answersSetsDidChange?(answerSets)
+			self.answersSetsDidChangeHandler?(answerSets)
 		}
 	}
 
 	func upsert(_ answerSet: AnswerSet) {
-		context.perform { [weak self] in
-			guard let self = self else { return }
-
+		performInContext {
 			let managedAnswerSet = self.loadedAnswerSets[answerSet.id] ?? ManagedAnswerSet(context: self.context)
 			managedAnswerSet.populateWith(answerSet)
 			self.context.saveIfNeeds()
@@ -45,9 +43,7 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 	}
 
 	func delete(_ answerSet: AnswerSet) {
-		context.perform { [weak self] in
-			guard let self = self else { return }
-
+		performInContext {
 			if let managedAnswerSet = self.loadedAnswerSets.removeValue(forKey: answerSet.id) {
 				self.context.delete(managedAnswerSet)
 				self.context.saveIfNeeds()
@@ -55,12 +51,22 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 		}
 	}
 
+	// MARK: - Private
+
 	private var answerSetsRequest: NSFetchRequest<ManagedAnswerSet> {
 		let request = ManagedAnswerSet.makeRequest()
 		request.sortDescriptors = [
 			NSSortDescriptor(key: #keyPath(ManagedAnswerSet.dateCreated), ascending: true)
 		]
 		return request
+	}
+
+	private func performInContext(_ closure: @escaping () -> Void) {
+		context.perform { [weak self] in
+			if self == nil { return }
+
+			closure()
+		}
 	}
 
 	private func assignToContextNotifications() {
@@ -71,7 +77,9 @@ final class AnswerSetsService: AnswerSetsServiceProtocol {
 	}
 
 	@objc private func contextObjectsDidChange(_ notification: Notification) {
-		loadAnswerSets()
+		if let notificationContext = notification.object as? NSManagedObjectContext, notificationContext == context {
+			loadAnswerSets()
+		}
 	}
 
 }
