@@ -26,7 +26,7 @@ extension ManagedAnswer {
 extension ManagedAnswer {
 
     @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedAnswer> {
-        return NSFetchRequest<ManagedAnswer>(entityName: "Answer")
+        return NSFetchRequest<ManagedAnswer>(entityName: String(describing: ManagedAnswer.self))
     }
 
     @NSManaged public var text: String

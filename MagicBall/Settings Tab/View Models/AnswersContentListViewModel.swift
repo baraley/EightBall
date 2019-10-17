@@ -30,16 +30,16 @@ final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 
 	// MARK: - EditableListViewModel
 
-	var listTitle: String
-	var nameOfItems: String = L10n.EditableItems.Name.answers
+	let listTitle: String
+	let nameOfItems: String = L10n.EditableItems.Name.answers
 	var didSelectItem: ((Int) -> Void)?
 
-	var isChangesProvider: Bool = false
+	let isChangesProvider: Bool = false
 	var changesHandler: (([ContentListViewController.Change]) -> Void)?
 
-	var isCreationAvailable: Bool = true
-	var isEditAvailable: Bool = true
-	var isDeleteAvailable: Bool = true
+	let isCreationAvailable: Bool = true
+	let isEditAvailable: Bool = true
+	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
 		return presentableAnswers.count

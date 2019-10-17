@@ -16,11 +16,13 @@ struct AnswerSet: Equatable, Codable {
 
 	let id: String
 	var name: String
+	let dateCreated: Date
 	var answers: [Answer]
 
-	init(id: String = UUID().uuidString, name: String, answers: [Answer] = []) {
+	init(id: String = UUID().uuidString, name: String, dateCreated: Date = Date(), answers: [Answer] = []) {
 		self.id = id
 		self.name = name
+		self.dateCreated = dateCreated
 		self.answers = answers
 	}
 
@@ -37,4 +39,5 @@ extension AnswerSet {
 		let presentableAnswers = answers.map { $0.toPresentableAnswer() }
 		return PresentableAnswerSet(id: id, name: name, answers: presentableAnswers)
 	}
+	
 }

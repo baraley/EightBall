@@ -8,27 +8,6 @@
 
 import UIKit
 
-protocol ContentListViewModel: UITableViewDataSource {
-
-	var listTitle: String { get }
-	var nameOfItems: String { get }
-	var didSelectItem: ((_ index: Int) -> Void)? { get }
-
-	var isChangesProvider: Bool { get }
-	var changesHandler: (([ContentListViewController.Change]) -> Void)? { get set }
-
-	var isCreationAvailable: Bool { get }
-	var isEditAvailable: Bool { get }
-	var isDeleteAvailable: Bool { get }
-
-	func numberOfItems() -> Int
-	func item(at index: Int) -> String
-	func updateItem(at index: Int, with text: String)
-	func createNewItem(with text: String)
-	func deleteItem(at index: Int)
-
-}
-
 class ContentListViewController: UITableViewController {
 
 	enum Change {
@@ -36,11 +15,7 @@ class ContentListViewController: UITableViewController {
 		case delete(Int)
 	}
 
-	var contentListViewModel: ContentListViewModel {
-		didSet {
-			setupViewModel()
-		}
-	}
+	private let contentListViewModel: ContentListViewModel
 
 	// MARK: - Initialization
 

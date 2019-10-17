@@ -13,28 +13,21 @@ import CoreData
 @objc(ManagedAnswerSet)
 public class ManagedAnswerSet: NSManagedObject {
 
-	public override func awakeFromInsert() {
-		super.awakeFromInsert()
-
-		id = UUID().uuidString
-		dateCreated = Date()
-		answers = NSOrderedSet()
-	}
-
 }
 
 extension ManagedAnswerSet {
 
 	func toAnswerSet() -> AnswerSet {
-		let answersArray: [ManagedAnswer] = answers.array.compactMap { $0 as? ManagedAnswer}
-		return AnswerSet(id: id, name: name, answers: answersArray.map { $0.toAnswer() })
+		let answersArray: [ManagedAnswer] = answers.compactMap { $0 as? ManagedAnswer }
+		return AnswerSet(id: id, name: name, dateCreated: dateCreated, answers: answersArray.map { $0.toAnswer() })
 	}
 
 	func populateWith(_ answerSet: AnswerSet) {
 		guard let context = managedObjectContext else { return }
 
-		name = answerSet.name
 		id = answerSet.id
+		name = answerSet.name
+		dateCreated = answerSet.dateCreated
 
 		removeFromAnswers(answers)
 
@@ -52,7 +45,7 @@ extension ManagedAnswerSet {
 extension ManagedAnswerSet {
 
     @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedAnswerSet> {
-        return NSFetchRequest<ManagedAnswerSet>(entityName: "AnswerSet")
+        return NSFetchRequest<ManagedAnswerSet>(entityName: String(describing: ManagedAnswerSet.self))
     }
 
 	@NSManaged private(set) var dateCreated: Date

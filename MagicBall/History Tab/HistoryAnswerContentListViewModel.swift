@@ -22,16 +22,16 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 		historyAnswersModel.addObserver(self)
 	}
 
-	var listTitle: String = L10n.NavigationBar.Title.history
-	var nameOfItems: String = L10n.EditableItems.Name.historyAnswers
+	let listTitle: String = L10n.NavigationBar.Title.history
+	let nameOfItems: String = L10n.EditableItems.Name.historyAnswers
 	var didSelectItem: ((Int) -> Void)?
 
-	var isChangesProvider: Bool = true
+	let isChangesProvider: Bool = true
 	var changesHandler: (([ContentListViewController.Change]) -> Void)?
 
-	var isCreationAvailable: Bool = false
-	var isEditAvailable: Bool = false
-	var isDeleteAvailable: Bool = true
+	let isCreationAvailable: Bool = false
+	let isEditAvailable: Bool = false
+	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
 		return historyAnswersModel.numberOfHistoryAnswers()
@@ -40,10 +40,6 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 	func item(at index: Int) -> String {
 		return historyAnswersModel.historyAnswer(at: index).text
 	}
-
-	func updateItem(at index: Int, with text: String) { }
-
-	func createNewItem(with text: String) { }
 
 	func deleteItem(at index: Int) {
 		historyAnswersModel.deleteHistoryAnswer(at: index)

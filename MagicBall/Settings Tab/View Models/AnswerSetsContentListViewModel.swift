@@ -22,16 +22,16 @@ final class AnswerSetsContentListViewModel: NSObject, ContentListViewModel {
 
 	// MARK: - EditableListViewModel
 
-	var listTitle: String = L10n.NavigationBar.Title.answerSets
-	var nameOfItems: String = L10n.EditableItems.Name.answerSets
+	let listTitle: String = L10n.NavigationBar.Title.answerSets
+	let nameOfItems: String = L10n.EditableItems.Name.answerSets
 	var didSelectItem: ((Int) -> Void)?
 
-	var isChangesProvider: Bool = false
+	let isChangesProvider: Bool = false
 	var changesHandler: (([ContentListViewController.Change]) -> Void)?
 
-	var isCreationAvailable: Bool = true
-	var isEditAvailable: Bool = true
-	var isDeleteAvailable: Bool = true
+	let isCreationAvailable: Bool = true
+	let isEditAvailable: Bool = true
+	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
 		return answerSetsModel.numberOfAnswerSets()

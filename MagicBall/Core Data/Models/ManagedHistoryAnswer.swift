@@ -37,7 +37,7 @@ extension ManagedHistoryAnswer {
 extension ManagedHistoryAnswer {
 
     @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedHistoryAnswer> {
-        return NSFetchRequest<ManagedHistoryAnswer>(entityName: "HistoryAnswer")
+		return NSFetchRequest<ManagedHistoryAnswer>(entityName: String(describing: ManagedHistoryAnswer.self))
     }
 
     @NSManaged public var text: String

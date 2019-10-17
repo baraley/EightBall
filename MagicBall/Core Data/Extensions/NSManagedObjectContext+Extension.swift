@@ -15,9 +15,7 @@ extension NSManagedObjectContext {
 			if hasChanges {
 				try  save()
 			}
-
 		} catch let error as NSError {
-
 			fatalError("Unable to save context. Error: \(error), \(error.userInfo)")
 		}
 	}

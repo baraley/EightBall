@@ -7,16 +7,11 @@
 //
 
 import UIKit
-import CoreData
-
-private let modelFileName = "MagicBallModel"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
-	private var persistentContainer: NSPersistentContainer = NSPersistentContainer(name: modelFileName)
 
 	func application(
 		_ application: UIApplication,
@@ -25,40 +20,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 
-		let isNeedToCreateDefaultData = NSPersistentContainer.isPersistentStoreEmpty()
+		let coreDataContainer = CoreDataContainer()
 
-		persistentContainer.loadPersistentStores { (_, error) in
-			if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
+		let isNeedToCreateDefaultData = coreDataContainer.isPersistentStoreEmpty
+
+		coreDataContainer.loadPersistentStores {
+			if isNeedToCreateDefaultData {
+				coreDataContainer.restoreData()
 			}
-			self.handlePersistentContainerLoadingAnd(createDefaultData: isNeedToCreateDefaultData)
+			self.window?.rootViewController = self.initializeRootViewController(with: coreDataContainer)
+			self.window?.makeKeyAndVisible()
 		}
 
 		return true
 	}
 
-	private func handlePersistentContainerLoadingAnd(createDefaultData isNeedDefaultData: Bool) {
-		let answerSetsContext = persistentContainer.newBackgroundContext()
-		let historyAnswersContext = persistentContainer.newBackgroundContext()
+	private func initializeRootViewController(with coreDataContainer: CoreDataContainer) -> AppRootViewController {
 
-		 if isNeedDefaultData {
-			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(answerSetsContext)
+		let answerSetsContext = coreDataContainer.newBackgroundContext()
+		let historyAnswersContext = coreDataContainer.newBackgroundContext()
 
-			if !wasMigrated {
-				DefaultDataProvider.createDefaultAnswerSetIn(answerSetsContext)
-			}
-		}
 		let answerSetsService = AnswerSetsService(context: answerSetsContext)
 		let historyAnswersService = HistoryAnswersService(context: historyAnswersContext)
-
-		window?.rootViewController = initializeAppRootViewController(with: answerSetsService, and: historyAnswersService)
-		window?.makeKeyAndVisible()
-	}
-
-	private func initializeAppRootViewController(
-		with answerSetsService: AnswerSetsService,
-		and historyAnswersService: HistoryAnswersService
-	) -> AppRootViewController {
 
 		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
 		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsService)
