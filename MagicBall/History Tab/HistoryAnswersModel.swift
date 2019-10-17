@@ -22,12 +22,6 @@ protocol HistoryAnswerServiceProtocol: class {
 
 }
 
-protocol HistoryAnswerModelObserver: class {
-
-	func historyAnswerModel(_ model: HistoryAnswersModel, changesDidHappen changes: [HistoryAnswersModel.Change])
-
-}
-
 final class HistoryAnswersModel {
 
 	enum Change {
@@ -35,7 +29,7 @@ final class HistoryAnswersModel {
 		case delete(HistoryAnswer, Int)
 	}
 
-	let historyAnswerService: HistoryAnswerServiceProtocol
+	private let historyAnswerService: HistoryAnswerServiceProtocol
 
 	init(historyAnswerService: HistoryAnswerServiceProtocol) {
 		self.historyAnswerService = historyAnswerService
@@ -43,6 +37,8 @@ final class HistoryAnswersModel {
 			self?.handleChanges(changes)
 		}
 	}
+
+	var historyAnswersChangesHandler: (([HistoryAnswersModel.Change]) -> Void)?
 
 	func loadHistoryAnswers() {
 		historyAnswerService.loadHistoryAnswers()
@@ -70,45 +66,12 @@ final class HistoryAnswersModel {
 		historyAnswerService.clearHistory()
 	}
 
-	// MARK: - Observation
-
-	private var observations: [ObjectIdentifier: Observation] = [:]
-
-	func addObserver(_ observer: HistoryAnswerModelObserver) {
-        let id = ObjectIdentifier(observer)
-        observations[id] = Observation(observer: observer)
-    }
-
-    func removeObserver(_ observer: HistoryAnswerModelObserver) {
-        let id = ObjectIdentifier(observer)
-        observations.removeValue(forKey: id)
-    }
-
 	// MARK: - Private
 
 	private func handleChanges(_ changes: [Change]) {
 		DispatchQueue.main.async {
-			self.notifyObservers(with: changes)
+			self.historyAnswersChangesHandler?(changes)
 		}
 	}
-
-	private func notifyObservers(with changes: [Change]) {
-		observations.forEach { (id, observation) in
-			if let observer = observation.observer {
-				observer.historyAnswerModel(self, changesDidHappen: changes)
-
-			} else {
-				observations.removeValue(forKey: id)
-			}
-		}
-	}
-
-}
-
-private extension HistoryAnswersModel {
-
-	struct Observation {
-        weak var observer: HistoryAnswerModelObserver?
-    }
 
 }

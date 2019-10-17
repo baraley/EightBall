@@ -10,13 +10,13 @@ import Foundation
 
 extension DateFormatter {
 
-	static var presentableHistoryAnswerFormatter: DateFormatter {
+	static let presentableHistoryAnswerFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .medium
 		formatter.timeStyle = .medium
-		formatter.locale = Locale(identifier: "en_US")
+		formatter.locale = Locale.current
 
 		return formatter
-	}
+	}()
 
 }

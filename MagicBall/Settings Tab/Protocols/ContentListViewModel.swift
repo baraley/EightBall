@@ -12,6 +12,7 @@ protocol ContentListViewModel: UITableViewDataSource {
 
 	var listTitle: String { get }
 	var nameOfItems: String { get }
+
 	var didSelectItem: ((_ index: Int) -> Void)? { get }
 
 	var isChangesProvider: Bool { get }
@@ -30,6 +31,13 @@ protocol ContentListViewModel: UITableViewDataSource {
 }
 
 extension ContentListViewModel {
+
+	var isChangesProvider: Bool { return false }
+	var changesHandler: (([ContentListViewController.Change]) -> Void)? { return nil }
+
+	var isCreationAvailable: Bool { return false }
+	var isEditAvailable: Bool { return false }
+	var isDeleteAvailable: Bool { return false }
 
 	func updateItem(at index: Int, with text: String) { }
 	func createNewItem(with text: String) { }

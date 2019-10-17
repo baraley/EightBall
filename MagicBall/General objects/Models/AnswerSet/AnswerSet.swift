@@ -39,5 +39,5 @@ extension AnswerSet {
 		let presentableAnswers = answers.map { $0.toPresentableAnswer() }
 		return PresentableAnswerSet(id: id, name: name, answers: presentableAnswers)
 	}
-	
+
 }

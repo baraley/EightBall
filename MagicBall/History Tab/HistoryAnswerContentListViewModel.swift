@@ -19,18 +19,19 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 		historyAnswersModel.loadHistoryAnswers()
 		super.init()
 
-		historyAnswersModel.addObserver(self)
+		historyAnswersModel.historyAnswersChangesHandler = { [weak self] changes in
+			self?.handleChanges(changes)
+		}
 	}
 
 	let listTitle: String = L10n.NavigationBar.Title.history
 	let nameOfItems: String = L10n.EditableItems.Name.historyAnswers
+
 	var didSelectItem: ((Int) -> Void)?
 
 	let isChangesProvider: Bool = true
 	var changesHandler: (([ContentListViewController.Change]) -> Void)?
 
-	let isCreationAvailable: Bool = false
-	let isEditAvailable: Bool = false
 	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
@@ -43,6 +44,20 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 
 	func deleteItem(at index: Int) {
 		historyAnswersModel.deleteHistoryAnswer(at: index)
+	}
+
+	private func handleChanges(_ changes: [HistoryAnswersModel.Change]) {
+		var viewChanges: [ContentListViewController.Change] = []
+
+		changes.forEach { change in
+			switch change {
+			case .insert(_, let index):
+				viewChanges.append(.insert(index))
+			case .delete(_, let index):
+				viewChanges.append(.delete(index))
+			}
+		}
+		changesHandler?(viewChanges)
 	}
 
 }
@@ -72,24 +87,6 @@ extension HistoryAnswerContentListViewModel {
 		cell.detailTextLabel?.text = presentableHistoryAnswer.dateText
 
 		return cell
-	}
-
-}
-
-extension HistoryAnswerContentListViewModel: HistoryAnswerModelObserver {
-
-	func historyAnswerModel(_ model: HistoryAnswersModel, changesDidHappen changes: [HistoryAnswersModel.Change]) {
-		var viewChanges: [ContentListViewController.Change] = []
-
-		changes.forEach { change in
-			switch change {
-			case .insert(_, let index):
-				viewChanges.append(.insert(index))
-			case .delete(_, let index):
-				viewChanges.append(.delete(index))
-			}
-		}
-		changesHandler?(viewChanges)
 	}
 
 }

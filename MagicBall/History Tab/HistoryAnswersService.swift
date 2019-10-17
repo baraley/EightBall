@@ -38,13 +38,6 @@ final class HistoryAnswersService: NSObject {
 		return fetchRequest
 	}
 
-	private func fetchRequestForManagedHistoryAnswer(with id: String) -> NSFetchRequest<ManagedHistoryAnswer> {
-		let fetchRequest = managedHistoryAnswersRequest
-		fetchRequest.predicate = NSPredicate(format: "\(#keyPath(ManagedHistoryAnswer.id)) == %@", id)
-		fetchRequest.fetchLimit = 1
-		return fetchRequest
-	}
-
 	private func performInContext(_ closure: @escaping () -> Void) {
 		context.perform { [weak self] in
 			if self == nil { return }
