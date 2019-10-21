@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let coreDataContainer = CoreDataContainer()
 
 		let isNeedToCreateDefaultData = coreDataContainer.isPersistentStoreEmpty
-
+		
 		coreDataContainer.loadPersistentStores {
 			if isNeedToCreateDefaultData {
 				coreDataContainer.restoreData()
@@ -40,19 +40,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let answerSetsContext = coreDataContainer.newBackgroundContext()
 		let historyAnswersContext = coreDataContainer.newBackgroundContext()
 
-		let answerSetsService = AnswerSetsService(context: answerSetsContext)
-		let historyAnswersService = HistoryAnswersService(context: historyAnswersContext)
-
 		let answersCountingModel = AnswersCountingModel(secureStorage: SecureStorage())
-		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsService)
-		let historyAnswersModel = HistoryAnswersModel(historyAnswerService: historyAnswersService)
+
+		let answerSetsCoreDataService = CoreDataModelService<ManagedAnswerSet, AnswerSet>(
+			context: answerSetsContext,
+			fetchRequest: ConfiguredFetchRequest .answerSetsRequest,
+			toModelConverter: AnswerSet.init
+		)
+		let historyAnswersCoreDataService = CoreDataModelService<ManagedHistoryAnswer, HistoryAnswer>(
+			context: historyAnswersContext,
+			fetchRequest: ConfiguredFetchRequest .managedHistoryAnswersRequest,
+			toModelConverter: HistoryAnswer.init
+		)
+
+		let answerSetsModel = AnswerSetsModel(coreDataModelService: answerSetsCoreDataService)
+		let historyAnswersModel = HistoryAnswersModel(coreDataModelService: historyAnswersCoreDataService)
 		let answerSettingsModel = AnswerSettingsModel(
 			settingsService: SettingsService(),
 			historyAnswersModel: historyAnswersModel
 		)
 
+		let answerSourcesCoreDataService = CoreDataModelService<ManagedAnswerSet, AnswerSet>(
+			context: answerSetsContext,
+			fetchRequest: ConfiguredFetchRequest .notEmptyAnswerSetsRequest,
+			toModelConverter: AnswerSet.init
+		)
+
 		let answerSourcesModel = AnswerSourcesModel(
-			answerSetsModel: answerSetsModel,
+			coreDataModelService: answerSourcesCoreDataService,
 			networkAnswerService: NetworkService(),
 			historyAnswersModel: historyAnswersModel
 		)

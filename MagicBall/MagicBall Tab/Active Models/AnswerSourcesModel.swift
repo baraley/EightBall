@@ -19,44 +19,43 @@ final class AnswerSourcesModel {
 	typealias CompletionHandler = ((Result<Answer, NetworkError>) -> Void)
 
 	enum Source {
-		case network, answerSet(Int)
+		case network, answerSet(AnswerSet)
 	}
 
 	var answerSource: Source = .network
 
-	private let answerSetsModel: AnswerSetsModel
+	private let coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>
 	private let networkAnswerService: NetworkAnswerService
 	private let historyAnswersModel: HistoryAnswersModel
 
 	init(
-		answerSetsModel: AnswerSetsModel,
+		coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>,
 		networkAnswerService: NetworkAnswerService,
 		historyAnswersModel: HistoryAnswersModel
 	) {
 
-		self.answerSetsModel = answerSetsModel
+		self.coreDataModelService = coreDataModelService
 		self.networkAnswerService = networkAnswerService
 		self.historyAnswersModel = historyAnswersModel
 
-		answerSetsModel.addObserver(self)
-		answerSetsModel.loadAnswerSets()
+		self.coreDataModelService.changeHandler = {[weak self] (changes) in
+			self?.handleChanges(changes)
+		}
 	}
-
-	private var answerSets: [AnswerSet] = []
 
 	var answerSetsDidChangeHandler: (() -> Void)?
 	var answerLoadingErrorHandler: ((String) -> Void)?
 
 	func loadAnswerSets() {
-		answerSets = answerSetsModel.notEmptyAnswerSets()
+		coreDataModelService.loadModels()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return answerSets.count
+		return coreDataModelService.numberOfModels()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return answerSets[index]
+		return coreDataModelService.model(at: index)
 	}
 
 	func loadAnswer(_ completionHandler: @escaping (Answer?) -> Void) {
@@ -64,11 +63,19 @@ final class AnswerSourcesModel {
 		case .network:
 			loadAnswerFromNetwork(with: completionHandler)
 
-		case .answerSet(let index):
-			if let answer = answerSets[index].answers.randomElement() {
+		case .answerSet(let sourceAnswerSet):
+			if let answer = sourceAnswerSet.answers.randomElement() {
 				historyAnswersModel.save(HistoryAnswer(text: answer.text))
 				completionHandler(answer)
 			}
+		}
+	}
+
+	// MARK: - Private
+
+	private func handleChanges(_ changes: [Change<AnswerSet>]) {
+		DispatchQueue.main.async {
+			self.answerSetsDidChangeHandler?()
 		}
 	}
 
@@ -88,15 +95,6 @@ final class AnswerSourcesModel {
 				}
 			}
 		}
-	}
-
-}
-
-extension AnswerSourcesModel: AnswerSetsModelObserver {
-
-	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel) {
-		loadAnswerSets()
-		answerSetsDidChangeHandler?()
 	}
 
 }

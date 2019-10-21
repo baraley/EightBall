@@ -13,7 +13,7 @@ extension NSManagedObjectContext {
 	func saveIfNeeds() {
 		do {
 			if hasChanges {
-				try  save()
+				try save()
 			}
 		} catch let error as NSError {
 			fatalError("Unable to save context. Error: \(error), \(error.userInfo)")

@@ -8,74 +8,43 @@
 
 import Foundation
 
-protocol AnswerSetsServiceProtocol: class {
-
-	var answersSetsDidChangeHandler: (([AnswerSet]) -> Void)? { get set }
-
-	func loadAnswerSets()
-	func upsert(_ answerSet: AnswerSet)
-	func delete(_ answerSet: AnswerSet)
-
-}
-
 protocol AnswerSetsModelObserver: class {
 
-	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel)
+	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>])
 
 }
 
 final class AnswerSetsModel {
 
-	private let answerSetsService: AnswerSetsServiceProtocol
+	private let coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>
 
-	init(answerSetsService: AnswerSetsServiceProtocol) {
-		self.answerSetsService = answerSetsService
-		self.answerSetsService.answersSetsDidChangeHandler = { [weak self] (answerSets) in
-			DispatchQueue.main.async {
-				self?.answerSets = answerSets
-			}
-		}
-	}
-
-	private var answerSets: [AnswerSet] = [] {
-		didSet {
-			notifyObservers()
+	init(coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>) {
+		self.coreDataModelService = coreDataModelService
+		self.coreDataModelService.changeHandler = {[weak self] (changes) in
+			self?.handleChanges(changes)
 		}
 	}
 
 	// MARK: - Public
 
 	func loadAnswerSets() {
-		answerSetsService.loadAnswerSets()
-	}
-
-	func notEmptyAnswerSets() -> [AnswerSet] {
-		return answerSets.filter { !$0.answers.isEmpty }
+		coreDataModelService.loadModels()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return answerSets.count
+		return coreDataModelService.numberOfModels()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return answerSets[index]
+		return coreDataModelService.model(at: index)
 	}
 
 	func save(_ answerSet: AnswerSet) {
-		if let index = answerSets.firstIndex(of: answerSet) {
-			answerSets[index] = answerSet
-		} else {
-			answerSets.append(answerSet)
-		}
-		answerSetsService.upsert(answerSet)
+		coreDataModelService.upsert(answerSet)
 	}
 
 	func deleteAnswerSet(at index: Int) {
-		guard index >= 0, index < answerSets.count else { return }
-
-		let answerSet = answerSets.remove(at: index)
-
-		answerSetsService.delete(answerSet)
+		coreDataModelService.deleteModel(at: index)
 	}
 
 	// MARK: - Observation
@@ -94,10 +63,13 @@ final class AnswerSetsModel {
 
 	// MARK: - Private
 
-	private func notifyObservers() {
+	private func handleChanges(_ changes: [Change<AnswerSet>]) {
+
 		observations.forEach { (id, observation) in
 			if let observer = observation.observer {
-				observer.answerSetsModelDidChangeAnswerSets(self)
+				DispatchQueue.main.async {
+					observer.answerSetsModel(self, changesDidHappen: changes)
+				}
 
 			} else {
 				observations.removeValue(forKey: id)

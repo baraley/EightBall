@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HistoryAnswer: Equatable {
+struct HistoryAnswer: Equatable, Identifiable {
 
 	let id: String
 	let text: String
@@ -18,6 +18,18 @@ struct HistoryAnswer: Equatable {
 		self.id = id
 		self.text = text
 		self.dateCreated = dateCreated
+	}
+
+}
+
+extension HistoryAnswer {
+
+	init(_ managedHistoryAnswer: ManagedHistoryAnswer) {
+		self.init(
+			id: managedHistoryAnswer.id,
+			text: managedHistoryAnswer.text,
+			dateCreated: managedHistoryAnswer.dateCreated
+		)
 	}
 
 }

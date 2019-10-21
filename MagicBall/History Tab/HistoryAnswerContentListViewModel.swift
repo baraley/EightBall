@@ -46,15 +46,19 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 		historyAnswersModel.deleteHistoryAnswer(at: index)
 	}
 
-	private func handleChanges(_ changes: [HistoryAnswersModel.Change]) {
+	private func handleChanges(_ changes: [Change<HistoryAnswer>]) {
 		var viewChanges: [ContentListViewController.Change] = []
 
 		changes.forEach { change in
 			switch change {
+			case .update(_, let index):
+				viewChanges.append(.update(index))
 			case .insert(_, let index):
 				viewChanges.append(.insert(index))
 			case .delete(_, let index):
 				viewChanges.append(.delete(index))
+			case .move(_, let fromIndex, let toIndex):
+				viewChanges.append(.move(fromIndex, toIndex))
 			}
 		}
 		changesHandler?(viewChanges)
@@ -81,7 +85,7 @@ extension HistoryAnswerContentListViewModel {
 		}
 
 		let historyAnswer = historyAnswersModel.historyAnswer(at: indexPath.row)
-		let presentableHistoryAnswer = PresentableHistoryAnswer(historyAnswer: historyAnswer)
+		let presentableHistoryAnswer = PresentableHistoryAnswer(historyAnswer)
 
 		cell.textLabel?.text = presentableHistoryAnswer.text
 		cell.detailTextLabel?.text = presentableHistoryAnswer.dateText

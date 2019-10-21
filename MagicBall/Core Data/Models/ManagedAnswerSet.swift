@@ -11,16 +11,7 @@ import Foundation
 import CoreData
 
 @objc(ManagedAnswerSet)
-public class ManagedAnswerSet: NSManagedObject {
-
-}
-
-extension ManagedAnswerSet {
-
-	func toAnswerSet() -> AnswerSet {
-		let answersArray: [ManagedAnswer] = answers.compactMap { $0 as? ManagedAnswer }
-		return AnswerSet(id: id, name: name, dateCreated: dateCreated, answers: answersArray.map { $0.toAnswer() })
-	}
+public class ManagedAnswerSet: NSManagedObject, Populatable, Identifiable {
 
 	func populateWith(_ answerSet: AnswerSet) {
 		guard let context = managedObjectContext else { return }
@@ -51,7 +42,7 @@ extension ManagedAnswerSet {
 	@NSManaged private(set) var dateCreated: Date
 	@NSManaged private(set) var id: String
     @NSManaged public var name: String
-    @NSManaged public var answers: NSOrderedSet
+    @NSManaged private(set) var answers: NSOrderedSet
 
 }
 

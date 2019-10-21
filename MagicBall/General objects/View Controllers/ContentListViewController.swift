@@ -11,8 +11,10 @@ import UIKit
 class ContentListViewController: UITableViewController {
 
 	enum Change {
+		case update(Int)
 		case insert(Int)
 		case delete(Int)
+		case move(Int, Int)
 	}
 
 	private let contentListViewModel: ContentListViewModel
@@ -198,10 +200,14 @@ private extension ContentListViewController {
 		tableView.performBatchUpdates({
 			changes.forEach { change in
 				switch change {
+				case .update(let index):
+					tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
 				case .insert(let index):
 					tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
 				case .delete(let index):
 					tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+				case .move(let fromIndex, let toIndex):
+					tableView.moveRow(at: IndexPath(row: fromIndex, section: 0), to: IndexPath(row: toIndex, section: 0))
 				}
 			}
 		})

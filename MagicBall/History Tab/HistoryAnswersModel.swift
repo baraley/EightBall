@@ -8,67 +8,42 @@
 
 import Foundation
 
-protocol HistoryAnswerServiceProtocol: class {
-
-	var numberOfHistoryAnswers: Int { get }
-
-	var historyAnswerDidChangeHandler: (([HistoryAnswersModel.Change]) -> Void)? { get set }
-
-	func loadHistoryAnswers()
-	func historyAnswer(at index: Int) -> HistoryAnswer
-	func insert(_ historyAnswer: HistoryAnswer)
-	func deleteHistoryAnswer(at index: Int)
-	func clearHistory()
-
-}
-
 final class HistoryAnswersModel {
 
-	enum Change {
-		case insert(HistoryAnswer, Int)
-		case delete(HistoryAnswer, Int)
-	}
+	private let coreDataModelService: CoreDataModelService<ManagedHistoryAnswer, HistoryAnswer>
 
-	private let historyAnswerService: HistoryAnswerServiceProtocol
-
-	init(historyAnswerService: HistoryAnswerServiceProtocol) {
-		self.historyAnswerService = historyAnswerService
-		historyAnswerService.historyAnswerDidChangeHandler = { [weak self] changes in
+	init(coreDataModelService: CoreDataModelService<ManagedHistoryAnswer, HistoryAnswer>) {
+		self.coreDataModelService = coreDataModelService
+		coreDataModelService.changeHandler = { [weak self] changes in
 			self?.handleChanges(changes)
 		}
 	}
 
-	var historyAnswersChangesHandler: (([HistoryAnswersModel.Change]) -> Void)?
+	var historyAnswersChangesHandler: (([Change<HistoryAnswer>]) -> Void)?
 
 	func loadHistoryAnswers() {
-		historyAnswerService.loadHistoryAnswers()
+		coreDataModelService.loadModels()
 	}
 
 	func numberOfHistoryAnswers() -> Int {
-		return historyAnswerService.numberOfHistoryAnswers
+		return coreDataModelService.numberOfModels()
 	}
 
 	func historyAnswer(at index: Int) -> HistoryAnswer {
-		return historyAnswerService.historyAnswer(at: index)
+		return coreDataModelService.model(at: index)
 	}
 
 	func save(_ historyAnswer: HistoryAnswer) {
-		historyAnswerService.insert(historyAnswer)
+		coreDataModelService.upsert(historyAnswer)
 	}
 
 	func deleteHistoryAnswer(at index: Int) {
-		guard index >= 0, index < numberOfHistoryAnswers() else { return }
-
-		historyAnswerService.deleteHistoryAnswer(at: index)
-	}
-
-	func clearHistory() {
-		historyAnswerService.clearHistory()
+		coreDataModelService.deleteModel(at: index)
 	}
 
 	// MARK: - Private
 
-	private func handleChanges(_ changes: [Change]) {
+	private func handleChanges(_ changes: [Change<HistoryAnswer>]) {
 		DispatchQueue.main.async {
 			self.historyAnswersChangesHandler?(changes)
 		}

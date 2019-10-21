@@ -64,7 +64,7 @@ final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 	// MARK: - Private Methods
 
 	private func answersDidChange() {
-		let answers = presentableAnswers.map { Answer(from: $0)}
+		let answers = presentableAnswers.map { Answer($0)}
 		let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
 		answerSetsModel.save(updatedAnswerSet)
 	}

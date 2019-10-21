@@ -54,7 +54,8 @@ final class SettingsViewModel {
 
 extension SettingsViewModel: AnswerSetsModelObserver {
 
-	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel) {
+	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>]) {
 		answerSetsNumberDidChangeHandler?(answerSetsNumber)
 	}
+
 }

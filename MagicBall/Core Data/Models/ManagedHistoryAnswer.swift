@@ -11,21 +11,13 @@ import Foundation
 import CoreData
 
 @objc(ManagedHistoryAnswer)
-public class ManagedHistoryAnswer: NSManagedObject {
+public class ManagedHistoryAnswer: NSManagedObject, Populatable, Identifiable {
 
 	public override func awakeFromInsert() {
 		super.awakeFromInsert()
 
 		id = UUID().uuidString
 		dateCreated = Date()
-	}
-
-}
-
-extension ManagedHistoryAnswer {
-
-	func toHistoryAnswer() -> HistoryAnswer {
-		return HistoryAnswer(id: id, text: text, dateCreated: dateCreated)
 	}
 
 	func populateWith(_ historyAnswer: HistoryAnswer) {

@@ -17,14 +17,6 @@ public class ManagedAnswer: NSManagedObject {
 
 extension ManagedAnswer {
 
-	func toAnswer() -> Answer {
-		return Answer(text: text)
-	}
-
-}
-
-extension ManagedAnswer {
-
     @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedAnswer> {
         return NSFetchRequest<ManagedAnswer>(entityName: String(describing: ManagedAnswer.self))
     }

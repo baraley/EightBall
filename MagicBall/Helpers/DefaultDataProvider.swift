@@ -15,12 +15,10 @@ struct DefaultDataProvider {
 		let rudeAnswers = FileManager.default.loadContentFromBundle(withName: name) as [String]
 		let answerSet = AnswerSet(name: name, answers: rudeAnswers.map { Answer(text: $0) })
 
-		context.perform {
-			let rudeAnswerSet = ManagedAnswerSet(context: context)
-			rudeAnswerSet.populateWith(answerSet)
+		let rudeAnswerSet = ManagedAnswerSet(context: context)
+		rudeAnswerSet.populateWith(answerSet)
 
-			context.saveIfNeeds()
-		}
+		context.saveIfNeeds()
 	}
 
 }

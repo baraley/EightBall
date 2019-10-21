@@ -17,7 +17,7 @@ struct PresentableHistoryAnswer: Equatable {
 
 extension PresentableHistoryAnswer {
 
-	init(historyAnswer: HistoryAnswer) {
+	init(_ historyAnswer: HistoryAnswer) {
 		let formatter = DateFormatter.presentableHistoryAnswerFormatter
 
 		text = historyAnswer.text

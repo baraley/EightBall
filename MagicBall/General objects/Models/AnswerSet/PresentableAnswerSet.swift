@@ -25,3 +25,12 @@ struct PresentableAnswerSet: Equatable {
 	}
 
 }
+
+extension PresentableAnswerSet {
+
+	init(_ answerSet: AnswerSet) {
+		let answers = answerSet.answers.map { PresentableAnswer($0) }
+		self.init(id: answerSet.id, name: answerSet.name, answers: answers)
+	}
+
+}

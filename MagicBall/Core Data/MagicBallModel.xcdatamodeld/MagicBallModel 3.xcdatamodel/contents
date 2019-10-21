@@ -15,6 +15,7 @@
         <attribute name="id" attributeType="String" elementID="id"/>
         <attribute name="text" attributeType="String" elementID="text"/>
     </entity>
+    <fetchRequest name="notEmptyAnswerSets" entity="ManagedAnswerSet" predicateString="answers.@count &gt; 0"/>
     <elements>
         <element name="ManagedAnswer" positionX="-315.74609375" positionY="7.109375" width="128" height="73"/>
         <element name="ManagedAnswerSet" positionX="-54" positionY="-9" width="128" height="103"/>

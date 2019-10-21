@@ -10,12 +10,13 @@ import CoreData
 
 private let modelFileName = "MagicBallModel"
 
-final class CoreDataContainer {
+final class CoreDataContainer: NSPersistentContainer {
 
-	private lazy var persistentContainer: NSPersistentContainer = NSPersistentContainer(name: modelFileName)
-
-	func newBackgroundContext() -> NSManagedObjectContext {
-		return persistentContainer.newBackgroundContext()
+	init(name: String = modelFileName) {
+		guard let model = NSManagedObjectModel.mergedModel(from: nil) else {
+			fatalError("Can't load managed object models from bundle")
+		}
+		super.init(name: name, managedObjectModel: model)
 	}
 
 	var isPersistentStoreEmpty: Bool {
@@ -26,7 +27,7 @@ final class CoreDataContainer {
 	}
 
 	func loadPersistentStores(with completionHandler: (() -> Void)? = nil) {
-		persistentContainer.loadPersistentStores { (_, error) in
+		loadPersistentStores { (_, error) in
 			if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
 			}
@@ -35,12 +36,12 @@ final class CoreDataContainer {
 	}
 
 	func restoreData() {
-		let context = persistentContainer.newBackgroundContext()
+		performBackgroundTask { (context) in
+			let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(context)
 
-		let wasMigrated = MigratorFromDataFilesToCoreData.restoreAnswersSetsIfAvailableIn(context)
-
-		if !wasMigrated {
-			DefaultDataProvider.createDefaultAnswerSetIn(context)
+			if !wasMigrated {
+				DefaultDataProvider.createDefaultAnswerSetIn(context)
+			}
 		}
 	}
 

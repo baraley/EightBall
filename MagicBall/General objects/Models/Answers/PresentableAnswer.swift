@@ -17,3 +17,11 @@ struct PresentableAnswer: Equatable {
 	}
 
 }
+
+extension PresentableAnswer {
+
+	init(_ answer: Answer) {
+		self.init(text: answer.text)
+	}
+
+}
