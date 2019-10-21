@@ -52,7 +52,7 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 		fetchedResultsController.delegate = self
 	}
 
-	var changeHandler: (([Change<Model>]) -> Void)?
+	var changesHandler: (([Change<Model>]) -> Void)?
 	private var changes: [Change<Model>] = []
 
 	private lazy var fetchedResultsController = NSFetchedResultsController(
@@ -158,8 +158,64 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		if !changes.isEmpty {
-			self.changeHandler?(changes)
+			self.changesHandler?(changes)
 		}
+	}
+
+}
+
+extension CoreDataModelService: AnswerSetsService where ManagedModel == ManagedAnswerSet {
+
+	func loadAnswerSets() {
+		loadModels()
+	}
+
+	func numberOfAnswerSets() -> Int {
+		return numberOfModels()
+	}
+
+	func answerSet(at index: Int) -> AnswerSet {
+		return model(at: index)
+	}
+
+	func deleteAnswerSet(at index: Int) {
+		deleteModel(at: index)
+	}
+
+}
+
+extension CoreDataModelService: HistoryAnswersService where ManagedModel == ManagedHistoryAnswer {
+
+	func loadHistoryAnswers() {
+		loadModels()
+	}
+
+	func numberOfHistoryAnswers() -> Int {
+		return numberOfModels()
+	}
+
+	func historyAnswer(at index: Int) -> HistoryAnswer {
+		return model(at: index)
+	}
+
+	func deleteHistoryAnswer(at index: Int) {
+		deleteModel(at: index)
+	}
+
+}
+
+extension CoreDataModelService: AnswerSourcesService where ManagedModel == ManagedAnswerSet {
+
+	func loadAnswerSources() {
+		loadModels()
+	}
+
+	func numberOfAnswerSources() -> Int {
+		return numberOfModels()
+	}
+
+	func answerSource(at index: Int) -> AnswerSet {
+		return model(at: index)
 	}
 
 }

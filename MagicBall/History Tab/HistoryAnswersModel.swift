@@ -8,13 +8,25 @@
 
 import Foundation
 
+protocol HistoryAnswersService: class {
+
+	var changesHandler: (([Change<HistoryAnswer>]) -> Void)? { get set }
+
+	func loadHistoryAnswers()
+	func numberOfHistoryAnswers() -> Int
+	func historyAnswer(at index: Int) -> HistoryAnswer
+	func upsert(_ historyAnswer: HistoryAnswer)
+	func deleteHistoryAnswer(at index: Int)
+
+}
+
 final class HistoryAnswersModel {
 
-	private let coreDataModelService: CoreDataModelService<ManagedHistoryAnswer, HistoryAnswer>
+	private let historyAnswersService: HistoryAnswersService
 
-	init(coreDataModelService: CoreDataModelService<ManagedHistoryAnswer, HistoryAnswer>) {
-		self.coreDataModelService = coreDataModelService
-		coreDataModelService.changeHandler = { [weak self] changes in
+	init(historyAnswersService: HistoryAnswersService) {
+		self.historyAnswersService = historyAnswersService
+		historyAnswersService.changesHandler = { [weak self] changes in
 			self?.handleChanges(changes)
 		}
 	}
@@ -22,23 +34,23 @@ final class HistoryAnswersModel {
 	var historyAnswersChangesHandler: (([Change<HistoryAnswer>]) -> Void)?
 
 	func loadHistoryAnswers() {
-		coreDataModelService.loadModels()
+		historyAnswersService.loadHistoryAnswers()
 	}
 
 	func numberOfHistoryAnswers() -> Int {
-		return coreDataModelService.numberOfModels()
+		return historyAnswersService.numberOfHistoryAnswers()
 	}
 
 	func historyAnswer(at index: Int) -> HistoryAnswer {
-		return coreDataModelService.model(at: index)
+		return historyAnswersService.historyAnswer(at: index)
 	}
 
 	func save(_ historyAnswer: HistoryAnswer) {
-		coreDataModelService.upsert(historyAnswer)
+		historyAnswersService.upsert(historyAnswer)
 	}
 
 	func deleteHistoryAnswer(at index: Int) {
-		coreDataModelService.deleteModel(at: index)
+		historyAnswersService.deleteHistoryAnswer(at: index)
 	}
 
 	// MARK: - Private

@@ -14,6 +14,16 @@ protocol NetworkAnswerService {
 
 }
 
+protocol AnswerSourcesService: class {
+
+	var changesHandler: (([Change<AnswerSet>]) -> Void)? { get set }
+
+	func loadAnswerSources()
+	func numberOfAnswerSources() -> Int
+	func answerSource(at index: Int) -> AnswerSet
+
+}
+
 final class AnswerSourcesModel {
 
 	typealias CompletionHandler = ((Result<Answer, NetworkError>) -> Void)
@@ -24,21 +34,21 @@ final class AnswerSourcesModel {
 
 	var answerSource: Source = .network
 
-	private let coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>
+	private let answerSourcesService: AnswerSourcesService
 	private let networkAnswerService: NetworkAnswerService
 	private let historyAnswersModel: HistoryAnswersModel
 
 	init(
-		coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>,
+		answerSourcesService: AnswerSourcesService,
 		networkAnswerService: NetworkAnswerService,
 		historyAnswersModel: HistoryAnswersModel
 	) {
 
-		self.coreDataModelService = coreDataModelService
+		self.answerSourcesService = answerSourcesService
 		self.networkAnswerService = networkAnswerService
 		self.historyAnswersModel = historyAnswersModel
 
-		self.coreDataModelService.changeHandler = {[weak self] (changes) in
+		self.answerSourcesService.changesHandler = {[weak self] (changes) in
 			self?.handleChanges(changes)
 		}
 	}
@@ -47,15 +57,15 @@ final class AnswerSourcesModel {
 	var answerLoadingErrorHandler: ((String) -> Void)?
 
 	func loadAnswerSets() {
-		coreDataModelService.loadModels()
+		answerSourcesService.loadAnswerSources()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return coreDataModelService.numberOfModels()
+		return answerSourcesService.numberOfAnswerSources()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return coreDataModelService.model(at: index)
+		return answerSourcesService.answerSource(at: index)
 	}
 
 	func loadAnswer(_ completionHandler: @escaping (Answer?) -> Void) {

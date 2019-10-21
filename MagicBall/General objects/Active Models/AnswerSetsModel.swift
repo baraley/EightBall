@@ -8,6 +8,18 @@
 
 import Foundation
 
+protocol AnswerSetsService: class {
+
+	var changesHandler: (([Change<AnswerSet>]) -> Void)? { get set }
+
+	func loadAnswerSets()
+	func numberOfAnswerSets() -> Int
+	func answerSet(at index: Int) -> AnswerSet
+	func upsert(_ answerSet: AnswerSet)
+	func deleteAnswerSet(at index: Int)
+
+}
+
 protocol AnswerSetsModelObserver: class {
 
 	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>])
@@ -16,11 +28,11 @@ protocol AnswerSetsModelObserver: class {
 
 final class AnswerSetsModel {
 
-	private let coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>
+	private let answerSetsService: AnswerSetsService
 
-	init(coreDataModelService: CoreDataModelService<ManagedAnswerSet, AnswerSet>) {
-		self.coreDataModelService = coreDataModelService
-		self.coreDataModelService.changeHandler = {[weak self] (changes) in
+	init(answerSetsService: AnswerSetsService) {
+		self.answerSetsService = answerSetsService
+		self.answerSetsService.changesHandler = {[weak self] (changes) in
 			self?.handleChanges(changes)
 		}
 	}
@@ -28,23 +40,23 @@ final class AnswerSetsModel {
 	// MARK: - Public
 
 	func loadAnswerSets() {
-		coreDataModelService.loadModels()
+		answerSetsService.loadAnswerSets()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return coreDataModelService.numberOfModels()
+		return answerSetsService.numberOfAnswerSets()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return coreDataModelService.model(at: index)
+		return answerSetsService.answerSet(at: index)
 	}
 
 	func save(_ answerSet: AnswerSet) {
-		coreDataModelService.upsert(answerSet)
+		answerSetsService.upsert(answerSet)
 	}
 
 	func deleteAnswerSet(at index: Int) {
-		coreDataModelService.deleteModel(at: index)
+		answerSetsService.deleteAnswerSet(at: index)
 	}
 
 	// MARK: - Observation

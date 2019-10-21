@@ -53,8 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			toModelConverter: HistoryAnswer.init
 		)
 
-		let answerSetsModel = AnswerSetsModel(coreDataModelService: answerSetsCoreDataService)
-		let historyAnswersModel = HistoryAnswersModel(coreDataModelService: historyAnswersCoreDataService)
+		let answerSetsModel = AnswerSetsModel(answerSetsService: answerSetsCoreDataService)
+		let historyAnswersModel = HistoryAnswersModel(historyAnswersService: historyAnswersCoreDataService)
 		let answerSettingsModel = AnswerSettingsModel(
 			settingsService: SettingsService(),
 			historyAnswersModel: historyAnswersModel
@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 
 		let answerSourcesModel = AnswerSourcesModel(
-			coreDataModelService: answerSourcesCoreDataService,
+			answerSourcesService: answerSourcesCoreDataService,
 			networkAnswerService: NetworkService(),
 			historyAnswersModel: historyAnswersModel
 		)
