@@ -197,6 +197,8 @@ private extension ContentListViewController {
 	}
 
 	func handleChanges(_ changes: [Change]) {
+		guard tableView.window != nil else { return }
+
 		tableView.performBatchUpdates({
 			changes.forEach { change in
 				switch change {
