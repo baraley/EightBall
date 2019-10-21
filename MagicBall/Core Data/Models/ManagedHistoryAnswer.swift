@@ -28,7 +28,7 @@ public class ManagedHistoryAnswer: NSManagedObject, Populatable, Identifiable {
 
 extension ManagedHistoryAnswer {
 
-    @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedHistoryAnswer> {
+    @nonobjc public class func createRequest() -> NSFetchRequest<ManagedHistoryAnswer> {
 		return NSFetchRequest<ManagedHistoryAnswer>(entityName: String(describing: ManagedHistoryAnswer.self))
     }
 

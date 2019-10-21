@@ -11,7 +11,7 @@ import CoreData
 enum ConfiguredFetchRequest {
 
 	static var answerSetsRequest: NSFetchRequest<ManagedAnswerSet> {
-		let request = ManagedAnswerSet.makeRequest()
+		let request = ManagedAnswerSet.createRequest()
 		request.sortDescriptors = [
 			NSSortDescriptor(key: #keyPath(ManagedAnswerSet.dateCreated), ascending: true)
 		]
@@ -27,7 +27,7 @@ enum ConfiguredFetchRequest {
 	}
 
 	static var managedHistoryAnswersRequest: NSFetchRequest<ManagedHistoryAnswer> {
-		let fetchRequest = ManagedHistoryAnswer.makeRequest()
+		let fetchRequest = ManagedHistoryAnswer.createRequest()
 		fetchRequest.sortDescriptors = [
 			NSSortDescriptor(key: #keyPath(ManagedHistoryAnswer.dateCreated), ascending: false)
 		]

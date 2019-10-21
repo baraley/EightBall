@@ -10,6 +10,7 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 private let answerSetsCellID = "AnswerSetsCell"
+private let actionCellID = "ActionCell"
 
 final class SettingsViewController: UITableViewController {
 
@@ -39,8 +40,11 @@ final class SettingsViewController: UITableViewController {
 	private lazy var readAnswerSwitch: UISwitch = initializeUISwitch()
 	private lazy var hapticFeedbackSwitch: UISwitch = initializeUISwitch()
 
-    private lazy var answerSetsCell = UITableViewCell(style: .value1, reuseIdentifier: answerSetsCellID)
-	private lazy var resetAnswersNumberCell = UITableViewCell()
+	private lazy var answerSetsCell: UITableViewCell = {
+		let cell = UITableViewCell(style: .value1, reuseIdentifier: answerSetsCellID)
+		cell.accessoryType = .disclosureIndicator
+		return cell
+	}()
 
 	// MARK: - Actions
 
@@ -67,6 +71,7 @@ final class SettingsViewController: UITableViewController {
 		super.viewDidLoad()
 
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: actionCellID)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -95,8 +100,8 @@ final class SettingsViewController: UITableViewController {
 		case .answerSets:
 			cell = answerSetsCell
 
-		case .resetAnswersNumber:
-			cell = resetAnswersNumberCell
+		case .resetAnswersCounter, .cleanHistory:
+			cell = tableView.dequeueReusableCell(withIdentifier: actionCellID, for: indexPath)
 		}
 		configure(cell, at: indexPath)
 
@@ -122,8 +127,12 @@ final class SettingsViewController: UITableViewController {
 		case .answerSets:
 			settingsViewModel.didSelectAnswerSetsCell()
 
-		case .resetAnswersNumber:
-			showAlertToResetAnswersNumber()
+		case .resetAnswersCounter:
+			showAlertToResetAnswersCounter()
+
+		case .cleanHistory:
+			showAlertToCleanHistory()
+
 		default:
 			break
 		}
@@ -170,24 +179,37 @@ private extension SettingsViewController {
 
 		case .answerSets:
 			cell.detailTextLabel?.text = String(settingsViewModel.answerSetsNumber)
-			cell.accessoryType = .disclosureIndicator
 
-		case .resetAnswersNumber:
-			cell.textLabel?.textAlignment = .center
-			cell.textLabel?.textColor = .red
+		case .resetAnswersCounter, .cleanHistory:
+			cell.textLabel?.textColor = .systemBlue
 		}
 	}
 
-	func showAlertToResetAnswersNumber() {
+	func showAlertToResetAnswersCounter() {
 		let alert = UIAlertController(
-			title: L10n.Alert.Title.resetAnswersNumber,
-			message: L10n.Alert.Message.resetAnswersNumber,
+			title: L10n.Alert.Title.resetAnswersCounter,
+			message: L10n.Alert.Message.resetAnswersCounter,
 			preferredStyle: .alert
 		)
 
 		alert.addAction(UIAlertAction(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
 		alert.addAction(UIAlertAction(title: L10n.Action.Title.reset, style: .destructive) { (_) in
-			self.settingsViewModel.resetAnswersNumber()
+			self.settingsViewModel.resetAnswersCounter()
+		})
+
+		present(alert, animated: true)
+	}
+
+	func showAlertToCleanHistory() {
+		let alert = UIAlertController(
+			title: L10n.Alert.Title.cleanHistory,
+			message: L10n.Alert.Message.cleanHistory,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(UIAlertAction(title: L10n.Action.Title.cancel, style: .cancel, handler: nil))
+		alert.addAction(UIAlertAction(title: L10n.Action.Title.clean, style: .destructive) { (_) in
+			self.settingsViewModel.cleanHistory()
 		})
 
 		present(alert, animated: true)
@@ -198,9 +220,9 @@ private extension SettingsViewController {
 extension SettingsViewController {
 
 	enum Section: Int {
-		case lazyMode, readAnswer, hapticFeedback, answerSets, resetAnswersNumber
+		case lazyMode, readAnswer, hapticFeedback, answerSets, resetAnswersCounter, cleanHistory
 
-		static let count = 5
+		static let count = 6
 
 		init(at indexPath: IndexPath) {
 			self = Section.init(rawValue: indexPath.section)!
@@ -224,8 +246,11 @@ extension SettingsViewController {
 			case .answerSets:
 				return L10n.SettingsViewController.CellText.answerSets
 
-			case .resetAnswersNumber:
-				return L10n.SettingsViewController.CellText.resetAnswersNumber
+			case .resetAnswersCounter:
+				return L10n.SettingsViewController.CellText.resetAnswersCounter
+
+			case .cleanHistory:
+				return L10n.SettingsViewController.CellText.cleanHistory
 			}
 		}
 
@@ -234,7 +259,7 @@ extension SettingsViewController {
 			case .lazyMode:
 				return L10n.SettingsViewController.SectionFooterText.lazyMode
 
-			case .readAnswer, .hapticFeedback, .answerSets, .resetAnswersNumber:
+			case .readAnswer, .hapticFeedback, .answerSets, .resetAnswersCounter, .cleanHistory:
 				return nil
 			}
 		}
@@ -244,7 +269,7 @@ extension SettingsViewController {
 			case .lazyMode, .readAnswer, .hapticFeedback:
 				return false
 
-			case .answerSets, .resetAnswersNumber:
+			case .answerSets, .resetAnswersCounter, .cleanHistory:
 				return true
 			}
 		}

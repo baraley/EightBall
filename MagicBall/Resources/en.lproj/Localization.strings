@@ -28,19 +28,22 @@
 "action.title.add" = "Add";
 "action.title.rename" = "Rename";
 "action.title.reset" = "Reset";
+"action.title.clean" = "Clean";
 
 //MARK: - Alert Titles
 
 "alert.title.delete" = "Delete %@";
 "alert.title.edit" = "Edit %@";
 "alert.title.createNew" = "Create new %@";
-"alert.title.resetAnswersNumber" = "Reset Answers Number";
+"alert.title.resetAnswersCounter" = "Reset Answers Number";
+"alert.title.cleanHistory" = "Clean History";
 
 //MARK: - Alert Messages
 
 "alert.message.noInternet" = "There is no internet connection. Please try to use answers from answer sets.";
 "alert.message.delete" = "Are you sure you want to delete \"%@\"?";
-"alert.message.resetAnswersNumber" = "Are you sure you want to  reset answers number?";
+"alert.message.resetAnswersCounter" = "Are you sure you want to reset answers' counter?";
+"alert.message.cleanHistory" = "Are you sure you want to clean history of your answers?";
 
 //MARK: - Editable Items
 
@@ -56,7 +59,8 @@
 "settingsViewController.cellText.readAnswer" = "Read answer";
 "settingsViewController.cellText.hapticFeedback" = "Haptic feedback";
 "settingsViewController.cellText.answerSets" = "Answer sets";
-"settingsViewController.cellText.resetAnswersNumber" = "Reset Answers Number";
+"settingsViewController.cellText.resetAnswersCounter" = "Reset Answers Counter";
+"settingsViewController.cellText.cleanHistory" = "Clean History";
 
 "settingsViewController.sectionFooterText.lazyMode"
 = "When \"Lazy mode\" is on: tap the magic ball to request an answer";

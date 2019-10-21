@@ -57,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let historyAnswersModel = HistoryAnswersModel(historyAnswersService: historyAnswersCoreDataService)
 		let answerSettingsModel = AnswerSettingsModel(
 			settingsService: SettingsService(),
-			historyAnswersModel: historyAnswersModel
+			historyAnswersModel: historyAnswersModel,
+			historyCleaner: HistoryCleanerService(context: historyAnswersContext)
 		)
 
 		let answerSourcesCoreDataService = CoreDataModelService<ManagedAnswerSet, AnswerSet>(

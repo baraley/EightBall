@@ -8,15 +8,6 @@
 
 import CoreData
 
-enum Change<T> {
-
-	case insert(T, Int)
-	case delete(T, Int)
-	case move(T, Int, Int)
-	case update(T, Int)
-
-}
-
 protocol Populatable {
 
 	associatedtype Source

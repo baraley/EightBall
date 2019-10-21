@@ -11,6 +11,7 @@
 		1103FD8C2357DB6800DF0D24 /* HistoryAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103FD8B2357DB6800DF0D24 /* HistoryAnswer.swift */; };
 		1107920022FFD2CC0056BE67 /* Rude Answers in Resources */ = {isa = PBXBuildFile; fileRef = 110791FF22FFD2CC0056BE67 /* Rude Answers */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
+		111EFFFB235DE6D2004003FE /* HistoryCleanerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EFFFA235DE6D2004003FE /* HistoryCleanerService.swift */; };
 		112A9ACE2344F95B005A24CD /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A9ACD2344F95B005A24CD /* Answer.swift */; };
 		112A9AD02344FA06005A24CD /* PresentableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A9ACF2344FA06005A24CD /* PresentableAnswer.swift */; };
 		112B515B23011A890063E18B /* FileManager+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B515A23011A890063E18B /* FileManager+Codable.swift */; };
@@ -42,6 +43,7 @@
 		116BD3942302F573001ECD5F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BD3932302F573001ECD5F /* NetworkError.swift */; };
 		117272AB2337437B006D6A02 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 117272AD2337437B006D6A02 /* Localization.strings */; };
 		117546022359F4E900587121 /* ConfiguredFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117546012359F4E900587121 /* ConfiguredFetchRequest.swift */; };
+		1175460A235DDBC700587121 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11754609235DDBC700587121 /* Change.swift */; };
 		117889F52305870800983E8A /* InputTextAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117889F42305870800983E8A /* InputTextAlertController.swift */; };
 		11853ED5230170A300F30203 /* AnswerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11853ED4230170A300F30203 /* AnswerSet.swift */; };
 		11B770DD2344A50E00371CC9 /* MessageAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B770DC2344A50E00371CC9 /* MessageAlertPresenter.swift */; };
@@ -77,6 +79,7 @@
 		1103FD8B2357DB6800DF0D24 /* HistoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAnswer.swift; sourceTree = "<group>"; };
 		110791FF22FFD2CC0056BE67 /* Rude Answers */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Rude Answers"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
+		111EFFFA235DE6D2004003FE /* HistoryCleanerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCleanerService.swift; sourceTree = "<group>"; };
 		112A9ACD2344F95B005A24CD /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		112A9ACF2344FA06005A24CD /* PresentableAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableAnswer.swift; sourceTree = "<group>"; };
 		112B515A23011A890063E18B /* FileManager+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Codable.swift"; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 		116BD3932302F573001ECD5F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		117272AC2337437B006D6A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		117546012359F4E900587121 /* ConfiguredFetchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguredFetchRequest.swift; sourceTree = "<group>"; };
+		11754609235DDBC700587121 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
 		117889F42305870800983E8A /* InputTextAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextAlertController.swift; sourceTree = "<group>"; };
 		11853ED4230170A300F30203 /* AnswerSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSet.swift; sourceTree = "<group>"; };
 		11B770DC2344A50E00371CC9 /* MessageAlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAlertPresenter.swift; sourceTree = "<group>"; };
@@ -154,6 +158,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		111EFFF9235DE619004003FE /* Active Models */ = {
+			isa = PBXGroup;
+			children = (
+				115ED29923435D24005499E0 /* AnswerSettingsModel.swift */,
+			);
+			path = "Active Models";
+			sourceTree = "<group>";
+		};
 		112B515F23011FAD0063E18B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +241,24 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		1175460B235DE00C00587121 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				115ED289234349AE005499E0 /* ManagedSettings.swift */,
+				11D2F74222FD59C8000E8881 /* Settings.swift */,
+				11B7E2532343EEF600319147 /* PresentableSetting.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1175460C235DE04E00587121 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				11B7E2422343A8AF00319147 /* SettingsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		11B5009B2352285A00620DF4 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,7 +294,6 @@
 			isa = PBXGroup;
 			children = (
 				1145E387234CAD5A006F51EC /* AnswersCountingModel.swift */,
-				115ED29923435D24005499E0 /* AnswerSettingsModel.swift */,
 				115ED2962343523F005499E0 /* AnswerSetsModel.swift */,
 			);
 			path = "Active Models";
@@ -330,6 +359,9 @@
 		11CF2A49233F7B6100F394B1 /* Settings Tab */ = {
 			isa = PBXGroup;
 			children = (
+				1175460B235DE00C00587121 /* Models */,
+				1175460C235DE04E00587121 /* Services */,
+				111EFFF9235DE619004003FE /* Active Models */,
 				11B7E2502343ED5800319147 /* View Models */,
 				11CF2A4B233F7B8100F394B1 /* View Controllers */,
 			);
@@ -397,7 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				112B515C23011AB80063E18B /* DefaultResourceName.swift */,
-				11E1A7A82345222100D4375D /* Settings */,
+				11754609235DDBC700587121 /* Change.swift */,
 				11E1A7AA2345222D00D4375D /* Answers */,
 				11E1A7A92345222800D4375D /* AnswerSet */,
 			);
@@ -408,7 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				1145E385234C910F006F51EC /* SecureStorage.swift */,
-				11B7E2422343A8AF00319147 /* SettingsService.swift */,
+				111EFFFA235DE6D2004003FE /* HistoryCleanerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -434,16 +466,6 @@
 				110791FF22FFD2CC0056BE67 /* Rude Answers */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		11E1A7A82345222100D4375D /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				115ED289234349AE005499E0 /* ManagedSettings.swift */,
-				11D2F74222FD59C8000E8881 /* Settings.swift */,
-				11B7E2532343EEF600319147 /* PresentableSetting.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		11E1A7A92345222800D4375D /* AnswerSet */ = {
@@ -654,6 +676,7 @@
 				11B7E2482343CBA200319147 /* SettingsViewController.swift in Sources */,
 				1103FD8C2357DB6800DF0D24 /* HistoryAnswer.swift in Sources */,
 				112FEF612357E9A700D1E8D6 /* HistoryAnswerContentListViewModel.swift in Sources */,
+				1175460A235DDBC700587121 /* Change.swift in Sources */,
 				11B7E2432343A8AF00319147 /* SettingsService.swift in Sources */,
 				11C919C222F9368E005F71BC /* AppDelegate.swift in Sources */,
 				11B7E2522343ED7A00319147 /* SettingsViewModel.swift in Sources */,
@@ -675,6 +698,7 @@
 				117889F52305870800983E8A /* InputTextAlertController.swift in Sources */,
 				112FEF5F2357E99600D1E8D6 /* HistoryAnswersModel.swift in Sources */,
 				11B7E2542343EEF600319147 /* PresentableSetting.swift in Sources */,
+				111EFFFB235DE6D2004003FE /* HistoryCleanerService.swift in Sources */,
 				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				112B515D23011AB80063E18B /* DefaultResourceName.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */,

@@ -47,9 +47,14 @@ final class SettingsViewModel {
 		didSelectAnswerSetsCellHandler()
 	}
 
-	func resetAnswersNumber() {
+	func resetAnswersCounter() {
 		answersCountingModel.reset()
 	}
+
+	func cleanHistory() {
+		answerSettingsModel.cleanHistory()
+	}
+
 }
 
 extension SettingsViewModel: AnswerSetsModelObserver {

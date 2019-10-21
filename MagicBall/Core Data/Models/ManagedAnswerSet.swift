@@ -35,7 +35,7 @@ public class ManagedAnswerSet: NSManagedObject, Populatable, Identifiable {
 
 extension ManagedAnswerSet {
 
-    @nonobjc public class func makeRequest() -> NSFetchRequest<ManagedAnswerSet> {
+    @nonobjc public class func createRequest() -> NSFetchRequest<ManagedAnswerSet> {
         return NSFetchRequest<ManagedAnswerSet>(entityName: String(describing: ManagedAnswerSet.self))
     }
 

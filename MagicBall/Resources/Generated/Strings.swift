@@ -22,6 +22,8 @@ internal enum L10n {
       internal static let add = L10n.tr("Localization", "action.title.add")
       /// Cancel
       internal static let cancel = L10n.tr("Localization", "action.title.cancel")
+      /// Clean
+      internal static let clean = L10n.tr("Localization", "action.title.clean")
       /// Create
       internal static let create = L10n.tr("Localization", "action.title.create")
       /// Delete
@@ -39,16 +41,20 @@ internal enum L10n {
 
   internal enum Alert {
     internal enum Message {
+      /// Are you sure you want to clean history of your answers?
+      internal static let cleanHistory = L10n.tr("Localization", "alert.message.cleanHistory")
       /// Are you sure you want to delete "%@"?
       internal static func delete(_ p1: String) -> String {
         return L10n.tr("Localization", "alert.message.delete", p1)
       }
       /// There is no internet connection. Please try to use answers from answer sets.
       internal static let noInternet = L10n.tr("Localization", "alert.message.noInternet")
-      /// Are you sure you want to  reset answers number?
-      internal static let resetAnswersNumber = L10n.tr("Localization", "alert.message.resetAnswersNumber")
+      /// Are you sure you want to reset answers' counter?
+      internal static let resetAnswersCounter = L10n.tr("Localization", "alert.message.resetAnswersCounter")
     }
     internal enum Title {
+      /// Clean History
+      internal static let cleanHistory = L10n.tr("Localization", "alert.title.cleanHistory")
       /// Create new %@
       internal static func createNew(_ p1: String) -> String {
         return L10n.tr("Localization", "alert.title.createNew", p1)
@@ -62,7 +68,7 @@ internal enum L10n {
         return L10n.tr("Localization", "alert.title.edit", p1)
       }
       /// Reset Answers Number
-      internal static let resetAnswersNumber = L10n.tr("Localization", "alert.title.resetAnswersNumber")
+      internal static let resetAnswersCounter = L10n.tr("Localization", "alert.title.resetAnswersCounter")
     }
   }
 
@@ -92,14 +98,16 @@ internal enum L10n {
     internal enum CellText {
       /// Answer sets
       internal static let answerSets = L10n.tr("Localization", "settingsViewController.cellText.answerSets")
+      /// Clean History
+      internal static let cleanHistory = L10n.tr("Localization", "settingsViewController.cellText.cleanHistory")
       /// Haptic feedback
       internal static let hapticFeedback = L10n.tr("Localization", "settingsViewController.cellText.hapticFeedback")
       /// Lazy mode
       internal static let lazyMode = L10n.tr("Localization", "settingsViewController.cellText.lazyMode")
       /// Read answer
       internal static let readAnswer = L10n.tr("Localization", "settingsViewController.cellText.readAnswer")
-      /// Reset Answers Number
-      internal static let resetAnswersNumber = L10n.tr("Localization", "settingsViewController.cellText.resetAnswersNumber")
+      /// Reset Answers Counter
+      internal static let resetAnswersCounter = L10n.tr("Localization", "settingsViewController.cellText.resetAnswersCounter")
     }
     internal enum SectionFooterText {
       /// When "Lazy mode" is on: tap the magic ball to request an answer
