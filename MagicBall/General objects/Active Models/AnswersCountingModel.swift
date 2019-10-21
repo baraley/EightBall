@@ -10,12 +10,6 @@ import Foundation
 
 private let loadedAnswersNumberKey = "requestedAnswersNumberKey"
 
-protocol AnswersNumberObserver: class {
-
-	func answersCountingModel(_ model: AnswersCountingModel, didChangeAnswersNumberTo number: Int)
-
-}
-
 class AnswersCountingModel {
 
 	private let secureStorage: SecureStorage
@@ -26,10 +20,12 @@ class AnswersCountingModel {
 		answersNumber = secureStorage.value(forKey: loadedAnswersNumberKey) ?? 0
 	}
 
+	var answersNumberChangesHandler: ((Int) -> Void)?
+
 	private(set) var answersNumber: Int {
 		didSet {
 			secureStorage.setValue(answersNumber, forKey: loadedAnswersNumberKey)
-			notifyObservers()
+			answersNumberChangesHandler?(answersNumber)
 		}
 	}
 
@@ -40,38 +36,5 @@ class AnswersCountingModel {
 	func reset() {
 		answersNumber = 0
 	}
-
-	// MARK: - Observation
-
-	private var observations: [ObjectIdentifier: Observation] = [:]
-
-	func addObserver(_ observer: AnswersNumberObserver) {
-        let id = ObjectIdentifier(observer)
-        observations[id] = Observation(observer: observer)
-    }
-
-    func removeObserver(_ observer: AnswersNumberObserver) {
-        let id = ObjectIdentifier(observer)
-        observations.removeValue(forKey: id)
-    }
-
-	private func notifyObservers() {
-		observations.forEach { (id, observation) in
-			if let observer = observation.observer {
-				observer.answersCountingModel(self, didChangeAnswersNumberTo: answersNumber)
-
-			} else {
-				observations.removeValue(forKey: id)
-			}
-		}
-	}
-
-}
-
-private extension AnswersCountingModel {
-
-	struct Observation {
-        weak var observer: AnswersNumberObserver?
-    }
 
 }

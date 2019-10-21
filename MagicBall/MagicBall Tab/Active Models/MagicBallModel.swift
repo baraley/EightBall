@@ -34,7 +34,9 @@ final class MagicBallModel {
 		self.answerPronouncer = answerPronouncer
 		self.answersCountingModel = answersCountingModel
 
-		answersCountingModel.addObserver(self)
+		answersCountingModel.answersNumberChangesHandler = { [weak self] number in
+			self?.changesHandler?(.answerNumber(number))
+		}
 	}
 
 	var loadedAnswersNumber: Int {
@@ -62,14 +64,6 @@ final class MagicBallModel {
 
 	func stopPronouncing() {
 		answerPronouncer.stopPronouncing()
-	}
-
-}
-
-extension MagicBallModel: AnswersNumberObserver {
-
-	func answersCountingModel(_ model: AnswersCountingModel, didChangeAnswersNumberTo number: Int) {
-		changesHandler?(.answerNumber(number))
 	}
 
 }
