@@ -141,10 +141,7 @@ private extension AppRootViewController {
 
 	func presentAnswersContentListViewControllerForAnswerSet(at index: Int) {
 		let answerSet = answerSetsModel.answerSet(at: index)
-		let viewModel = AnswersContentListViewModel(
-			answerSet: PresentableAnswerSet(answerSet),
-			answerSetsModel: answerSetsModel
-		)
+		let viewModel = AnswersContentListViewModel(answerSet: answerSet, answerSetsModel: answerSetsModel)
 		let answersContentListViewController = ContentListViewController(contentListViewModel: viewModel)
 
 		viewModel.didSelectItem = { [unowned answerSetsModel, unowned answersContentListViewController] selectedIndex in

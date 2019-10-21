@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let coreDataContainer = CoreDataContainer()
 
 		let isNeedToCreateDefaultData = coreDataContainer.isPersistentStoreEmpty
-		
+
 		coreDataContainer.loadPersistentStores {
 			if isNeedToCreateDefaultData {
 				coreDataContainer.restoreData()

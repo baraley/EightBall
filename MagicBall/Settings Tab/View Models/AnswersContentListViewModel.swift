@@ -12,16 +12,16 @@ private let cellID = String(describing: UITableViewCell.self)
 
 final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 
-	private var presentableAnswers: [PresentableAnswer] {
+	private var answers: [Answer] {
 		didSet {
 			answersDidChange()
 		}
 	}
-	private let answerSet: PresentableAnswerSet
+	private let answerSet: AnswerSet
 	private let answerSetsModel: AnswerSetsModel
 
-	init(answerSet: PresentableAnswerSet, answerSetsModel: AnswerSetsModel) {
-		self.presentableAnswers = answerSet.answers
+	init(answerSet: AnswerSet, answerSetsModel: AnswerSetsModel) {
+		self.answers = answerSet.answers
 		self.answerSet = answerSet
 		self.answerSetsModel = answerSetsModel
 		self.listTitle = answerSet.name
@@ -42,29 +42,28 @@ final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
-		return presentableAnswers.count
+		return answers.count
 	}
 
 	func item(at index: Int) -> String {
-		return presentableAnswers[index].text
+		return answers[index].text
 	}
 
 	func updateItem(at index: Int, with text: String) {
-		presentableAnswers[index] = PresentableAnswer(text: text)
+		answers[index] = Answer(text: text)
 	}
 
 	func createNewItem(with text: String) {
-		presentableAnswers.append(PresentableAnswer(text: text))
+		answers.append(Answer(text: text))
 	}
 
 	func deleteItem(at index: Int) {
-		presentableAnswers.remove(at: index)
+		answers.remove(at: index)
 	}
 
 	// MARK: - Private Methods
 
 	private func answersDidChange() {
-		let answers = presentableAnswers.map { Answer($0)}
 		let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
 		answerSetsModel.save(updatedAnswerSet)
 	}
@@ -89,7 +88,7 @@ extension AnswersContentListViewModel {
 			cell = UITableViewCell(style: .default, reuseIdentifier: cellID)
 		}
 
-		cell.textLabel?.text = presentableAnswers[indexPath.row].text
+		cell.textLabel?.text = answers[indexPath.row].text
 
 		return cell
 	}
