@@ -13,13 +13,12 @@ private enum Constants {
 	enum AnswerLabel {
 		static let numberOfLines = 4
 		static let minimumScaleFactor: CGFloat = 0.5
-		static let leadingInset: CGFloat = 20
-		static let trailingInset: CGFloat = -20
+		static let insetValue: CGFloat = 20
 	}
 
 	enum MagicButton {
-		static let widthSizeMultiplier: CGFloat = 0.3
-		static let yPositionMultiplier: CGFloat = 1.5
+		static let widthSizeMultiplier: CGFloat = 0.6
+		static let yPositionMultiplier: CGFloat = 1.6
 	}
 
 	static let animationDuration: TimeInterval = 0.7
@@ -50,7 +49,7 @@ final class MagicBallView: UIView {
 	}
 	var answersNumber: Int = 0 {
 		didSet {
-			obtainedAnswersLabel.text = String(answersNumber)
+			numberLabel.text = String(answersNumber)
 		}
 	}
 
@@ -66,9 +65,9 @@ final class MagicBallView: UIView {
 
 	// MARK: - Private properties
 
-	private var answerLabelLayoutWrapper = UIView()
+	private lazy var answerLabelLayoutWrapper = UIView()
 	private lazy var answerLabel: UILabel = initializeAnswerLabel()
-	private lazy var obtainedAnswersLabel: UILabel = initializeObtainedAnswersLabel()
+	private lazy var numberLabel: UILabel = initializeObtainedAnswersLabel()
 
 	private var currentAnimation: UIViewPropertyAnimator? {
 		didSet {
@@ -76,6 +75,12 @@ final class MagicBallView: UIView {
 				self.currentAnimation = nil
 			})
 		}
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		magicButton.updateShadow()
 	}
 
 }
@@ -134,7 +139,7 @@ private extension MagicBallView {
 private extension MagicBallView {
 
 	func setupSubviews() {
-		answerLabelLayoutWrapper.addSubview(obtainedAnswersLabel)
+		answerLabelLayoutWrapper.addSubview(numberLabel)
 		answerLabelLayoutWrapper.addSubview(answerLabel)
 		addSubview(answerLabelLayoutWrapper)
 		addSubview(magicButton)
@@ -147,14 +152,14 @@ private extension MagicBallView {
 			make.bottom.equalTo(magicButton.snp.top)
 		}
 
-		obtainedAnswersLabel.snp.makeConstraints { (make) in
+		numberLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(answerLabelLayoutWrapper.snp_topMargin)
 			make.trailing.equalTo(answerLabelLayoutWrapper.snp_trailingMargin)
 		}
 
 		answerLabel.snp.makeConstraints { (make) in
-			make.leading.greaterThanOrEqualTo(Constants.AnswerLabel.leadingInset)
-			make.trailing.lessThanOrEqualTo(Constants.AnswerLabel.trailingInset)
+			make.leading.greaterThanOrEqualTo(Constants.AnswerLabel.insetValue)
+			make.trailing.lessThanOrEqualTo(-Constants.AnswerLabel.insetValue)
 			make.center.equalToSuperview()
 		}
 
@@ -188,7 +193,7 @@ private extension MagicBallView {
 	}
 
 	func initializeMagicButton() -> MagicButton {
-		let button = MagicButton(type: .custom)
+		let button = MagicButton(frame: .zero)
 		button.setImage(Asset.ballImage.image, for: .normal)
 
 		return button
