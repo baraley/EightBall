@@ -99,9 +99,32 @@ extension MagicBallView {
 
 }
 
-// MARK: - Property Animators
+// MARK: - State Changes
 
 private extension MagicBallView {
+
+	func stateDidChange() {
+		switch answerState {
+		case .hidden:
+			currentAnimation = hidingAnimation
+			currentAnimation?.startAnimation()
+
+		case .shown(let answer):
+			if let currentAnimation = currentAnimation {
+				currentAnimation.addCompletion { (_) in
+					self.showAnswer(answer.text)
+				}
+			} else {
+				showAnswer(answer.text)
+			}
+		}
+	}
+
+	func showAnswer(_ answer: String) {
+		answerLabel.text = answer
+		currentAnimation = showingAnimation
+		currentAnimation?.startAnimation()
+	}
 
 	var hidingAnimation: UIViewPropertyAnimator {
 		let animation = UIViewPropertyAnimator(duration: Constants.animationDuration, curve: .easeInOut) {
@@ -134,7 +157,7 @@ private extension MagicBallView {
 
 }
 
-// MARK: - Private Methods
+// MARK: - Setup
 
 private extension MagicBallView {
 
@@ -197,29 +220,6 @@ private extension MagicBallView {
 		button.setImage(Asset.ballImage.image, for: .normal)
 
 		return button
-	}
-
-	func stateDidChange() {
-		switch answerState {
-		case .hidden:
-			currentAnimation = hidingAnimation
-			currentAnimation?.startAnimation()
-
-		case .shown(let answer):
-			if let currentAnimation = currentAnimation {
-				currentAnimation.addCompletion { (_) in
-					self.showAnswer(answer.text)
-				}
-			} else {
-				showAnswer(answer.text)
-			}
-		}
-	}
-
-	func showAnswer(_ answer: String) {
-		answerLabel.text = answer
-		currentAnimation = showingAnimation
-		currentAnimation?.startAnimation()
 	}
 
 }
