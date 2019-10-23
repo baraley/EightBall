@@ -17,12 +17,11 @@ private enum Constants {
 	}
 
 	enum MagicButton {
-		static let widthSizeMultiplier: CGFloat = 0.6
+		static let widthSizeMultiplier: CGFloat = 0.55
 		static let yPositionMultiplier: CGFloat = 1.6
 	}
 
 	static let animationDuration: TimeInterval = 0.7
-
 }
 
 final class MagicBallView: UIView {
@@ -82,7 +81,6 @@ final class MagicBallView: UIView {
 
 		magicButton.updateShadow()
 	}
-
 }
 
 // MARK: - Types
@@ -96,7 +94,6 @@ extension MagicBallView {
 	enum AnswerAnimationState {
 		case hidingBegun, hidingEnded, showingBegun, showingEnded
 	}
-
 }
 
 // MARK: - State Changes
@@ -106,8 +103,9 @@ private extension MagicBallView {
 	func stateDidChange() {
 		switch answerState {
 		case .hidden:
-			currentAnimation = hidingAnimation
+			currentAnimation = startAnswerLabelHidingAnimation()
 			currentAnimation?.startAnimation()
+			startMagicButtonRotationAnimation()
 
 		case .shown(let answer):
 			if let currentAnimation = currentAnimation {
@@ -122,39 +120,59 @@ private extension MagicBallView {
 
 	func showAnswer(_ answer: String) {
 		answerLabel.text = answer
-		currentAnimation = showingAnimation
+		currentAnimation = startAnswerLabelShowingAnimation()
 		currentAnimation?.startAnimation()
 	}
 
-	var hidingAnimation: UIViewPropertyAnimator {
-		let animation = UIViewPropertyAnimator(duration: Constants.animationDuration, curve: .easeInOut) {
-			self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+	// MARK: - Animations
 
-			self.magicButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-			self.magicButton.transform = CGAffineTransform.identity
+	@discardableResult
+	func startAnswerLabelHidingAnimation() -> UIViewPropertyAnimator {
 
-			self.answerAnimationState = .hidingBegun
-		}
-		animation.addCompletion({ (_) in
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			animations: {
+				self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+				self.answerAnimationState = .hidingBegun
+
+		}, completion: { (_) in
 			self.answerAnimationState = .hidingEnded
 		})
-
-		return animation
 	}
 
-	var showingAnimation: UIViewPropertyAnimator {
-		let animation = UIViewPropertyAnimator(duration: Constants.animationDuration, curve: .easeInOut) {
-			self.answerLabel.transform = .identity
-			self.answerAnimationState = .showingBegun
-		}
+	@discardableResult
+	func startAnswerLabelShowingAnimation() -> UIViewPropertyAnimator {
 
-		animation.addCompletion({ (_) in
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			animations: {
+				self.answerLabel.transform = .identity
+				self.answerAnimationState = .showingBegun
+
+		}, completion: { (_) in
 			self.answerAnimationState = .showingEnded
 		})
-
-		return animation
 	}
 
+	@discardableResult
+	func startMagicButtonRotationAnimation() -> UIViewPropertyAnimator {
+
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			options: .curveLinear,
+			animations: {
+				self.magicButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+				self.magicButton.transform = CGAffineTransform.identity
+
+		}, completion: { (_) in
+			if case .hidden = self.answerState {
+				self.startMagicButtonRotationAnimation()
+			}
+		})
+	}
 }
 
 // MARK: - Setup
@@ -221,5 +239,4 @@ private extension MagicBallView {
 
 		return button
 	}
-
 }
