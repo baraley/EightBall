@@ -104,7 +104,6 @@ private extension MagicBallView {
 		switch answerState {
 		case .hidden:
 			currentAnimation = startAnswerLabelHidingAnimation()
-			currentAnimation?.startAnimation()
 			startMagicButtonRotationAnimation()
 
 		case .shown(let answer):
@@ -121,7 +120,6 @@ private extension MagicBallView {
 	func showAnswer(_ answer: String) {
 		answerLabel.text = answer
 		currentAnimation = startAnswerLabelShowingAnimation()
-		currentAnimation?.startAnimation()
 	}
 
 	// MARK: - Animations

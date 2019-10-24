@@ -134,7 +134,7 @@ private extension ContentListViewController {
 			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		]
 
-		setToolbarItems(items, animated: true)
+		setToolbarItems(items, animated: false)
 	}
 
 	// MARK: - Alerts

@@ -11,7 +11,6 @@ import SnapKit
 
 final class AppRootViewController: UITabBarController {
 
-	private let magicBallModel: MagicBallModel
 	private let answerSourcesModel: AnswerSourcesModel
 	private let historyAnswersModel: HistoryAnswersModel
 	private let answerSettingsModel: AnswerSettingsModel
@@ -20,20 +19,12 @@ final class AppRootViewController: UITabBarController {
 
 	// MARK: - Initialization
 
-	init(
-		magicBallModel: MagicBallModel,
-		answerSourcesModel: AnswerSourcesModel,
-		historyAnswersModel: HistoryAnswersModel,
-		answerSettingsModel: AnswerSettingsModel,
-		answerSetsModel: AnswerSetsModel,
-		answersCountingModel: AnswersCountingModel
-	) {
-		self.magicBallModel = magicBallModel
-		self.answerSourcesModel = answerSourcesModel
-		self.historyAnswersModel = historyAnswersModel
-		self.answerSettingsModel = answerSettingsModel
-		self.answerSetsModel = answerSetsModel
-		self.answersCountingModel = answersCountingModel
+	init(appDependencyContainer: AppDependencyContainer) {
+		self.answerSourcesModel		= appDependencyContainer.answerSourcesModel
+		self.historyAnswersModel	= appDependencyContainer.historyAnswersModel
+		self.answerSettingsModel	= appDependencyContainer.answerSettingsModel
+		self.answerSetsModel 		= appDependencyContainer.answerSetsModel
+		self.answersCountingModel	= appDependencyContainer.answersCountingModel
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -73,6 +64,11 @@ private extension AppRootViewController {
 	// MARK: - Properties Initialization
 
 	func initializeMagicBallContainerViewController() -> MagicBallContainerViewController {
+		let magicBallModel = MagicBallModel(
+			answerSourceModel: answerSourcesModel,
+			answerPronouncer: TextPronouncer(),
+			answersCountingModel: answersCountingModel
+		)
 		let viewController = MagicBallContainerViewController(
 			magicBallModel: magicBallModel,
 			answerSourceModel: answerSourcesModel,

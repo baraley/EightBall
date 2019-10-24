@@ -11,6 +11,7 @@
 		1103FD8C2357DB6800DF0D24 /* HistoryAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103FD8B2357DB6800DF0D24 /* HistoryAnswer.swift */; };
 		1107920022FFD2CC0056BE67 /* Rude Answers in Resources */ = {isa = PBXBuildFile; fileRef = 110791FF22FFD2CC0056BE67 /* Rude Answers */; };
 		110A534222FB50A40026BA79 /* MagicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110A534122FB50A40026BA79 /* MagicButton.swift */; };
+		110DFF4423610A280040F39C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110DFF4323610A280040F39C /* DependencyContainer.swift */; };
 		111EFFFB235DE6D2004003FE /* HistoryCleanerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EFFFA235DE6D2004003FE /* HistoryCleanerService.swift */; };
 		112A9ACE2344F95B005A24CD /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A9ACD2344F95B005A24CD /* Answer.swift */; };
 		112A9AD02344FA06005A24CD /* PresentableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A9ACF2344FA06005A24CD /* PresentableAnswer.swift */; };
@@ -79,6 +80,7 @@
 		1103FD8B2357DB6800DF0D24 /* HistoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAnswer.swift; sourceTree = "<group>"; };
 		110791FF22FFD2CC0056BE67 /* Rude Answers */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Rude Answers"; sourceTree = "<group>"; };
 		110A534122FB50A40026BA79 /* MagicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicButton.swift; sourceTree = "<group>"; };
+		110DFF4323610A280040F39C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		111EFFFA235DE6D2004003FE /* HistoryCleanerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCleanerService.swift; sourceTree = "<group>"; };
 		112A9ACD2344F95B005A24CD /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		112A9ACF2344FA06005A24CD /* PresentableAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableAnswer.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				11C919C122F9368E005F71BC /* AppDelegate.swift */,
+				110DFF4323610A280040F39C /* DependencyContainer.swift */,
 				11CF2A50233F7BF000F394B1 /* General objects */,
 				11CF2A48233F7B5200F394B1 /* MagicBall Tab */,
 				112FEF5C2357E96E00D1E8D6 /* History Tab */,
@@ -702,6 +705,7 @@
 				11D2F75922FE7934000E8881 /* MagicBallViewCotroller.swift in Sources */,
 				112B515D23011AB80063E18B /* DefaultResourceName.swift in Sources */,
 				11D2F75522FE70C4000E8881 /* AppRootViewCotroller.swift in Sources */,
+				110DFF4423610A280040F39C /* DependencyContainer.swift in Sources */,
 				114286C52358A8080038AE0B /* ContentListViewModel.swift in Sources */,
 				112A9AD02344FA06005A24CD /* PresentableAnswer.swift in Sources */,
 				112B515B23011A890063E18B /* FileManager+Codable.swift in Sources */,
