@@ -8,64 +8,55 @@
 
 import Foundation
 
-protocol AnswerSetsServiceProtocol {
+protocol AnswerSetsService: class {
 
-	func loadAnswerSets() -> [AnswerSet]
-	func save(_ answerSets: [AnswerSet])
+	var changesHandler: (([Change<AnswerSet>]) -> Void)? { get set }
+
+	func loadAnswerSets()
+	func numberOfAnswerSets() -> Int
+	func answerSet(at index: Int) -> AnswerSet
+	func upsert(_ answerSet: AnswerSet)
+	func deleteAnswerSet(at index: Int)
 
 }
 
 protocol AnswerSetsModelObserver: class {
 
-	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel)
+	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>])
 
 }
 
 final class AnswerSetsModel {
 
-	private let answerSetsService: AnswerSetsServiceProtocol
+	private let answerSetsService: AnswerSetsService
 
-	init(answerSetsService: AnswerSetsServiceProtocol) {
+	init(answerSetsService: AnswerSetsService) {
 		self.answerSetsService = answerSetsService
-	}
-
-	private var answerSets: [AnswerSet] = [] {
-		didSet {
-			answerSetsService.save(answerSets)
-			notifyObservers()
+		self.answerSetsService.changesHandler = {[weak self] (changes) in
+			self?.handleChanges(changes)
 		}
 	}
 
 	// MARK: - Public
 
 	func loadAnswerSets() {
-		return answerSets = answerSetsService.loadAnswerSets()
-	}
-
-	func notEmptyAnswerSets() -> [AnswerSet] {
-		return answerSets.filter { !$0.answers.isEmpty }
+		answerSetsService.loadAnswerSets()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return answerSets.count
+		return answerSetsService.numberOfAnswerSets()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return answerSets[index]
+		return answerSetsService.answerSet(at: index)
 	}
 
 	func save(_ answerSet: AnswerSet) {
-		if let index = answerSets.firstIndex(of: answerSet) {
-			answerSets[index] = answerSet
-		} else {
-			answerSets.append(answerSet)
-		}
+		answerSetsService.upsert(answerSet)
 	}
 
 	func deleteAnswerSet(at index: Int) {
-		guard index >= 0, index < answerSets.count else { return }
-
-		answerSets.remove(at: index)
+		answerSetsService.deleteAnswerSet(at: index)
 	}
 
 	// MARK: - Observation
@@ -84,10 +75,13 @@ final class AnswerSetsModel {
 
 	// MARK: - Private
 
-	private func notifyObservers() {
+	private func handleChanges(_ changes: [Change<AnswerSet>]) {
+
 		observations.forEach { (id, observation) in
 			if let observer = observation.observer {
-				observer.answerSetsModelDidChangeAnswerSets(self)
+				DispatchQueue.main.async {
+					observer.answerSetsModel(self, changesDidHappen: changes)
+				}
 
 			} else {
 				observations.removeValue(forKey: id)

@@ -8,12 +8,20 @@
 
 import Foundation
 
-struct PresentableAnswer {
+struct PresentableAnswer: Equatable {
 
 	let text: String
 
 	init(text: String) {
 		self.text = text.uppercased()
+	}
+
+}
+
+extension PresentableAnswer {
+
+	init(_ answer: Answer) {
+		self.init(text: answer.text)
 	}
 
 }

@@ -15,6 +15,12 @@ protocol SettingsServiceProtocol {
 
 }
 
+protocol HistoryCleanerServiceProtocol {
+
+	func cleanHistory()
+
+}
+
 protocol AnswerSettingsObserver: class {
 
 	func answerSettingsModelSettingsDidChange(_ model: AnswerSettingsModel)
@@ -24,9 +30,17 @@ protocol AnswerSettingsObserver: class {
 final class AnswerSettingsModel {
 
 	private let settingsService: SettingsServiceProtocol
+	private let historyAnswersModel: HistoryAnswersModel
+	private let historyCleaner: HistoryCleanerServiceProtocol
 
-	init(settingsService: SettingsServiceProtocol) {
+	init(
+		settingsService: SettingsServiceProtocol,
+		historyAnswersModel: HistoryAnswersModel,
+		historyCleaner: HistoryCleanerServiceProtocol
+	) {
 		self.settingsService = settingsService
+		self.historyAnswersModel = historyAnswersModel
+		self.historyCleaner = historyCleaner
 	}
 
 	private(set) lazy var settings: Settings = {
@@ -37,6 +51,10 @@ final class AnswerSettingsModel {
 		self.settings = settings
 		settingsService.save(settings)
 		notifyObservers()
+	}
+
+	func cleanHistory() {
+		historyCleaner.cleanHistory()
 	}
 
 	// MARK: - Observation

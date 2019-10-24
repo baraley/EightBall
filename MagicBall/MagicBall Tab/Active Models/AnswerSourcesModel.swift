@@ -14,42 +14,58 @@ protocol NetworkAnswerService {
 
 }
 
+protocol AnswerSourcesService: class {
+
+	var changesHandler: (([Change<AnswerSet>]) -> Void)? { get set }
+
+	func loadAnswerSources()
+	func numberOfAnswerSources() -> Int
+	func answerSource(at index: Int) -> AnswerSet
+
+}
+
 final class AnswerSourcesModel {
 
 	typealias CompletionHandler = ((Result<Answer, NetworkError>) -> Void)
 
 	enum Source {
-		case network, answerSet(Int)
+		case network, answerSet(AnswerSet)
 	}
 
 	var answerSource: Source = .network
 
-	private let answerSetsModel: AnswerSetsModel
+	private let answerSourcesService: AnswerSourcesService
 	private let networkAnswerService: NetworkAnswerService
+	private let historyAnswersModel: HistoryAnswersModel
 
-	init(answerSetsModel: AnswerSetsModel, networkAnswerService: NetworkAnswerService) {
-		self.answerSetsModel = answerSetsModel
+	init(
+		answerSourcesService: AnswerSourcesService,
+		networkAnswerService: NetworkAnswerService,
+		historyAnswersModel: HistoryAnswersModel
+	) {
+
+		self.answerSourcesService = answerSourcesService
 		self.networkAnswerService = networkAnswerService
+		self.historyAnswersModel = historyAnswersModel
 
-		answerSetsModel.addObserver(self)
-		answerSetsModel.loadAnswerSets()
+		self.answerSourcesService.changesHandler = {[weak self] (changes) in
+			self?.handleChanges(changes)
+		}
 	}
-
-	private var answerSets: [AnswerSet] = []
 
 	var answerSetsDidChangeHandler: (() -> Void)?
 	var answerLoadingErrorHandler: ((String) -> Void)?
 
 	func loadAnswerSets() {
-		answerSets = answerSetsModel.notEmptyAnswerSets()
+		answerSourcesService.loadAnswerSources()
 	}
 
 	func numberOfAnswerSets() -> Int {
-		return answerSets.count
+		return answerSourcesService.numberOfAnswerSources()
 	}
 
 	func answerSet(at index: Int) -> AnswerSet {
-		return answerSets[index]
+		return answerSourcesService.answerSource(at: index)
 	}
 
 	func loadAnswer(_ completionHandler: @escaping (Answer?) -> Void) {
@@ -57,10 +73,19 @@ final class AnswerSourcesModel {
 		case .network:
 			loadAnswerFromNetwork(with: completionHandler)
 
-		case .answerSet(let index):
-			if let answer = answerSets[index].answers.randomElement() {
+		case .answerSet(let sourceAnswerSet):
+			if let answer = sourceAnswerSet.answers.randomElement() {
+				historyAnswersModel.save(HistoryAnswer(text: answer.text))
 				completionHandler(answer)
 			}
+		}
+	}
+
+	// MARK: - Private
+
+	private func handleChanges(_ changes: [Change<AnswerSet>]) {
+		DispatchQueue.main.async {
+			self.answerSetsDidChangeHandler?()
 		}
 	}
 
@@ -69,6 +94,7 @@ final class AnswerSourcesModel {
 			DispatchQueue.main.async {
 				switch result {
 				case .success(let answer):
+					self?.historyAnswersModel.save(HistoryAnswer(text: answer.text))
 					completionHandler(answer)
 
 				case .failure(let error):
@@ -79,15 +105,6 @@ final class AnswerSourcesModel {
 				}
 			}
 		}
-	}
-
-}
-
-extension AnswerSourcesModel: AnswerSetsModelObserver {
-
-	func answerSetsModelDidChangeAnswerSets(_ model: AnswerSetsModel) {
-		loadAnswerSets()
-		answerSetsDidChangeHandler?()
 	}
 
 }

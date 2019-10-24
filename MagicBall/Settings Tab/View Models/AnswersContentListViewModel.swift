@@ -1,5 +1,5 @@
 //
-//  AnswersEditableListViewModel.swift
+//  AnswersContentListViewModel.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 02.10.2019.
@@ -10,18 +10,18 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 
-final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
+final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 
-	private var presentableAnswer: [PresentableAnswer] {
+	private var answers: [Answer] {
 		didSet {
 			answersDidChange()
 		}
 	}
-	private let answerSet: PresentableAnswerSet
+	private let answerSet: AnswerSet
 	private let answerSetsModel: AnswerSetsModel
 
-	init(answerSet: PresentableAnswerSet, answerSetsModel: AnswerSetsModel) {
-		self.presentableAnswer = answerSet.answers
+	init(answerSet: AnswerSet, answerSetsModel: AnswerSetsModel) {
+		self.answers = answerSet.answers
 		self.answerSet = answerSet
 		self.answerSetsModel = answerSetsModel
 		self.listTitle = answerSet.name
@@ -30,34 +30,40 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
 	// MARK: - EditableListViewModel
 
-	var listTitle: String
-	var nameOfItems: String = L10n.EditableItems.Name.answers
+	let listTitle: String
+	let nameOfItems: String = L10n.EditableItems.Name.answers
 	var didSelectItem: ((Int) -> Void)?
 
+	let isChangesProvider: Bool = false
+	var changesHandler: (([ContentListViewController.Change]) -> Void)?
+
+	let isCreationAvailable: Bool = true
+	let isEditAvailable: Bool = true
+	let isDeleteAvailable: Bool = true
+
 	func numberOfItems() -> Int {
-		return presentableAnswer.count
+		return answers.count
 	}
 
 	func item(at index: Int) -> String {
-		return presentableAnswer[index].text
+		return answers[index].text
 	}
 
 	func updateItem(at index: Int, with text: String) {
-		presentableAnswer[index] = PresentableAnswer(text: text)
+		answers[index] = Answer(text: text)
 	}
 
 	func createNewItem(with text: String) {
-		presentableAnswer.append(PresentableAnswer(text: text))
+		answers.append(Answer(text: text))
 	}
 
 	func deleteItem(at index: Int) {
-		presentableAnswer.remove(at: index)
+		answers.remove(at: index)
 	}
 
 	// MARK: - Private Methods
 
 	private func answersDidChange() {
-		let answers = presentableAnswer.map { Answer(from: $0)}
 		let updatedAnswerSet = AnswerSet(id: answerSet.id, name: answerSet.name, answers: answers)
 		answerSetsModel.save(updatedAnswerSet)
 	}
@@ -66,7 +72,7 @@ final class AnswersEditableListViewModel: NSObject, EditableListViewModel {
 
 // MARK: - UITableViewDataSource
 
-extension AnswersEditableListViewModel {
+extension AnswersContentListViewModel {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return numberOfItems()
@@ -82,7 +88,7 @@ extension AnswersEditableListViewModel {
 			cell = UITableViewCell(style: .default, reuseIdentifier: cellID)
 		}
 
-		cell.textLabel?.text = presentableAnswer[indexPath.row].text
+		cell.textLabel?.text = answers[indexPath.row].text
 
 		return cell
 	}

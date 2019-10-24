@@ -8,19 +8,21 @@
 
 import Foundation
 
-struct AnswerSet: Equatable {
+struct AnswerSet: Equatable, Codable, Identifiable {
 
 	static func == (lhs: AnswerSet, rhs: AnswerSet) -> Bool {
 		return	lhs.id == rhs.id
 	}
 
-	let id: UUID
+	let id: String
 	var name: String
+	let dateCreated: Date
 	var answers: [Answer]
 
-	init(id: UUID = UUID(), name: String, answers: [Answer] = []) {
+	init(id: String = UUID().uuidString, name: String, dateCreated: Date = Date(), answers: [Answer] = []) {
 		self.id = id
 		self.name = name
+		self.dateCreated = dateCreated
 		self.answers = answers
 	}
 
@@ -28,13 +30,19 @@ struct AnswerSet: Equatable {
 
 extension AnswerSet {
 
-	init(from presentableAnswerSet: PresentableAnswerSet) {
-		let answers = presentableAnswerSet.answers.map { Answer(from: $0) }
+	init(_ presentableAnswerSet: PresentableAnswerSet) {
+		let answers = presentableAnswerSet.answers.map { Answer($0) }
 		self.init(id: presentableAnswerSet.id, name: presentableAnswerSet.name, answers: answers)
 	}
 
-	func toPresentableAnswerSet() -> PresentableAnswerSet {
-		let presentableAnswers = answers.map { $0.toPresentableAnswer() }
-		return PresentableAnswerSet(id: id, name: name, answers: presentableAnswers)
+	init(_ managedAnswerSet: ManagedAnswerSet) {
+		let answersArray: [ManagedAnswer] = managedAnswerSet.answers.compactMap { $0 as? ManagedAnswer }
+		self.init(
+			id: managedAnswerSet.id,
+			name: managedAnswerSet.name,
+			dateCreated: managedAnswerSet.dateCreated,
+			answers: answersArray.map { Answer($0) }
+		)
 	}
+
 }

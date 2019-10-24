@@ -38,7 +38,8 @@ final class AnswerSourceViewModel {
 		if index == 0 {
 			answerSourceModel.answerSource = .network
 		} else {
-			answerSourceModel.answerSource = .answerSet(index - 1)
+			let sourceAnswerSet = answerSourceModel.answerSet(at: index - 1)
+			answerSourceModel.answerSource = .answerSet(sourceAnswerSet)
 		}
 	}
 

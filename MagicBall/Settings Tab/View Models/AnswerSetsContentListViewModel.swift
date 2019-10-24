@@ -1,5 +1,5 @@
 //
-//  AnswerSetsEditableListViewModel.swift
+//  AnswerSetsContentListViewModel.swift
 //  MagicBall
 //
 //  Created by Alexander Baraley on 02.10.2019.
@@ -10,7 +10,7 @@ import UIKit
 
 private let cellID = String(describing: UITableViewCell.self)
 
-final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
+final class AnswerSetsContentListViewModel: NSObject, ContentListViewModel {
 
 	private let answerSetsModel: AnswerSetsModel
 
@@ -18,20 +18,30 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 		self.answerSetsModel = answerSetsModel
 
 		super.init()
+
+		answerSetsModel.addObserver(self)
 	}
 
 	// MARK: - EditableListViewModel
 
-	var listTitle: String = L10n.NavigationBar.Title.answerSets
-	var nameOfItems: String = L10n.EditableItems.Name.answerSets
+	let listTitle: String = L10n.NavigationBar.Title.answerSets
+	let nameOfItems: String = L10n.EditableItems.Name.answerSets
 	var didSelectItem: ((Int) -> Void)?
+
+	let isChangesProvider: Bool = true
+	var changesHandler: (([ContentListViewController.Change]) -> Void)?
+
+	let isCreationAvailable: Bool = true
+	let isEditAvailable: Bool = true
+	let isDeleteAvailable: Bool = true
 
 	func numberOfItems() -> Int {
 		return answerSetsModel.numberOfAnswerSets()
 	}
 
 	func item(at index: Int) -> String {
-		answerSetsModel.answerSet(at: index).toPresentableAnswerSet().name
+		let answerSet = answerSetsModel.answerSet(at: index)
+		return PresentableAnswerSet(answerSet).name
 	}
 
 	func updateItem(at index: Int, with text: String) {
@@ -41,7 +51,7 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 	}
 
 	func createNewItem(with text: String) {
-		let answerSet = AnswerSet(name: text, answers: [])
+		let answerSet = AnswerSet(name: text)
 		answerSetsModel.save(answerSet)
 	}
 
@@ -51,9 +61,31 @@ final class AnswerSetsEditableListViewModel: NSObject, EditableListViewModel {
 
 }
 
+extension AnswerSetsContentListViewModel: AnswerSetsModelObserver {
+
+	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>]) {
+		var viewChanges: [ContentListViewController.Change] = []
+
+		changes.forEach { change in
+			switch change {
+			case .update(_, let index):
+				viewChanges.append(.update(index))
+			case .insert(_, let index):
+				viewChanges.append(.insert(index))
+			case .delete(_, let index):
+				viewChanges.append(.delete(index))
+			case .move(_, let fromIndex, let toIndex):
+				viewChanges.append(.move(fromIndex, toIndex))
+			}
+		}
+		changesHandler?(viewChanges)
+	}
+
+}
+
 // MARK: - UITableViewDataSource
 
-extension AnswerSetsEditableListViewModel {
+extension AnswerSetsContentListViewModel {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return numberOfItems()

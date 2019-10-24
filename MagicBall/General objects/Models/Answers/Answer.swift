@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Answer {
+struct Answer: Codable {
 
 	let text: String
 
@@ -16,11 +16,12 @@ struct Answer {
 
 extension Answer {
 
-	init(from presentableAnswer: PresentableAnswer) {
+	init(_ presentableAnswer: PresentableAnswer) {
 		self = .init(text: presentableAnswer.text)
 	}
 
-	func toPresentableAnswer() -> PresentableAnswer {
-		return PresentableAnswer(text: text)
+	init(_ managedAnswer: ManagedAnswer) {
+		self = .init(text: managedAnswer.text)
 	}
+
 }

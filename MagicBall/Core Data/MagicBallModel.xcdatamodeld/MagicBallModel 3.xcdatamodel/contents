@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19A602" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="3.0">
+    <entity name="ManagedAnswer" representedClassName="ManagedAnswer" elementID="Answer" syncable="YES">
+        <attribute name="text" attributeType="String" elementID="text"/>
+        <relationship name="answerSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedAnswerSet" inverseName="answers" inverseEntity="ManagedAnswerSet" elementID="answerSet"/>
+    </entity>
+    <entity name="ManagedAnswerSet" representedClassName="ManagedAnswerSet" elementID="AnswerSet" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" elementID="dateCreated"/>
+        <attribute name="id" attributeType="String" elementID="id"/>
+        <attribute name="name" attributeType="String" elementID="name"/>
+        <relationship name="answers" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ManagedAnswer" inverseName="answerSet" inverseEntity="ManagedAnswer" elementID="answers"/>
+    </entity>
+    <entity name="ManagedHistoryAnswer" representedClassName="ManagedHistoryAnswer" elementID="HistoryAnswer" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" elementID="dateCreated"/>
+        <attribute name="id" attributeType="String" elementID="id"/>
+        <attribute name="text" attributeType="String" elementID="text"/>
+    </entity>
+    <elements>
+        <element name="ManagedAnswer" positionX="-315.74609375" positionY="7.109375" width="128" height="73"/>
+        <element name="ManagedAnswerSet" positionX="-54" positionY="-9" width="128" height="103"/>
+        <element name="ManagedHistoryAnswer" positionX="-189" positionY="27" width="128" height="88"/>
+    </elements>
+</model>
