@@ -45,7 +45,6 @@ final class AnswerSourceViewController: UIViewController {
 
 		answerSourcePickerView.reloadAllComponents()
 	}
-
 }
 
 // MARK: - Private Methods
@@ -73,7 +72,6 @@ private extension AnswerSourceViewController {
 			self?.answerSourceViewModel.didSelectOption(at: 0)
 		}
 	}
-
 }
 
 // MARK: - UIPickerViewDataSource
@@ -87,7 +85,6 @@ extension AnswerSourceViewController: UIPickerViewDataSource {
 	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		return answerSourceViewModel.numberOfOptions
 	}
-
 }
 
 // MARK: - UIPickerViewDelegate
@@ -103,5 +100,4 @@ extension AnswerSourceViewController: UIPickerViewDelegate {
 
 		answerSourceViewModel.didSelectOption(at: row)
 	}
-
 }

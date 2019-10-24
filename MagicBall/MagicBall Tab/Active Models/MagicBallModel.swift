@@ -12,7 +12,6 @@ protocol AnswerPronouncer: class {
 
 	func pronounce(_ answer: String)
 	func stopPronouncing()
-
 }
 
 final class MagicBallModel {
@@ -65,5 +64,4 @@ final class MagicBallModel {
 	func stopPronouncing() {
 		answerPronouncer.stopPronouncing()
 	}
-
 }

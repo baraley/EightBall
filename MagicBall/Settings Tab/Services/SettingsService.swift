@@ -35,5 +35,4 @@ final class SettingsService: SettingsServiceProtocol {
 
 		FileManager.default.saveContent(managedSettings, atPath: settingsFilePath)
 	}
-
 }

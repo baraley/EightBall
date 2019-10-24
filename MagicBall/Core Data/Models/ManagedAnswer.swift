@@ -12,7 +12,6 @@ import CoreData
 
 @objc(ManagedAnswer)
 public class ManagedAnswer: NSManagedObject {
-
 }
 
 extension ManagedAnswer {
@@ -23,5 +22,4 @@ extension ManagedAnswer {
 
     @NSManaged public var text: String
     @NSManaged public var answerSet: ManagedAnswerSet
-
 }

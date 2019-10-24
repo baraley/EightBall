@@ -30,7 +30,6 @@ public class ManagedAnswerSet: NSManagedObject, Populatable, Identifiable {
 			addToAnswers(managedAnswer)
 		}
 	}
-
 }
 
 extension ManagedAnswerSet {
@@ -43,7 +42,6 @@ extension ManagedAnswerSet {
 	@NSManaged private(set) var id: String
     @NSManaged public var name: String
     @NSManaged private(set) var answers: NSOrderedSet
-
 }
 
 // MARK: Generated accessors for answers
@@ -78,5 +76,4 @@ extension ManagedAnswerSet {
 
     @objc(removeAnswers:)
     @NSManaged public func removeFromAnswers(_ values: NSOrderedSet)
-
 }

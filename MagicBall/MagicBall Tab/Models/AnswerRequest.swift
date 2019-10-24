@@ -35,5 +35,4 @@ struct AnswerRequest: NetworkRequest {
 			return .failure(error)
 		}
 	}
-
 }

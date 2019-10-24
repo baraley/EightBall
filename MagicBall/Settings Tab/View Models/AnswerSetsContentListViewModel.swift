@@ -58,7 +58,6 @@ final class AnswerSetsContentListViewModel: NSObject, ContentListViewModel {
 	func deleteItem(at index: Int) {
 		answerSetsModel.deleteAnswerSet(at: index)
 	}
-
 }
 
 extension AnswerSetsContentListViewModel: AnswerSetsModelObserver {
@@ -80,7 +79,6 @@ extension AnswerSetsContentListViewModel: AnswerSetsModelObserver {
 		}
 		changesHandler?(viewChanges)
 	}
-
 }
 
 // MARK: - UITableViewDataSource
@@ -109,5 +107,4 @@ extension AnswerSetsContentListViewModel {
 
 		return cell
 	}
-
 }

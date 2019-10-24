@@ -25,5 +25,4 @@ final class HistoryCleanerService: HistoryCleanerServiceProtocol {
 			self?.context.saveIfNeeds()
 		}
 	}
-
 }

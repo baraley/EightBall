@@ -27,7 +27,6 @@ protocol ContentListViewModel: UITableViewDataSource {
 	func updateItem(at index: Int, with text: String)
 	func createNewItem(with text: String)
 	func deleteItem(at index: Int)
-
 }
 
 extension ContentListViewModel {
@@ -42,5 +41,4 @@ extension ContentListViewModel {
 	func updateItem(at index: Int, with text: String) { }
 	func createNewItem(with text: String) { }
 	func deleteItem(at index: Int) { }
-
 }

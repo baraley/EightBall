@@ -85,7 +85,6 @@ final class MagicBallViewController: UIViewController {
 
 		resignFirstResponder()
 	}
-
 }
 
 // MARK: - Private Methods
@@ -143,5 +142,4 @@ private extension MagicBallViewController {
 			generator.notificationOccurred(.success)
 		}
 	}
-
 }

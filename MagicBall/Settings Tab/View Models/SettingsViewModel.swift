@@ -54,7 +54,6 @@ final class SettingsViewModel {
 	func cleanHistory() {
 		answerSettingsModel.cleanHistory()
 	}
-
 }
 
 extension SettingsViewModel: AnswerSetsModelObserver {
@@ -62,5 +61,4 @@ extension SettingsViewModel: AnswerSetsModelObserver {
 	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>]) {
 		answerSetsNumberDidChangeHandler?(answerSetsNumber)
 	}
-
 }

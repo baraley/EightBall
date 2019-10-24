@@ -62,7 +62,6 @@ final class MagicBallViewModel {
 	func endHandlingMessageShowing() {
 		magicBallModel.stopPronouncing()
 	}
-
 }
 
 // MARK: - Private Methods
@@ -93,5 +92,4 @@ private extension MagicBallViewModel {
 			updateMessageState(with: nil)
 		}
 	}
-
 }

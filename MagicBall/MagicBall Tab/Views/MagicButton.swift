@@ -75,5 +75,4 @@ final class MagicButton: UIButton {
 
 		return [shadowVerticalEffect, shadowHorizontalEffect]
 	}
-
 }

@@ -49,5 +49,4 @@ extension FileManager {
 			fatalError("Can not load content with name: \(name)")
 		}
 	}
-
 }

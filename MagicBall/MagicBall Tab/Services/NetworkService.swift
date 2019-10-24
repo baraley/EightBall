@@ -77,5 +77,4 @@ extension NetworkService: NetworkAnswerService {
 			}
 		}
 	}
-
 }

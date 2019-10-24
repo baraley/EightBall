@@ -19,7 +19,6 @@ struct HistoryAnswer: Equatable, Identifiable {
 		self.text = text
 		self.dateCreated = dateCreated
 	}
-
 }
 
 extension HistoryAnswer {
@@ -31,5 +30,4 @@ extension HistoryAnswer {
 			dateCreated: managedHistoryAnswer.dateCreated
 		)
 	}
-
 }

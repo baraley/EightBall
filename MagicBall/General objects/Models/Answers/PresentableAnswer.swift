@@ -15,7 +15,6 @@ struct PresentableAnswer: Equatable {
 	init(text: String) {
 		self.text = text.uppercased()
 	}
-
 }
 
 extension PresentableAnswer {
@@ -23,5 +22,4 @@ extension PresentableAnswer {
 	init(_ answer: Answer) {
 		self.init(text: answer.text)
 	}
-
 }

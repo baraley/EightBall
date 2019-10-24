@@ -338,9 +338,9 @@
 				11CF2A48233F7B5200F394B1 /* MagicBall Tab */,
 				112FEF5C2357E96E00D1E8D6 /* History Tab */,
 				11CF2A49233F7B6100F394B1 /* Settings Tab */,
+				11B5009B2352285A00620DF4 /* Core Data */,
 				112B515F23011FAD0063E18B /* Extensions */,
 				114A0A8F2344F00D00CF1B7C /* Helpers */,
-				11B5009B2352285A00620DF4 /* Core Data */,
 				11D2F75022FE0B03000E8881 /* Resources */,
 			);
 			path = MagicBall;

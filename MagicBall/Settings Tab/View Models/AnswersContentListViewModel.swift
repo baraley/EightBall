@@ -68,7 +68,6 @@ final class AnswersContentListViewModel: NSObject, ContentListViewModel {
 		updatedAnswerSet.answers = answers
 		answerSetsModel.save(updatedAnswerSet)
 	}
-
 }
 
 // MARK: - UITableViewDataSource
@@ -93,5 +92,4 @@ extension AnswersContentListViewModel {
 
 		return cell
 	}
-
 }

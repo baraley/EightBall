@@ -25,7 +25,6 @@ struct AnswerSet: Equatable, Codable, Identifiable {
 		self.dateCreated = dateCreated
 		self.answers = answers
 	}
-
 }
 
 extension AnswerSet {
@@ -44,5 +43,4 @@ extension AnswerSet {
 			answers: answersArray.map { Answer($0) }
 		)
 	}
-
 }

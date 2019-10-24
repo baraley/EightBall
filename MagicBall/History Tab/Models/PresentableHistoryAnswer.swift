@@ -12,7 +12,6 @@ struct PresentableHistoryAnswer: Equatable {
 
 	let text: String
 	let dateText: String
-
 }
 
 extension PresentableHistoryAnswer {

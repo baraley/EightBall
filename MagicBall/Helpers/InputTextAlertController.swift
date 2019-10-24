@@ -61,5 +61,4 @@ final class InputTextAlertController: NSObject, UITextFieldDelegate {
 			currentAction?.isEnabled = true
 		}
 	}
-
 }

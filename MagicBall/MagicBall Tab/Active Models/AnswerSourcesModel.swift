@@ -11,7 +11,6 @@ import Foundation
 protocol NetworkAnswerService {
 
 	func loadAnswer(with completionHandler: @escaping AnswerSourcesModel.CompletionHandler)
-
 }
 
 protocol AnswerSourcesService: class {
@@ -21,7 +20,6 @@ protocol AnswerSourcesService: class {
 	func loadAnswerSources()
 	func numberOfAnswerSources() -> Int
 	func answerSource(at index: Int) -> AnswerSet
-
 }
 
 final class AnswerSourcesModel {
@@ -106,5 +104,4 @@ final class AnswerSourcesModel {
 			}
 		}
 	}
-
 }

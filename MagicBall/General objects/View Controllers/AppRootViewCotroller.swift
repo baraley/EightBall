@@ -46,7 +46,6 @@ final class AppRootViewController: UITabBarController {
 
 		initialSetup()
 	}
-
 }
 
 // MARK: - Private
@@ -149,5 +148,4 @@ private extension AppRootViewController {
 
 		settingsNavigationController.pushViewController(answersContentListViewController, animated: true)
 	}
-
 }

@@ -12,5 +12,4 @@ enum DefaultResourceName: String {
 
 	case settings = "DefaultSettings"
 	case rudeAnswers = "Rude Answers"
-
 }

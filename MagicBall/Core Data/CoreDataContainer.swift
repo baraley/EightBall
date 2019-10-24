@@ -44,5 +44,4 @@ final class CoreDataContainer: NSPersistentContainer {
 			}
 		}
 	}
-
 }

@@ -30,5 +30,4 @@ enum NetworkError: Error, LocalizedError, Equatable {
 			return message
 		}
 	}
-
 }

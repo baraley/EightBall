@@ -12,19 +12,16 @@ protocol SettingsServiceProtocol {
 
 	func loadSettings() -> Settings
 	func save(_ settings: Settings)
-
 }
 
 protocol HistoryCleanerServiceProtocol {
 
 	func cleanHistory()
-
 }
 
 protocol AnswerSettingsObserver: class {
 
 	func answerSettingsModelSettingsDidChange(_ model: AnswerSettingsModel)
-
 }
 
 final class AnswerSettingsModel {
@@ -85,5 +82,4 @@ private extension AnswerSettingsModel {
 	struct Observation {
         weak var observer: AnswerSettingsObserver?
     }
-
 }

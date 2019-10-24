@@ -139,7 +139,6 @@ final class SettingsViewController: UITableViewController {
 
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
-
 }
 
 // MARK: - Private Methods
@@ -214,7 +213,6 @@ private extension SettingsViewController {
 
 		present(alert, animated: true)
 	}
-
 }
 
 extension SettingsViewController {
@@ -274,5 +272,4 @@ extension SettingsViewController {
 			}
 		}
 	}
-
 }

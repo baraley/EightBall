@@ -11,7 +11,6 @@ import Foundation
 struct Answer: Codable {
 
 	let text: String
-
 }
 
 extension Answer {
@@ -23,5 +22,4 @@ extension Answer {
 	init(_ managedAnswer: ManagedAnswer) {
 		self = .init(text: managedAnswer.text)
 	}
-
 }

@@ -49,7 +49,6 @@ final class MagicBallContainerViewController: UIViewController {
 
 		initialSetup()
 	}
-
 }
 
 // MARK: - Private Methods
@@ -98,7 +97,6 @@ private extension MagicBallContainerViewController {
 		let settings = answerSettingsModel.settings.toPresentableSettings()
 		return MagicBallViewModel(magicBallModel: magicBallModel, settings: settings)
 	}
-
 }
 
 // MARK: - AnswerSettingsObserver

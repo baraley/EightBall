@@ -23,7 +23,6 @@ struct PresentableAnswerSet: Equatable {
 		self.name = name
 		self.answers = answers
 	}
-
 }
 
 extension PresentableAnswerSet {
@@ -32,5 +31,4 @@ extension PresentableAnswerSet {
 		let answers = answerSet.answers.map { PresentableAnswer($0) }
 		self.init(id: answerSet.id, name: answerSet.name, answers: answers)
 	}
-
 }

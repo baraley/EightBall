@@ -34,5 +34,4 @@ enum ConfiguredFetchRequest {
 
 		return fetchRequest
 	}
-
 }

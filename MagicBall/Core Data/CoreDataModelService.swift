@@ -13,13 +13,11 @@ protocol Populatable {
 	associatedtype Source
 
 	func populateWith(_ source: Source)
-
 }
 
 protocol Identifiable {
 
 	var id: String { get }
-
 }
 
 final class CoreDataModelService<ManagedModel: NSManagedObject, Model>: NSObject, NSFetchedResultsControllerDelegate
@@ -162,7 +160,6 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 			self.changesHandler?(changes)
 		}
 	}
-
 }
 
 extension CoreDataModelService: AnswerSetsService where ManagedModel == ManagedAnswerSet {
@@ -182,7 +179,6 @@ extension CoreDataModelService: AnswerSetsService where ManagedModel == ManagedA
 	func deleteAnswerSet(at index: Int) {
 		deleteModel(at: index)
 	}
-
 }
 
 extension CoreDataModelService: HistoryAnswersService where ManagedModel == ManagedHistoryAnswer {
@@ -202,7 +198,6 @@ extension CoreDataModelService: HistoryAnswersService where ManagedModel == Mana
 	func deleteHistoryAnswer(at index: Int) {
 		deleteModel(at: index)
 	}
-
 }
 
 extension CoreDataModelService: AnswerSourcesService where ManagedModel == ManagedAnswerSet {
@@ -218,5 +213,4 @@ extension CoreDataModelService: AnswerSourcesService where ManagedModel == Manag
 	func answerSource(at index: Int) -> AnswerSet {
 		return model(at: index)
 	}
-
 }

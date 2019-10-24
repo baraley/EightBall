@@ -13,7 +13,6 @@ struct Settings {
 	var lazyModeIsOn: Bool
 	var readAnswerIsOn: Bool
 	var hapticFeedbackIsOn: Bool
-
 }
 
 extension Settings {

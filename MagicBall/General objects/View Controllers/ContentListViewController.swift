@@ -100,7 +100,6 @@ class ContentListViewController: UITableViewController {
 
 		return UISwipeActionsConfiguration(actions: actions)
 	}
-
 }
 
 // MARK: - Private Methods
@@ -214,5 +213,4 @@ private extension ContentListViewController {
 			}
 		})
 	}
-
 }

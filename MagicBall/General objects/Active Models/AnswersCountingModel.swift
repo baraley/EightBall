@@ -36,5 +36,4 @@ class AnswersCountingModel {
 	func reset() {
 		answersNumber = 0
 	}
-
 }

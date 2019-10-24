@@ -32,5 +32,4 @@ final class TextPronouncer: AnswerPronouncer {
 			speechSynthesizer.stopSpeaking(at: .immediate)
 		}
 	}
-
 }

@@ -63,7 +63,6 @@ final class HistoryAnswerContentListViewModel: NSObject, ContentListViewModel {
 		}
 		changesHandler?(viewChanges)
 	}
-
 }
 
 // MARK: - UITableViewDataSource
@@ -92,5 +91,4 @@ extension HistoryAnswerContentListViewModel {
 
 		return cell
 	}
-
 }

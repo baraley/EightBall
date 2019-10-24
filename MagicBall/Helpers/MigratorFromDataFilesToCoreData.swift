@@ -46,5 +46,4 @@ struct MigratorFromDataFilesToCoreData {
 			return AnswerSet(id: id.uuidString, name: name, answers: answers.map { Answer(text: $0) })
 		}
 	}
-
 }

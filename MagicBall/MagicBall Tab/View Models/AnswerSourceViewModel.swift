@@ -42,5 +42,4 @@ final class AnswerSourceViewModel {
 			answerSourceModel.answerSource = .answerSet(sourceAnswerSet)
 		}
 	}
-
 }

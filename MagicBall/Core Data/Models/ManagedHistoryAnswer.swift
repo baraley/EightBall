@@ -23,7 +23,6 @@ public class ManagedHistoryAnswer: NSManagedObject, Populatable, Identifiable {
 	func populateWith(_ historyAnswer: HistoryAnswer) {
 		text = historyAnswer.text
 	}
-
 }
 
 extension ManagedHistoryAnswer {
@@ -35,5 +34,4 @@ extension ManagedHistoryAnswer {
     @NSManaged public var text: String
     @NSManaged private(set) var dateCreated: Date
     @NSManaged private(set) var id: String
-
 }

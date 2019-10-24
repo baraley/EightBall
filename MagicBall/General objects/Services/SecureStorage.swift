@@ -63,7 +63,6 @@ class SecureStorage {
 			return nil
 		}
 	}
-
 }
 
 extension Bool: SecureStorageSavable { }

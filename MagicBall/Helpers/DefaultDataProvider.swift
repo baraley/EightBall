@@ -20,5 +20,4 @@ struct DefaultDataProvider {
 
 		context.saveIfNeeds()
 	}
-
 }

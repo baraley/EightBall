@@ -17,13 +17,11 @@ protocol AnswerSetsService: class {
 	func answerSet(at index: Int) -> AnswerSet
 	func upsert(_ answerSet: AnswerSet)
 	func deleteAnswerSet(at index: Int)
-
 }
 
 protocol AnswerSetsModelObserver: class {
 
 	func answerSetsModel(_ model: AnswerSetsModel, changesDidHappen changes: [Change<AnswerSet>])
-
 }
 
 final class AnswerSetsModel {
@@ -88,7 +86,6 @@ final class AnswerSetsModel {
 			}
 		}
 	}
-
 }
 
 private extension AnswerSetsModel {
@@ -96,5 +93,4 @@ private extension AnswerSetsModel {
 	struct Observation {
         weak var observer: AnswerSetsModelObserver?
     }
-
 }

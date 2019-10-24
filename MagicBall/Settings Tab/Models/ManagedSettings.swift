@@ -19,7 +19,6 @@ final class ManagedSettings: Codable {
 		self.readAnswerIsOn		= readAnswerIsOn
 		self.hapticFeedbackIsOn	= hapticFeedbackIsOn
 	}
-
 }
 
 extension ManagedSettings {

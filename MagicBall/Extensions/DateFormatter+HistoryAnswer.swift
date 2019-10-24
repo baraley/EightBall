@@ -18,5 +18,4 @@ extension DateFormatter {
 
 		return formatter
 	}()
-
 }

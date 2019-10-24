@@ -13,5 +13,4 @@ struct PresentableSetting {
 	var lazyModeIsOn: Bool
 	var readAnswerIsOn: Bool
 	var hapticFeedbackIsOn: Bool
-
 }

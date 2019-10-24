@@ -17,7 +17,6 @@ protocol HistoryAnswersService: class {
 	func historyAnswer(at index: Int) -> HistoryAnswer
 	func upsert(_ historyAnswer: HistoryAnswer)
 	func deleteHistoryAnswer(at index: Int)
-
 }
 
 final class HistoryAnswersModel {
@@ -60,5 +59,4 @@ final class HistoryAnswersModel {
 			self.historyAnswersChangesHandler?(changes)
 		}
 	}
-
 }

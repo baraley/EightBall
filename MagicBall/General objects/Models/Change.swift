@@ -14,5 +14,4 @@ enum Change<T> {
 	case delete(T, Int)
 	case move(T, Int, Int)
 	case update(T, Int)
-
 }

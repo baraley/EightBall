@@ -19,7 +19,6 @@ struct NetworkAnswer: Decodable, Equatable {
 	enum CodingKeys: String, CodingKey {
 		case magic
 	}
-
 }
 
 extension NetworkAnswer.Magic: Decodable {
@@ -27,7 +26,6 @@ extension NetworkAnswer.Magic: Decodable {
 	enum CodingKeys: String, CodingKey {
 		case question, answer, type
 	}
-
 }
 
 extension NetworkAnswer {
@@ -35,5 +33,4 @@ extension NetworkAnswer {
 	func toAnswer() -> Answer {
 		return Answer(text: magic.answer)
 	}
-
 }
