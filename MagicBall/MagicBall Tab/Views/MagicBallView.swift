@@ -13,17 +13,15 @@ private enum Constants {
 	enum AnswerLabel {
 		static let numberOfLines = 4
 		static let minimumScaleFactor: CGFloat = 0.5
-		static let leadingInset: CGFloat = 20
-		static let trailingInset: CGFloat = -20
+		static let insetValue: CGFloat = 20
 	}
 
 	enum MagicButton {
-		static let widthSizeMultiplier: CGFloat = 0.3
-		static let yPositionMultiplier: CGFloat = 1.5
+		static let widthSizeMultiplier: CGFloat = 0.55
+		static let yPositionMultiplier: CGFloat = 1.6
 	}
 
 	static let animationDuration: TimeInterval = 0.7
-
 }
 
 final class MagicBallView: UIView {
@@ -50,7 +48,7 @@ final class MagicBallView: UIView {
 	}
 	var answersNumber: Int = 0 {
 		didSet {
-			obtainedAnswersLabel.text = String(answersNumber)
+			numberLabel.text = String(answersNumber)
 		}
 	}
 
@@ -66,9 +64,9 @@ final class MagicBallView: UIView {
 
 	// MARK: - Private properties
 
-	private var answerLabelLayoutWrapper = UIView()
+	private lazy var answerLabelLayoutWrapper = UIView()
 	private lazy var answerLabel: UILabel = initializeAnswerLabel()
-	private lazy var obtainedAnswersLabel: UILabel = initializeObtainedAnswersLabel()
+	private lazy var numberLabel: UILabel = initializeObtainedAnswersLabel()
 
 	private var currentAnimation: UIViewPropertyAnimator? {
 		didSet {
@@ -78,6 +76,11 @@ final class MagicBallView: UIView {
 		}
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		magicButton.updateShadow()
+	}
 }
 
 // MARK: - Types
@@ -91,50 +94,91 @@ extension MagicBallView {
 	enum AnswerAnimationState {
 		case hidingBegun, hidingEnded, showingBegun, showingEnded
 	}
-
 }
 
-// MARK: - Property Animators
+// MARK: - State Changes
 
 private extension MagicBallView {
 
-	var hidingAnimation: UIViewPropertyAnimator {
-		let animation = UIViewPropertyAnimator(duration: Constants.animationDuration, curve: .easeInOut) {
-			self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+	func stateDidChange() {
+		switch answerState {
+		case .hidden:
+			currentAnimation = startAnswerLabelHidingAnimation()
+			startMagicButtonRotationAnimation()
 
-			self.magicButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-			self.magicButton.transform = CGAffineTransform.identity
-
-			self.answerAnimationState = .hidingBegun
+		case .shown(let answer):
+			if let currentAnimation = currentAnimation {
+				currentAnimation.addCompletion { (_) in
+					self.showAnswer(answer.text)
+				}
+			} else {
+				showAnswer(answer.text)
+			}
 		}
-		animation.addCompletion({ (_) in
+	}
+
+	func showAnswer(_ answer: String) {
+		answerLabel.text = answer
+		currentAnimation = startAnswerLabelShowingAnimation()
+	}
+
+	// MARK: - Animations
+
+	@discardableResult
+	func startAnswerLabelHidingAnimation() -> UIViewPropertyAnimator {
+
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			animations: {
+				self.answerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+				self.answerAnimationState = .hidingBegun
+
+		}, completion: { (_) in
 			self.answerAnimationState = .hidingEnded
 		})
-
-		return animation
 	}
 
-	var showingAnimation: UIViewPropertyAnimator {
-		let animation = UIViewPropertyAnimator(duration: Constants.animationDuration, curve: .easeInOut) {
-			self.answerLabel.transform = .identity
-			self.answerAnimationState = .showingBegun
-		}
+	@discardableResult
+	func startAnswerLabelShowingAnimation() -> UIViewPropertyAnimator {
 
-		animation.addCompletion({ (_) in
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			animations: {
+				self.answerLabel.transform = .identity
+				self.answerAnimationState = .showingBegun
+
+		}, completion: { (_) in
 			self.answerAnimationState = .showingEnded
 		})
-
-		return animation
 	}
 
+	@discardableResult
+	func startMagicButtonRotationAnimation() -> UIViewPropertyAnimator {
+
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: Constants.animationDuration,
+			delay: 0.0,
+			options: .curveLinear,
+			animations: {
+				self.magicButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+				self.magicButton.transform = CGAffineTransform.identity
+
+		}, completion: { (_) in
+			if case .hidden = self.answerState {
+				self.startMagicButtonRotationAnimation()
+			}
+		})
+	}
 }
 
-// MARK: - Private Methods
+// MARK: - Setup
 
 private extension MagicBallView {
 
 	func setupSubviews() {
-		answerLabelLayoutWrapper.addSubview(obtainedAnswersLabel)
+		answerLabelLayoutWrapper.addSubview(numberLabel)
 		answerLabelLayoutWrapper.addSubview(answerLabel)
 		addSubview(answerLabelLayoutWrapper)
 		addSubview(magicButton)
@@ -147,14 +191,14 @@ private extension MagicBallView {
 			make.bottom.equalTo(magicButton.snp.top)
 		}
 
-		obtainedAnswersLabel.snp.makeConstraints { (make) in
+		numberLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(answerLabelLayoutWrapper.snp_topMargin)
 			make.trailing.equalTo(answerLabelLayoutWrapper.snp_trailingMargin)
 		}
 
 		answerLabel.snp.makeConstraints { (make) in
-			make.leading.greaterThanOrEqualTo(Constants.AnswerLabel.leadingInset)
-			make.trailing.lessThanOrEqualTo(Constants.AnswerLabel.trailingInset)
+			make.leading.greaterThanOrEqualTo(Constants.AnswerLabel.insetValue)
+			make.trailing.lessThanOrEqualTo(-Constants.AnswerLabel.insetValue)
 			make.center.equalToSuperview()
 		}
 
@@ -188,33 +232,9 @@ private extension MagicBallView {
 	}
 
 	func initializeMagicButton() -> MagicButton {
-		let button = MagicButton(type: .custom)
+		let button = MagicButton(frame: .zero)
 		button.setImage(Asset.ballImage.image, for: .normal)
 
 		return button
 	}
-
-	func stateDidChange() {
-		switch answerState {
-		case .hidden:
-			currentAnimation = hidingAnimation
-			currentAnimation?.startAnimation()
-
-		case .shown(let answer):
-			if let currentAnimation = currentAnimation {
-				currentAnimation.addCompletion { (_) in
-					self.showAnswer(answer.text)
-				}
-			} else {
-				showAnswer(answer.text)
-			}
-		}
-	}
-
-	func showAnswer(_ answer: String) {
-		answerLabel.text = answer
-		currentAnimation = showingAnimation
-		currentAnimation?.startAnimation()
-	}
-
 }

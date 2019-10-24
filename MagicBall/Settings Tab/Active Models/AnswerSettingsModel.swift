@@ -30,16 +30,13 @@ protocol AnswerSettingsObserver: class {
 final class AnswerSettingsModel {
 
 	private let settingsService: SettingsServiceProtocol
-	private let historyAnswersModel: HistoryAnswersModel
 	private let historyCleaner: HistoryCleanerServiceProtocol
 
 	init(
 		settingsService: SettingsServiceProtocol,
-		historyAnswersModel: HistoryAnswersModel,
 		historyCleaner: HistoryCleanerServiceProtocol
 	) {
 		self.settingsService = settingsService
-		self.historyAnswersModel = historyAnswersModel
 		self.historyCleaner = historyCleaner
 	}
 

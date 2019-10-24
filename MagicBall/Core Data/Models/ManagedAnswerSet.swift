@@ -22,12 +22,12 @@ public class ManagedAnswerSet: NSManagedObject, Populatable, Identifiable {
 
 		removeFromAnswers(answers)
 
-		for (index, answer) in answerSet.answers.enumerated() {
+		answerSet.answers.forEach { answer in
 			let managedAnswer = ManagedAnswer(context: context)
 			managedAnswer.text = answer.text
 			managedAnswer.answerSet = self
 
-			insertIntoAnswers(managedAnswer, at: index)
+			addToAnswers(managedAnswer)
 		}
 	}
 

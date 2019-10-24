@@ -70,7 +70,7 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 	func model(at index: Int) -> Model {
 		let managedModel = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
 
-		return toModelConverter(managedModel)
+		return convertToModel(managedModel)
 	}
 
 	func upsert(_ model: Model) {
@@ -108,6 +108,16 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 		}
 	}
 
+	func convertToModel(_ managedModel: ManagedModel) -> Model {
+		var model: Model!
+
+		context.performAndWait {
+			model = toModelConverter(managedModel)
+		}
+
+		return model
+	}
+
 	// MARK: - NSFetchedResultsController
 
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -126,7 +136,7 @@ where ManagedModel: Populatable & Identifiable, Model: Identifiable, ManagedMode
 			let managedModel = anObject as? ManagedModel
 			else { return }
 
-		let model = toModelConverter(managedModel)
+		let model = convertToModel(managedModel)
 
 		switch type {
 		case .insert:
