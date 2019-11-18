@@ -104,7 +104,7 @@ private extension MagicBallView {
 		switch answerState {
 		case .hidden:
 			currentAnimation = startAnswerLabelHidingAnimation()
-			startMagicButtonRotationAnimation()
+			magicButton.isAnimating = true
 
 		case .shown(let answer):
 			if let currentAnimation = currentAnimation {
@@ -120,6 +120,7 @@ private extension MagicBallView {
 	func showAnswer(_ answer: String) {
 		answerLabel.text = answer
 		currentAnimation = startAnswerLabelShowingAnimation()
+		magicButton.isAnimating = false
 	}
 
 	// MARK: - Animations
@@ -151,24 +152,6 @@ private extension MagicBallView {
 
 		}, completion: { (_) in
 			self.answerAnimationState = .showingEnded
-		})
-	}
-
-	@discardableResult
-	func startMagicButtonRotationAnimation() -> UIViewPropertyAnimator {
-
-		return UIViewPropertyAnimator.runningPropertyAnimator(
-			withDuration: Constants.animationDuration,
-			delay: 0.0,
-			options: .curveLinear,
-			animations: {
-				self.magicButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-				self.magicButton.transform = CGAffineTransform.identity
-
-		}, completion: { (_) in
-			if case .hidden = self.answerState {
-				self.startMagicButtonRotationAnimation()
-			}
 		})
 	}
 }

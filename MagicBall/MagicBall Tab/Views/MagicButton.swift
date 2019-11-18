@@ -8,7 +8,15 @@
 
 import UIKit
 
+private let animationDuration: TimeInterval = 1.0
+
 final class MagicButton: UIButton {
+
+	var isAnimating = false {
+		didSet {
+			if isAnimating { startAnimation() }
+		}
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -32,6 +40,35 @@ final class MagicButton: UIButton {
 	}
 
 	// MARK: - Private
+
+	@discardableResult
+	private func startAnimation() -> UIViewPropertyAnimator {
+		return UIViewPropertyAnimator.runningPropertyAnimator(
+			withDuration: animationDuration,
+			delay: 0.0,
+			options: .curveLinear,
+			animations: {
+				UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, animations: {
+					UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25) {
+						self.transform = self.transform.rotated(by: CGFloat.pi/2).scaledBy(x: 0.95, y: 0.95)
+					}
+					UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+						self.transform = self.transform.rotated(by: CGFloat.pi/2).scaledBy(x: 0.9, y: 0.9)
+					}
+					UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+						self.transform = self.transform.rotated(by: CGFloat.pi/2).scaledBy(x: 0.95, y: 0.95)
+					}
+					UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+						self.transform = .identity
+					}
+				})
+		},
+			completion: { (_) in
+			if self.isAnimating {
+				self.startAnimation()
+			}
+		})
+	}
 
 	private func setupShadow() {
 		layer.shadowColor = UIColor.systemPurple.cgColor
