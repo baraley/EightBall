@@ -9,8 +9,10 @@ Yalantis iOS School learning project.
 * SnapKit for auto layout
 * Beautiful animations 😁
 * Core Data
+* Keychain
 * SwiftLint
 * SwiftGen
+* AVSpeechSynthesizer
 
 ![](animation.gif)
 ![](screenshots.jpg)
